@@ -1,0 +1,19 @@
+.input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: 'bold';
+  border: 1px solid var(--sub-color);
+  transition: border-color 0.1s ease-in-out;
+
+  &::placeholder {
+    color: var(--place-holder-gray);
+    font-family: 'semi-bold';
+  }
+
+  &:focus {
+    border: 1px solid var(--point-color); 
+    outline: none;
+  }
+}
