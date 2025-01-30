@@ -58,6 +58,7 @@
 }
 
 .loginButton {
+  background-color: var(--point-color);
   width: 325px; 
   padding: 12px;
   color: white;
@@ -84,7 +85,7 @@
     font-family: 'bold';
     color:var(--point-color);
     text-decoration: none;
-    margin-left: 10px;
+    margin-left: 4px;
 
     &:hover {
       text-decoration: underline;

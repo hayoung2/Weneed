@@ -56,7 +56,7 @@ export const LoginPage = () => {
               비밀번호 찾기
             </span>
           </div>
-          <button type="submit" className={styles.loginButton} style={{ backgroundColor: 'var(--point-color)' }}>
+          <button type="submit" className={styles.loginButton} >
             로그인
           </button>
         </form>
