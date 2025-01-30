@@ -29,13 +29,13 @@
   padding: 12px;
   border-radius: 4px;
   font-size: 13px;
-  font-weight: 500;
+  font-family: 'bold';
   border: 1px solid var(--sub-color);
   transition: border-color 0.1s ease-in-out;
 
   &::placeholder {
     color: var(--place-holder-gray);
-    font-weight: 500;
+    font-family: 'semi-bold';
   }
 
   &:focus {
@@ -49,9 +49,8 @@
   gap: 5px;
   text-align: center;
   font-size: 12px;
-  font-weight: 500;
   color: #757575;
-
+  font-family: 'semi-bold';
   margin-top: 25px;
   margin-bottom: 10px;
 
@@ -67,7 +66,7 @@
   border-radius: 4px;
   cursor: pointer;
   box-shadow: 0 0 10px 0 rgba(27, 27, 27, 0.1);
-  
+  font-family:'bold';
   &:hover{
     background-color: var(--dark-point-color);
     box-shadow: 0 0 10px 0 rgba(27, 27, 27, 0.2);
@@ -77,13 +76,13 @@
 .signupText {
   font-size: 11px;
   color: var(--gray-color5);
-  font-weight: 500;
+  font-family: 'semi-bold';
   text-align: center;
 
   .signupLink {
     font-size: 14px;
+    font-family: 'bold';
     color:var(--point-color);
-    font-weight: bold;
     text-decoration: none;
     margin-left: 10px;
 
@@ -92,3 +91,13 @@
     }
   }
 }
+
+.errorMessage {
+  font-size: 9px;
+  color: #FF0000;
+  text-align: left;
+  font-family: 'regular';
+  font-weight: 500;
+  width: 100%;
+}
+
