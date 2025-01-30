@@ -38,7 +38,7 @@ export const LoginPage = () => {
         </form>
       </div>
       <div className={styles.signupText}>
-        아직 위니드 회원이 아니신가요? <a href="#" className={styles.signupLink}>회원가입하기</a>
+        아직 위니드 회원이 아니신가요? <a href="/signup" className={styles.signupLink}>회원가입하기</a>
       </div>
     </div>
   );
