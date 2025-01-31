@@ -12,9 +12,9 @@ const Footer: React.FC = () => {
           <p className={styles.basicText}>서울시 성동구 뚝섬로1나길5 헤이그라운드</p>
           <p className={styles.basicText}>Email:withweneed@weneed.net  Tel: 02-6495-0180</p>
           <div>
-            <p  className={styles.secondText}>이용약관</p>
+            <a href="https://transparent-pomelo-dd9.notion.site/18c3c563527f802bab78eab5e3b0b835?pvs=4"><p className={styles.secondText}>이용약관</p></a>
             <span><a href="https://transparent-pomelo-dd9.notion.site/18c3c563527f8023a12cfe23897a3757?pvs=4">개인정보처리방침</a></span> 
-          <p className={styles.secondText}>@Copyright.weneed.All Rights Reserved.</p></div>
+          <p className={styles.secondText}>@Copyright 2025.weneed. All Rights Reserved.</p></div>
         </div>
       </div>
 
