@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from '@/pages/SignUp/SignUp.module.scss';
 import InputBox from '@/components/common/InputBox/InputBox';
+import Footer from '@/components/common/Footer/Footer';
 
 const SignUp: React.FC = () => {
   const [userType, setUserType] = useState<'기업' | '개인'>('기업');
@@ -36,6 +37,7 @@ const SignUp: React.FC = () => {
       : name && email && password) && termsChecked;
 
   return (
+    <div>
     <div className={styles.signUpContainer}>
       <h2 className={styles.title}>회원가입</h2>
 
@@ -87,8 +89,8 @@ const SignUp: React.FC = () => {
         </div>
 
         <div className={styles.termsLinks}>
-          <span>이용약관</span>
-          <span>개인정보처리방침</span>
+          <span><a href="https://transparent-pomelo-dd9.notion.site/18c3c563527f802bab78eab5e3b0b835?pvs=4">이용약관</a></span>
+          <span><a href="https://transparent-pomelo-dd9.notion.site/18c3c563527f8023a12cfe23897a3757?pvs=4">개인정보처리방침</a></span>
         </div>
         {isSubmitted && !termsChecked && <p className={styles.errorMessage2}>*이용약관 및 개인정보처리방침에 동의해주세요.</p>}
 
@@ -96,6 +98,8 @@ const SignUp: React.FC = () => {
           회원가입
         </button>
       </form>
+    </div>
+    <Footer />
     </div>
   );
 };

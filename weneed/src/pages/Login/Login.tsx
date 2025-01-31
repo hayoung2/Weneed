@@ -2,6 +2,8 @@ import { useState } from 'react';
 import styles from '@/pages/Login/Login.module.scss';
 import InputBox from '@/components/common/InputBox/InputBox';
 import FormButton from '@/components/common/FormButton/FormButton';
+import Footer from '@/components/common/Footer/Footer';
+
 
 export const LoginPage = () => {
   const [id, setId] = useState('');
@@ -23,6 +25,7 @@ export const LoginPage = () => {
   };
 
   return (
+    <div>
     <div className={styles.loginContainer}>
       <h2 className={styles.title} style={{ fontSize: '28px', fontFamily: 'bold' }}>로그인</h2>
       <div className={styles.loginWrapper}>
@@ -40,6 +43,8 @@ export const LoginPage = () => {
       <div className={styles.signupText}>
         아직 위니드 회원이 아니신가요? <a href="/signup" className={styles.signupLink}>회원가입하기</a>
       </div>
+    </div>
+    <Footer />
     </div>
   );
 };
