@@ -3,11 +3,11 @@ import { mockCards } from "@/components/atoms/MockDate/MockData";
 
 const GetMockData = () => {
   return (
-    <div>
+    <>
       {mockCards.map((card, index) => (
         <Card key={index} {...card} />
       ))}
-    </div>
+    </>
   );
 };
 

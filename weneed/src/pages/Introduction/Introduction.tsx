@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "@/pages/Introduction/Introduction.module.scss";
 import Footer from "@/components/common/Footer/Footer";
 import Map from "@/components/common/Map/Map";
+import GetMockData from "@/components/atoms/MockDate/GetMockData";
 
 export const IntroductionPage = () => {
   const [selectedProvinces, setSelectedProvinces] = useState<string[]>([]); 
@@ -126,12 +127,21 @@ export const IntroductionPage = () => {
         </div>
       </div>
 
+    <div className = {styles.bottomWrapper}>        
       {selectedProvince && selectedCity && (
         <p className={styles.recommendationText}>
           위니드와 함께하는 <span>{selectedProvince} {selectedCity}</span>의 기업이에요.
         </p>
       )}
-
+      <div className ={styles.cardContainerWrapper}>
+        {selectedProvince && selectedCity ? (
+            <div className={styles.cardContainer}>
+              <GetMockData />
+            </div>
+          ): null
+        }
+      </div>
+    </div>
       <Footer />
     </div>
   );
