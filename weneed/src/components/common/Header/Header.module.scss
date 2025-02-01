@@ -1,0 +1,40 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+    height: 10vh; 
+    padding: 0 15%; 
+    background-color: #fafafa;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 1%;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 2vw; 
+}
+
+.boldText {
+    font-family: 'bold';
+    font-size: 1vw;
+    cursor: pointer;
+}
+
+.basicText {
+    font-family: 'regular';
+    font-size: 1vw;
+    cursor: pointer;
+}
+
+.boldText span {
+    font-size: 1vw;
+    color: #00b2ff;
+}
+
