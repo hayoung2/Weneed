@@ -2,8 +2,13 @@ import { useState } from 'react';
 import styles from '@/pages/Login/Login.module.scss';
 import InputBox from '@/components/common/InputBox/InputBox';
 import FormButton from '@/components/common/FormButton/FormButton';
+<<<<<<< HEAD
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // react-router-dom에서 useNavigate 훅을 임포트
+=======
+import Footer from '@/components/common/Footer/Footer';
+
+>>>>>>> main
 
 export const LoginPage = () => {
   const navigate = useNavigate(); // useNavigate 훅 사용
@@ -39,6 +44,7 @@ export const LoginPage = () => {
   };
 
   return (
+<<<<<<< HEAD
       <div className={styles.loginContainer}>
         <h2 className={styles.title} style={{ fontSize: '28px', fontFamily: 'bold' }}>로그인</h2>
         <div className={styles.loginWrapper}>
@@ -57,6 +63,29 @@ export const LoginPage = () => {
           아직 위니드 회원이 아니신가요? <a href="/signup" className={styles.signupLink}>회원가입하기</a>
         </div>
       </div>
+=======
+    <div>
+    <div className={styles.loginContainer}>
+      <h2 className={styles.title} style={{ fontSize: '28px', fontFamily: 'bold' }}>로그인</h2>
+      <div className={styles.loginWrapper}>
+        <form className={styles.loginForm} onSubmit={handleSubmit}>
+          <InputBox type="text" placeholder="고유번호" value={id} onChange={(e) => setId(e.target.value)} />
+          <InputBox type="password" placeholder="비밀번호" value={password} onChange={(e) => setPassword(e.target.value)} />
+          {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+          <div className={styles.links}>
+            <span onClick={() => window.open('https://example.com/find-number', '_blank')}>고유번호 찾기</span> |
+            <span onClick={() => window.open('https://example.com/find-password', '_blank')}>비밀번호 찾기</span>
+          </div>
+          <FormButton type="submit" className={styles.loginButton}>로그인</FormButton>
+        </form>
+      </div>
+      <div className={styles.signupText}>
+        아직 위니드 회원이 아니신가요? <a href="/signup" className={styles.signupLink}>회원가입하기</a>
+      </div>
+    </div>
+    <Footer />
+    </div>
+>>>>>>> main
   );
 };
 
