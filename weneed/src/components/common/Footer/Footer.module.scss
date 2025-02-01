@@ -1,0 +1,70 @@
+.footer {
+    border-top: 1px solid #e0e0e0;
+    background-color: #f4f4f4;
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+    height: 10%;
+  }
+  
+  .left {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .logo {
+    margin-bottom: 8px;
+  }
+  
+  .textGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* 간격 조정 */
+  }
+  
+  .textGroup div {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+  }
+  
+  .right {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .img {
+    margin-bottom: 5%;
+  }
+  .title {
+    font-family: 'bold';
+    font-size: 12px;
+    margin-bottom: 17%;
+  }
+
+  .content {
+    font-family: 'regular';
+    font-size: 11px;
+    margin-bottom: 12%;
+  }
+
+  .textGroup span {
+    font-family: 'semi-bold';
+    font-size: 11px;
+  }
+
+ 
+  .basicText {
+    font-family: 'regular';
+    font-size: 10px;
+    margin-bottom: 1%;
+  }
+
+  .secondText {
+    font-family: 'regular';
+    font-size: 12px;
+    margin-bottom: 1%;
+  }
