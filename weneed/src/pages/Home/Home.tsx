@@ -1,12 +1,17 @@
+import { useState } from "react";
 import styles from "./Home.module.scss";
-import GetMockData from "@/components/atoms/MockDate/GetMockData"; // GetMockData import
+import SearchBar from '@/components/common/SearchBar/SearchBar';
 
 export const HomePage = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
     <div className={styles.home}>
-      <div className={styles.cardContainer}>
-        <GetMockData />
-      </div>
+      <SearchBar
+        value={searchTerm} 
+        onChange={setSearchTerm}
+        placeholder="검색어를 입력하세요."
+      />
     </div>
   );
 };
