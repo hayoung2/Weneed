@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import styles from '@/pages/SignUp/SignUp.module.scss';
 import InputBox from '@/components/common/InputBox/InputBox';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // react-router-dom에서 useNavigate 훅을 임포트
+import { useNavigate } from 'react-router-dom';
 
 const SignUp: React.FC = () => {
-  const navigate = useNavigate(); // useNavigate 훅 사용
+  const navigate = useNavigate();
   const [userType, setUserType] = useState<'기업' | '개인'>('기업');
   const [companyName, setCompanyName] = useState('');
   const [ceoName, setCeoName] = useState('');
@@ -13,6 +13,7 @@ const SignUp: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [termsChecked, setTermsChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -21,6 +22,7 @@ const SignUp: React.FC = () => {
     e.preventDefault();
     setIsSubmitted(true);
 
+    // 필드 유효성 검사
     if (userType === '기업' && (!companyName || !ceoName || !businessNumber || !email || !password)) {
       return;
     }
@@ -30,32 +32,44 @@ const SignUp: React.FC = () => {
     if (!termsChecked) {
       return;
     }
+    if (password !== confirmPassword) {
+      setErrorMessage('*비밀번호가 일치하지 않습니다.');
+      return;
+    }
+    if (password.length < 6) {
+      setErrorMessage('*비밀번호는 6자리 이상이어야 합니다.');
+      return;
+    }
 
     setErrorMessage('');
 
     try {
       const response = await axios.post('http://localhost:5000/signup', {
         userType,
-        companyName,
-        representativeName: ceoName,
-        name,
-        businessNumber,
+        companyName: userType === '기업' ? companyName : undefined,
+        representativeName: userType === '기업' ? ceoName : undefined,
+        name: userType === '개인' ? name : undefined,
+        businessNumber: userType === '기업' ? businessNumber : undefined,
         email,
         password,
       });
-      console.log('회원가입 성공:', response.data);
-      alert(`회원가입이 성공적으로 완료되었습니다! 고유번호: ${response.data.uniqueId}`); // 고유번호를 alert로 표시
-      navigate('/login'); // 로그인 페이지로 이동
+      alert(`회원가입이 성공적으로 완료되었습니다! 고유번호: ${response.data.uniqueId}`);
+      navigate('/login'); // 로그인 페이지로 리다이렉트
     } catch (error) {
       console.error('회원가입 실패:', error);
-      setErrorMessage('*회원가입 중 오류가 발생했습니다.');
+
+      // 중복된 이메일에 대한 처리
+      if (error.response && error.response.data.error === '이미 사용 중인 이메일입니다.') {
+        setErrorMessage('*이미 사용 중인 이메일입니다.');
+      } else {
+        setErrorMessage('*회원가입 중 오류가 발생했습니다.');
+      }
     }
   };
 
-  const isFormComplete =
-      (userType === '기업'
-          ? companyName && ceoName && businessNumber && email && password
-          : name && email && password) && termsChecked;
+  const isFormComplete = (userType === '기업'
+      ? companyName && ceoName && businessNumber && email && password && confirmPassword
+      : name && email && password && confirmPassword) && termsChecked;
 
   return (
       <div className={styles.signUpContainer}>
@@ -97,7 +111,10 @@ const SignUp: React.FC = () => {
           {isSubmitted && !email && <p className={styles.errorMessage}>*이메일을 입력해주세요.</p>}
 
           <InputBox type="password" placeholder="비밀번호(6자리이상)" value={password} onChange={(e) => setPassword(e.target.value)} />
-          {isSubmitted && !password && <p className={styles.errorMessage}>*6자리 이상의 비밀번호를 입력해주세요.</p>}
+          {isSubmitted && (!password || password.length < 6) && <p className={styles.errorMessage}>*6자리 이상의 비밀번호를 입력해주세요.</p>}
+
+          <InputBox type="password" placeholder="비밀번호 확인" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+          {isSubmitted && password !== confirmPassword && <p className={styles.errorMessage}>*비밀번호가 일치하지 않습니다.</p>}
 
           <div className={styles.terms}>
             <input type="checkbox" checked={termsChecked} onChange={() => setTermsChecked(!termsChecked)} />
@@ -111,6 +128,8 @@ const SignUp: React.FC = () => {
           <button type="submit" className={styles.signUpButton} style={{ backgroundColor: isFormComplete ? '#00B2FF' : '#B0B0B0' }}>
             회원가입
           </button>
+
+          {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
         </form>
       </div>
   );
