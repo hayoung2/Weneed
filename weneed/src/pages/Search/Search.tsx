@@ -1,10 +1,56 @@
-import React from 'react';
+import { useState } from 'react';
+import Footer from '@/components/common/Footer/Footer';
+import Header from '@/components/common/Header/Header';
+import styles from '@/pages/Search/Search.module.scss';
+import SearchBar from '@/components/common/SearchBar/SearchBar';
+import chartIcon from '@/assets/icons/chart.svg';
+import searchIcon from '@/assets/icons/search.svg';
 
 const Search: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isAiMatch, setIsAiMatch] = useState(false);
+
   return (
     <div>
-      <h1>🔍 여긴 Search 페이지입니다.</h1>
-      <p>검색 기능이 들어갈 예정입니다.</p>
+      <Header />
+      <div className={styles.container}>
+        <div className={styles.toggleContainer}>
+          <p className={styles.aiText}>AI 매칭 {isAiMatch ? "ON" : "OFF"}</p>
+          <label className={styles.toggleSwitch}>
+            <input 
+              type="checkbox" 
+              checked={isAiMatch} 
+              onChange={() => setIsAiMatch(!isAiMatch)} 
+            />
+            <span className={styles.slider}></span>
+          </label>
+        </div>
+
+        <p className={styles.aiDescription}>
+          {isAiMatch 
+            ? "버튼을 누르면 AI 매칭이 가능해요!" 
+            : "AI 매칭 없이 검색이 진행돼요!"}
+        </p>
+
+
+        <div className={styles.searchContainer}>
+          <SearchBar
+            value={searchTerm}
+            onChange={setSearchTerm}
+            placeholder="원하는 자원을 검색해보세요."
+          />
+          <button className={styles.searchButton}>
+            <img 
+              src={isAiMatch ? chartIcon : searchIcon} 
+              alt="검색 버튼 아이콘" 
+              className={styles.searchIcon} 
+            />
+            <p>{isAiMatch ? "AI 매칭" : "검색하기"}</p>
+          </button>
+        </div>
+      </div>
+
+      <Footer />
     </div>
   );
 };
