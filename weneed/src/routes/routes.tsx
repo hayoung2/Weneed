@@ -5,6 +5,7 @@ import { LoginPage } from '@/pages/Login/Login'
 import  SignUpPage  from '@/pages/SignUp/SignUp'
 import { IntroductionPage } from '@/pages/Introduction/Introduction'
 import  MeetingNotePage  from '@/pages/MeetingNote/MeetingNote'
+import SearchPage from '@/pages/Search/Search'
 
 
 const router = createBrowserRouter([
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
     path: `${RouterPath.MEETINGNOTE}/:title/:representative/:address/:businessType/:contact/:fax`,
     element: <MeetingNotePage />,
   },
-
+  { path: RouterPath.SEARCH, element: <SearchPage /> },
 ])
 
 export const Routes = () => {
