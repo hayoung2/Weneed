@@ -1,0 +1,18 @@
+.loginButton {
+    background-color: var(--point-color);
+    width: 225px; 
+    padding: 12px;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px 0 rgba(27, 27, 27, 0.1);
+    font-family:'bold';
+  
+    &:hover {
+      background-color: var(--dark-point-color);
+      box-shadow: 0 0 10px 0 rgba(27, 27, 27, 0.2);
+    }
+  }
+  
