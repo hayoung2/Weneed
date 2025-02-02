@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import styles from '@/pages/SignUp/SignUp.module.scss';
 import InputBox from '@/components/common/InputBox/InputBox';
-<<<<<<< HEAD
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-=======
-import Footer from '@/components/common/Footer/Footer';
->>>>>>> main
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
@@ -26,7 +22,6 @@ const SignUp: React.FC = () => {
     e.preventDefault();
     setIsSubmitted(true);
 
-    // 필드 유효성 검사
     if (userType === '기업' && (!companyName || !ceoName || !businessNumber || !email || !password)) {
       return;
     }
@@ -58,11 +53,9 @@ const SignUp: React.FC = () => {
         password,
       });
       alert(`회원가입이 성공적으로 완료되었습니다! 고유번호: ${response.data.uniqueId}`);
-      navigate('/login'); // 로그인 페이지로 리다이렉트
+      navigate('/login');
     } catch (error) {
       console.error('회원가입 실패:', error);
-
-      // 중복된 이메일에 대한 처리
       if (error.response && error.response.data.error === '이미 사용 중인 이메일입니다.') {
         setErrorMessage('*이미 사용 중인 이메일입니다.');
       } else {
@@ -76,14 +69,8 @@ const SignUp: React.FC = () => {
       : name && email && password && confirmPassword) && termsChecked;
 
   return (
-<<<<<<< HEAD
       <div className={styles.signUpContainer}>
         <h2 className={styles.title}>회원가입</h2>
-=======
-    <div>
-    <div className={styles.signUpContainer}>
-      <h2 className={styles.title}>회원가입</h2>
->>>>>>> main
 
         <div className={styles.radioGroup}>
           <label className={styles.radioLabel}>
@@ -142,58 +129,6 @@ const SignUp: React.FC = () => {
           {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
         </form>
       </div>
-<<<<<<< HEAD
-=======
-
-      <form className={styles.signUpForm} onSubmit={handleSubmit}>
-        {userType === '기업' && (
-          <>
-            <InputBox type="text" placeholder="회사명" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
-            {isSubmitted && !companyName && <p className={styles.errorMessage}>*회사명을 입력해주세요.</p>}
-
-            <InputBox type="text" placeholder="대표자명" value={ceoName} onChange={(e) => setCeoName(e.target.value)} />
-            {isSubmitted && !ceoName && <p className={styles.errorMessage}>*대표자명을 입력해주세요.</p>}
-
-            <InputBox type="text" placeholder="사업자등록번호('-'없이 10자리)" value={businessNumber} onChange={(e) => setBusinessNumber(e.target.value)} />
-            {isSubmitted && !businessNumber && <p className={styles.errorMessage}>*사업자등록번호를 입력해주세요.</p>}
-          </>
-        )}
-
-        {userType === '개인' && (
-          <>
-            <InputBox type="text" placeholder="이름" value={name} onChange={(e) => setName(e.target.value)} />
-            {isSubmitted && !name && <p className={styles.errorMessage}>*이름을 입력해주세요.</p>}
-          </>
-        )}
-
-        <InputBox type="text" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} />
-        {isSubmitted && !email && <p className={styles.errorMessage}>*이메일을 입력해주세요.</p>}
-
-        <InputBox type="password" placeholder="비밀번호(6자리이상)" value={password} onChange={(e) => setPassword(e.target.value)} />
-        {isSubmitted && !password && <p className={styles.errorMessage}>*6자리 이상의 비밀번호를 입력해주세요.</p>}
-
-  
-        <div className={styles.terms}>
-          <input type="checkbox" checked={termsChecked} onChange={() => setTermsChecked(!termsChecked)} />
-          <p className={styles.termsNotice}>
-            <span>[필수]</span> 이용약관 및 개인정보처리방침에 동의합니다.
-          </p>
-        </div>
-
-        <div className={styles.termsLinks}>
-          <span><a href="https://transparent-pomelo-dd9.notion.site/18c3c563527f802bab78eab5e3b0b835?pvs=4">이용약관</a></span>
-          <span><a href="https://transparent-pomelo-dd9.notion.site/18c3c563527f8023a12cfe23897a3757?pvs=4">개인정보처리방침</a></span>
-        </div>
-        {isSubmitted && !termsChecked && <p className={styles.errorMessage2}>*이용약관 및 개인정보처리방침에 동의해주세요.</p>}
-
-        <button type="submit" className={styles.signUpButton} style={{ backgroundColor: isFormComplete ? '#00B2FF' : '#B0B0B0' }}>
-          회원가입
-        </button>
-      </form>
-    </div>
-    <Footer />
-    </div>
->>>>>>> main
   );
 };
 
