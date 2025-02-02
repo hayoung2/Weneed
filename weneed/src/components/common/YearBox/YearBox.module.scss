@@ -1,12 +1,11 @@
 .input {
-    width: 9%;
+    width: 14%;
     padding-right: 1%;
     padding-left: 1%;
-    padding-top: 1.4%;
-    padding-bottom: 1.4%;
-    border-radius: 7%;
+    padding-top: 2%;
+    padding-bottom: 2%;
     border-radius: 10%;
-    font-size: 0.9vw;
+    font-size: 0.8vw;
     font-family: 'bold';
     border: 1.5px solid var(--sub-color);
     transition: border-color 0.1s ease-in-out;
@@ -14,11 +13,11 @@
     
     &::placeholder {
       color: var(--place-holder-gray);
-      font-family: 'bold';   font-size: 0.9vw;
+      font-family: 'bold';   font-size: 0.8vw;
     }
   
     &:focus {
       border: 1.5px solid var(--point-color); 
-      outline: none;   font-size: 0.9vw;
+      outline: none;   font-size: 0.8vw;
     }
   }
