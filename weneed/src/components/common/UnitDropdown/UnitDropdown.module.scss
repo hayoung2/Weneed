@@ -1,0 +1,71 @@
+.dropdown {
+  position: relative;
+  width: 80%; 
+  cursor: pointer;
+}
+
+.selected {
+  width: 80%;
+  height: 20px; 
+  padding: 1px;
+  padding-left: 10%;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: 'bold';
+  border: 1px solid var(--sub-color);
+  transition: border-color 0.1s ease-in-out;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 40px; 
+  line-height: 40px; 
+}
+
+.selected:hover {
+  border-color: var(--point-color);
+}
+
+.selected.focused {
+  border: 1px solid var(--point-color);
+  outline: none;
+}
+
+.options {
+  position: absolute;
+  top: calc(100% + 1px); 
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--sub-color);
+  border-radius: 4px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 10;
+}
+
+.options li {
+  height: 20px; 
+  padding: 12px;
+  font-size: 13px;
+  font-family: 'bold';
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.options li:hover {
+  background-color: #f2f2f2;
+}
+
+.arrowDown, .arrowUp {
+  width: 13px; 
+  height: 13px; 
+  transition: transform 0.3s ease;
+}
+
+.arrowUp {
+  transform: rotate(180deg);
+}
