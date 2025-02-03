@@ -1,0 +1,124 @@
+.container {
+    width: 60%;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 1.6vw;
+    font-family: "bold";
+    padding-top: 5%;
+    padding-bottom: 1.7%;
+  }
+  
+  .subtitle {
+    font-size: 1vw;
+    font-family: "medium";
+    color: #757575;
+    margin-bottom: 2.5%;
+  }
+  
+
+  .steps {
+    display: flex;
+    justify-content: center;
+    gap: 7%;
+    margin-bottom: 2%;
+  }
+  
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1vw 1vw;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+ 
+  
+  .stepCircle {
+    width: 4vw;
+    height: 4vw;
+    border-radius: 50%;
+    border: 2px solid #b0b0b0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .activeStep .stepCircle {
+    border: 2px solid #00b2ff;
+  }
+  
+  .stepLabel {
+    padding-top: 1vw;
+    font-size: 0.8vw;
+    font-family: "bold";
+    color: #b0b0b0;
+  }
+  
+  .activeStep .stepLabel {
+    color: #00b2ff;
+  }
+  
+  .activeIcon {
+    filter: invert(50%) sepia(90%) saturate(500%) hue-rotate(180deg) brightness(100%) contrast(100%);
+  }
+  
+  .inactiveIcon {
+    filter: grayscale(100%) brightness(90%);
+  }
+  
+
+  
+  .formContainer {
+   padding-bottom: 5%;
+
+  }
+  
+  .formTitle {
+    font-size: 2vw;
+    text-align: center;
+    font-family: "bold";
+    padding-top: 2.5vw;
+    padding-bottom: 1.1vw;
+  }
+  
+  .formSubtitle {
+    font-size: 1vw;
+    color: #828282;
+    font-family: "medium";
+    margin-bottom: 5%
+  }
+  
+  .inputGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2vw;
+    justify-content: center;
+
+  }
+  
+  .inputGroup input {
+    width: 48%;
+  }
+  
+  .buttonContainer {
+    margin-top: 3vw;
+    margin-bottom: 1vw;
+    justify-content: center;
+  }
+  
+  .skipButton {
+    background: none;
+    border: none;
+    color: #828282;
+    padding-top: 0.7vw;
+    font-family: 'bold';
+    font-size: 1vw;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+ 
