@@ -15,8 +15,17 @@ const router = createBrowserRouter([
   { path: RouterPath.INTRODUCTION, element: <IntroductionPage /> },
   {
     path: `${RouterPath.MEETINGNOTE}/:title/:representative/:address/:businessType/:contact/:fax`,
-    element: <MeetingNotePage />,
+    element: <MeetingNotePage />, 
   },
+  {
+    path: `${RouterPath.MEETINGNOTEVIEW}/:title/:representative/:address/:businessType/:contact/:fax`,
+    element: <MeetingNotePage />, 
+  },
+  {
+    path: `${RouterPath.MEETINGNOTEEDIT}/:title/:representative/:address/:businessType/:contact/:fax`,
+    element: <MeetingNotePage />, 
+  },
+  
   { path: RouterPath.SEARCH, element: <SearchPage /> },
 ])
 

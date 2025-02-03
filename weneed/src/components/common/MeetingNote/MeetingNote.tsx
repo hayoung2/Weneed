@@ -7,6 +7,7 @@ import UnitDropdown from "@/components/common/UnitDropdown/UnitDropdown";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import EditButton from "../EditButton/EditButton";
+import TransactionButton from "../TransactionButton/TransactionButton";
 
 interface MeetingNoteProps {
   title: string;
@@ -15,6 +16,7 @@ interface MeetingNoteProps {
   businessType: string;
   contact: string;
   fax: string;
+  mode?: "default" | "view" | "edit"; 
 }
 
 const MeetingNote: React.FC<MeetingNoteProps> = ({
@@ -24,6 +26,7 @@ const MeetingNote: React.FC<MeetingNoteProps> = ({
   businessType,
   contact,
   fax,
+  mode = "default",
 }) => {
   const [callPersons, setCallPersons] = useState(["", ""]);
   const [callDate, setCallDate] = useState<string[]>(["", "", "", "", ""]);
@@ -41,48 +44,23 @@ const MeetingNote: React.FC<MeetingNoteProps> = ({
       <div className={styles.container}>
         <h1 className={styles.title}>{title}</h1>
 
-        <div className={styles.infoBox}>
-          <div className={styles.infoBox1}>
-            <div>
-              <span>대표자명</span>
-            </div>
-            <div>
-              <p>{representative}</p>
-            </div>
+        <div className={`${styles.infoContainer} ${mode === "view" ? styles.viewMode : ""}`}>
+          <div className={styles.infoBox}>
+          <div className={`${styles.infoBox1} ${mode === "view" ? styles.viewModeBox : ""}`} ><div><span>연락처</span></div><div><p>{contact}</p></div></div>
+            <div className={`${styles.infoBox1} ${mode === "view" ? styles.viewModeBox : ""}`} ><div><span>팩스</span></div><div><p>{fax}</p></div></div>
+              <div className={`${styles.infoBox1} ${mode === "view" ? styles.viewModeBox: ""}`} ><div><span>대표자명</span></div><div><p>{representative}</p></div></div>
+              <div className={`${styles.infoBox1} ${mode === "view" ? styles.viewModeBox : ""}`} ><div><span>주소</span></div><div><p>{address}</p></div></div>
+              <div className={`${styles.infoBox1} ${mode === "view" ? styles.viewModeBox : ""}`} ><div><span>업종</span></div><div><p>{businessType}</p></div></div>
           </div>
-          <div className={styles.infoBox1}>
-            <div>
-              <span>주소</span>
+
+          {mode === "view" && (
+            <div className={styles.transactionBox}>
+              <p>거래가 완료되면 버튼을 눌러주세요!</p>
+              <TransactionButton status="예정" />
             </div>
-            <div>
-              <p>{address}</p>
-            </div>
-          </div>
-          <div className={styles.infoBox1}>
-            <div>
-              <span>업종</span>
-            </div>
-            <div>
-              <p>{businessType}</p>
-            </div>
-          </div>
-          <div className={styles.infoBox1}>
-            <div>
-              <span>연락처</span>
-            </div>
-            <div>
-              <p>{contact}</p>
-            </div>
-          </div>
-          <div className={styles.infoBox1}>
-            <div>
-              <span>팩스</span>
-            </div>
-            <div>
-              <p>{fax}</p>
-            </div>
-          </div>
+          )}
         </div>
+   
 
         <div className={styles.line}></div>
 
@@ -288,7 +266,11 @@ const MeetingNote: React.FC<MeetingNoteProps> = ({
           </p>
         </div>
         <div className={styles.editbutton}>
-          <EditButton type="submit">거래 일지 작성 완료하기</EditButton>
+        {mode === "edit" ? (
+            <EditButton type="submit">거래 일지 수정 완료하기</EditButton>
+          ) : (
+            <EditButton type="submit">거래 일지 작성 완료하기</EditButton>
+          )}
         </div>
       </div>
       <Footer />
