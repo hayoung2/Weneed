@@ -8,5 +8,6 @@ export const RouterPath = {
   MEETINGNOTE:'/meeting',
   MEETINGNOTEVIEW:'/meetingView',
   MEETINGNOTEEDIT:'/meetingEdit',
-  SEARCH:'/search'
+  SEARCH:'/search',
+  COMPANYINFO:'/companyInfo'
 }
