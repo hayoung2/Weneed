@@ -6,6 +6,7 @@ import  SignUpPage  from '@/pages/SignUp/SignUp'
 import { IntroductionPage } from '@/pages/Introduction/Introduction'
 import  MeetingNotePage  from '@/pages/MeetingNote/MeetingNote'
 import SearchPage from '@/pages/Search/Search'
+import CompanyInfoPage from '@/pages/CompanyInfo/CompanyInfoPage'
 
 
 const router = createBrowserRouter([
@@ -27,6 +28,8 @@ const router = createBrowserRouter([
   },
   
   { path: RouterPath.SEARCH, element: <SearchPage /> },
+ { 
+    path: `${RouterPath.COMPANYINFO}/:companyName/:businessNumber/:representative`, element: <CompanyInfoPage /> }, 
 ])
 
 export const Routes = () => {
