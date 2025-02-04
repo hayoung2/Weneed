@@ -16,7 +16,7 @@ const CompanyInfoPage: React.FC = () => {
       businessNumber={businessNumber || ""}
       representative={representative || ""}
       step={step}
-      onSkip={() => navigate("/login")} // 건너뛰기 버튼 클릭 시 로그인 페이지로 이동
+      onSkip={() => navigate("/login")}
     />
   );
 };

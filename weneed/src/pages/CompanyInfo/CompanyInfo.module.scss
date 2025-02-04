@@ -91,13 +91,12 @@
     font-family: "medium";
     margin-bottom: 5%
   }
-  
   .inputGroup {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column; 
     gap: 1.2vw;
-    justify-content: center;
-
+    align-items: center;
+    width: 100%;
   }
   
   .inputGroup input {
@@ -114,11 +113,32 @@
     background: none;
     border: none;
     color: #828282;
-    padding-top: 0.7vw;
+    padding-top: 1.5vw;
     font-family: 'bold';
     font-size: 1vw;
     text-decoration: underline;
     cursor: pointer;
   }
   
- 
+  .textarea {
+    width: 29vw;
+    height: 20vw;
+    border-radius: 4px;
+    font-size: 0.8vw;
+    font-family: "bold";
+    padding-left: 2%;
+    padding-top: 2%;
+    border: 1px solid var(--sub-color);
+    transition: border-color 0.1s ease-in-out;
+  
+    &::placeholder {
+      color: var(--place-holder-gray);
+      font-family: "semi-bold";
+    }
+  
+    &:focus {
+      border: 1px solid var(--point-color);
+      outline: none;
+    }
+    resize: none; 
+  }
