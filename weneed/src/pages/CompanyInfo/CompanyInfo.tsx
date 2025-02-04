@@ -31,12 +31,12 @@ const CompanyInfo: React.FC<CompanyInfoPageProps> = ({
     businessNumber: "",
     representative: "",
     industry: "",
-    mainProducts: "",
-    revenue: "",
-    contactNumber: "",
-    faxNumber: "",
-    companyAddress: "",
-    websiteLink: "",
+    address: "",
+    phone: "",
+    website: "",
+    email: "",
+    description: "",
+    additionalInfo: "",
   });
 
   useEffect(() => {
@@ -52,25 +52,28 @@ const CompanyInfo: React.FC<CompanyInfoPageProps> = ({
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
-  const handleNextStep = async () => {
-    if (currentStep === 3) {
-      // 마지막 단계에서 데이터 저장
-      try {
-        await axios.post('http://localhost:5000/api/company-info', {
-          ...formData,
-          companyName,
-          businessNumber,
-          representative,
-        });
-        alert('회사 정보가 저장되었습니다.');
-        navigate('/success'); // 성공 페이지로 이동 (예시)
-      } catch (error) {
-        console.error('회사 정보 저장 실패:', error);
-        alert('정보 저장에 실패했습니다.');
-      }
-    } else {
+  const handleNextStep = () => {
+    if (currentStep < 3) {
       setCurrentStep(currentStep + 1);
       window.scrollTo(0, 0); // 다음 단계로 넘어갈 때 화면 최상단으로 이동
+    } else {
+      saveCompanyInfo(); // 마지막 단계에서 데이터 저장
+    }
+  };
+
+  const saveCompanyInfo = async () => {
+    try {
+      await axios.post('http://localhost:5000/api/company-info', {
+        ...formData,
+        companyName,
+        businessNumber,
+        representative,
+      });
+      alert('회사 정보가 저장되었습니다.');
+      navigate('/success'); // 성공 페이지로 이동 (예시)
+    } catch (error) {
+      console.error('회사 정보 저장 실패:', error);
+      alert('정보 저장에 실패했습니다.');
     }
   };
 
@@ -140,9 +143,39 @@ const CompanyInfo: React.FC<CompanyInfoPageProps> = ({
                     />
                     <InputBox
                         type="text"
-                        placeholder="주요 생산품"
-                        value={formData.mainProducts}
-                        onChange={(e) => handleChange("mainProducts", e.target.value)}
+                        placeholder="주소"
+                        value={formData.address}
+                        onChange={(e) => handleChange("address", e.target.value)}
+                    />
+                    <InputBox
+                        type="text"
+                        placeholder="전화번호"
+                        value={formData.phone}
+                        onChange={(e) => handleChange("phone", e.target.value)}
+                    />
+                    <InputBox
+                        type="text"
+                        placeholder="웹사이트"
+                        value={formData.website}
+                        onChange={(e) => handleChange("website", e.target.value)}
+                    />
+                    <InputBox
+                        type="text"
+                        placeholder="이메일"
+                        value={formData.email}
+                        onChange={(e) => handleChange("email", e.target.value)}
+                    />
+                    <InputBox
+                        type="text"
+                        placeholder="회사 설명"
+                        value={formData.description}
+                        onChange={(e) => handleChange("description", e.target.value)}
+                    />
+                    <InputBox
+                        type="text"
+                        placeholder="추가 정보"
+                        value={formData.additionalInfo}
+                        onChange={(e) => handleChange("additionalInfo", e.target.value)}
                     />
                   </div>
                 </>
@@ -154,12 +187,7 @@ const CompanyInfo: React.FC<CompanyInfoPageProps> = ({
                   <p className={styles.formSubtitle}>
                     공급 가능한 부산물을 입력해주세요.
                   </p>
-                  <InputBox
-                      type="text"
-                      placeholder="공급 가능한 부산물"
-                      onChange={(e) => handleChange("mainProducts", e.target.value)}
-                      value={formData.mainProducts} // 업데이트된 값 사용
-                  />
+                  {/* 공급 가능한 부산물 입력 필드 추가 */}
                 </>
             )}
 
@@ -167,12 +195,7 @@ const CompanyInfo: React.FC<CompanyInfoPageProps> = ({
                 <>
                   <h2 className={styles.formTitle}>필요한 자원 선택하기</h2>
                   <p className={styles.formSubtitle}>필요한 자원을 선택해주세요.</p>
-                  <InputBox
-                      type="text"
-                      placeholder="필요한 자원"
-                      onChange={(e) => handleChange("resources", e.target.value)}
-                      value={formData.resources} // 업데이트된 값 사용
-                  />
+                  {/* 필요한 자원 입력 필드 추가 */}
                 </>
             )}
 

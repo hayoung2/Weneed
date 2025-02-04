@@ -30,14 +30,21 @@ export const LoginPage = () => {
           password,
         });
 
-        const { token, redirectUrl, companyName, businessNumber, representativeName } = response.data;
+        const { token, companyName, businessNumber, representativeName } = response.data;
         localStorage.setItem('token', token); // 토큰을 로컬 스토리지에 저장
         alert('로그인 성공!');
 
         // URL에 회사 정보 포함하여 이동
         navigate(`/companyInfo/${encodeURIComponent(companyName)}/${encodeURIComponent(businessNumber)}/${encodeURIComponent(representativeName)}`);
       } catch (error) {
-        setErrorMessage('*고유번호 또는 비밀번호가 일치하지 않습니다.');
+        if (axios.isAxiosError(error) && error.response) {
+          setErrorMessage(error.response.data || '*고유번호 또는 비밀번호가 일치하지 않습니다.');
+        } else {
+          setErrorMessage('*로그인 중 오류가 발생했습니다.');
+        }
+        // 상태 초기화 (필요한 경우)
+        setId('');
+        setPassword('');
       }
     }
   };
