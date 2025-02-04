@@ -3,18 +3,17 @@ import styles from '@/pages/Login/Login.module.scss';
 import InputBox from '@/components/common/InputBox/InputBox';
 import FormButton from '@/components/common/FormButton/FormButton';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // react-router-dom에서 useNavigate 훅을 임포트
+import { useNavigate } from 'react-router-dom';
 import Footer from '@/components/common/Footer/Footer';
 
 export const LoginPage = () => {
-  const navigate = useNavigate(); // useNavigate 훅 사용
+  const navigate = useNavigate();
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [token, setToken] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // 페이지 새로 고침 방지
+    e.preventDefault();
 
     if (!id && !password) {
       setErrorMessage('*고유번호 또는 비밀번호가 일치하지 않습니다. 다시 한번 입력해주세요.');
@@ -30,9 +29,13 @@ export const LoginPage = () => {
           uniqueId: id,
           password,
         });
-        setToken(response.data.token); // 토큰 상태 업데이트
-        alert('로그인 성공!'); // 로그인 성공 시 alert
-        navigate('/'); // 메인 페이지로 이동 (원하는 경로로 변경 가능)
+
+        const { token, redirectUrl, companyName, businessNumber, representativeName } = response.data;
+        localStorage.setItem('token', token); // 토큰을 로컬 스토리지에 저장
+        alert('로그인 성공!');
+
+        // URL에 회사 정보 포함하여 이동
+        navigate(`/companyInfo/${encodeURIComponent(companyName)}/${encodeURIComponent(businessNumber)}/${encodeURIComponent(representativeName)}`);
       } catch (error) {
         setErrorMessage('*고유번호 또는 비밀번호가 일치하지 않습니다.');
       }

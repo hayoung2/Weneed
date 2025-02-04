@@ -34,6 +34,20 @@ const User = sequelize.define('User', {
     uniqueId: { type: DataTypes.STRING, unique: true }
 });
 
+// 회사 정보 모델 정의
+const CompanyInfo = sequelize.define('CompanyInfo', {
+    companyName: { type: DataTypes.STRING, allowNull: false },
+    businessNumber: { type: DataTypes.STRING, allowNull: false },
+    representativeName: { type: DataTypes.STRING, allowNull: false },
+    industryType: DataTypes.STRING,
+    mainProducts: DataTypes.STRING,
+    revenue: DataTypes.DECIMAL(15, 2),
+    contactNumber: DataTypes.STRING,
+    faxNumber: DataTypes.STRING,
+    companyAddress: DataTypes.STRING,
+    websiteLink: DataTypes.STRING,
+});
+
 // 데이터베이스 동기화
 sequelize.sync({ force: false })
     .then(() => console.log("MySQL Connected"))
@@ -57,7 +71,17 @@ app.post('/signup', async (req, res) => {
             password: hashedPassword,
             uniqueId
         });
-        res.status(201).json({ uniqueId: newUser.uniqueId });
+
+        // 회사 정보 저장
+        if (userType === '기업') {
+            await CompanyInfo.create({
+                companyName,
+                businessNumber,
+                representativeName,
+            });
+        }
+
+        res.status(201).json({ uniqueId: newUser.uniqueId, companyName, businessNumber, representativeName });
     } catch (error) {
         console.error("회원가입 오류:", error);
         res.status(400).json({ error: "회원가입 중 오류가 발생했습니다. 다시 시도해 주세요." });
@@ -75,7 +99,28 @@ app.post('/login', async (req, res) => {
     if (!isMatch) return res.status(400).send('Invalid credentials');
 
     const token = jwt.sign({ uniqueId: user.uniqueId }, process.env.JWT_SECRET);
-    res.json({ token });
+    res.json({ token, redirectUrl: '/company-info', companyName: user.companyName, businessNumber: user.businessNumber, representativeName: user.representativeName });
+});
+
+// 회사 정보 저장 API
+app.post('/api/company-info', async (req, res) => {
+    const { companyName, businessNumber, representative, industry, mainProducts } = req.body;
+
+    try {
+        // CompanyInfo 모델에 저장
+        const companyInfo = await CompanyInfo.create({
+            companyName,
+            businessNumber,
+            representativeName: representative,
+            industryType: industry,
+            mainProducts,
+        });
+
+        res.status(201).json({ message: '회사 정보가 저장되었습니다.', companyInfo });
+    } catch (error) {
+        console.error('회사 정보 저장 오류:', error);
+        res.status(500).send('서버 오류');
+    }
 });
 
 // 서버 시작
