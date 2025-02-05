@@ -13,6 +13,9 @@ import AiMatchingS from '@/pages/AiMatchingS/AiMatchingS'
 import CompanyInfoPage from "@/pages/CompanyInfo/CompanyInfoPage";
 import UniqueNumberPage from "@/pages/UniqueNumber/UniqueNumberPage";
 import TransactionDetail from '@/pages/TransactionDetail/TransactionDetail'
+import RegisterByproduct from '@/pages/RegisterByproduct/RegisterByproduct'
+import RegisterResource from '@/pages/RegisterResource/RegisterResource'
+
 
 const router = createBrowserRouter([
   { path: RouterPath.HOME, element: <HomePage /> },
@@ -47,6 +50,8 @@ const router = createBrowserRouter([
     element: <UniqueNumberPage />,
   },
   { path: RouterPath.TRANSACTIONDETAIL, element: <TransactionDetail />},
+  { path: RouterPath.REGISTERRESOURCE, element: <RegisterResource />},
+  { path: RouterPath.REGISTERBYPRODUCT, element: <RegisterByproduct />},
 
 ]);
 
