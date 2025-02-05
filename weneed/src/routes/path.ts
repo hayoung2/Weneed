@@ -10,4 +10,9 @@ export const RouterPath = {
   LISTPAGE: '/list',
   AIMATCHING: '/aimatching',
   AIMATCHINGSEARCH: 'aimatchings'
+  MEETINGNOTEVIEW:'/meetingView',
+  MEETINGNOTEEDIT:'/meetingEdit',
+  SEARCH:'/search',
+  COMPANYINFO:'/companyInfo',
+  UNIQUENUMBER:'/uniqueNumber',
 }

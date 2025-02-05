@@ -1,17 +1,24 @@
+import { useParams, useLocation } from "react-router-dom";
 import MeetingNote from "@/components/common/MeetingNote/MeetingNote";
-import { useParams } from "react-router-dom";
 
-const MeetingNotePage = () => {
+const MeetingNotePage: React.FC = () => {
   const { title, representative, address, businessType, contact, fax } = useParams();
+  const location = useLocation();
+
+
+  let mode: "default" | "view" | "edit" = "default";
+  if (location.pathname.includes("meetingView")) mode = "view";
+  if (location.pathname.includes("meetingEdit")) mode = "edit";
 
   return (
     <MeetingNote
-      title={title || "기본 제목"}
-      representative={representative || "미입력"}
-      address={address || "미입력"}
-      businessType={businessType || "미입력"}
-      contact={contact || "미입력"}
-      fax={fax || "미입력"}
+      title={title || ""}
+      representative={representative || ""}
+      address={address || ""}
+      businessType={businessType || ""}
+      contact={contact || ""}
+      fax={fax || ""}
+      mode={mode} 
     />
   );
 };
