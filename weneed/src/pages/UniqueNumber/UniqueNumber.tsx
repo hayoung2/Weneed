@@ -31,10 +31,15 @@ const UniqueNumber: React.FC<UniqueNumberProps> = ({ companyName, uniqueNumber, 
           <input type="text" value={uniqueNumber} readOnly />
         </div>
       </CopyToClipboard>
-      
-      <p className={styles.description}>고유번호는 무엇인가요? <br /> 고유번호를 기억해주세요!</p>
-
+      <p className={styles.bottomText}>원활한 서비스 이용을 위해 고유번호를 꼭 기억해주세요!</p>
+  
       <button type="submit" onClick={onNext} className={styles.button}>회사 소개 및 부산물 작성하기</button>
+   
+      <p className={styles.description}>고유번호는 무엇인가요?</p>
+      <p className={styles.text}>
+  특정 객체 식별을 위해 부여되는 번호 및 문자열을 의미합니다.{"\n"}고유번호를 통해 기업 사칭 방지가 가능하며, 서비스에 대한 신뢰도가 향상됩니다.
+</p>
+
     </div>
     <Footer />
     </div>
