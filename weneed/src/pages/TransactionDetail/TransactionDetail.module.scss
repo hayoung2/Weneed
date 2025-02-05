@@ -1,143 +1,219 @@
 .container {
-    width: 100%;
-    margin: auto;
-  }
-  
-  .content {
-    width: 60%;
-    margin: auto;
-  }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2vw;
-    padding-top: 1%;
-  }
-  
-  .title {
-    font-size: 1.8vw;
-    font-family: "bold";
-  }
-  
-  .companyInfoButton {
-    border: 1px solid #00b2ff;
-    background-color: white;
-    color: #00b2ff;
-    padding: 10px 16px;
-    font-family: "bold";
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .info {
-    margin-bottom: 4vw;
-  }
-  
-  .row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5vw;
-  }
-  
-  .label {
-    width: 8vw;
-    font-family: "medium";
-    color: #bbbbbb;
-  }
-  
-  .value {
-    font-family: "medium";
-    flex-grow: 1;
-    color: #4a4a4a;
-  }
-  
-  .hiddenContact {
-    color: #828282;
-  }
-  
+  width: 100%;
+  margin: auto;
+}
 
-  .transactions {
-    display: flex;
-    justify-content: space-between;
-    gap: 1vw;
-    margin-bottom: 2vw;
-  }
-  
+.content {
+  width: 60%;
+  margin: auto;
+}
 
-  .transactionContainer {
-    padding: 1.2vw;
-    background: white;
-    box-shadow: 0 0 10px #CBEFFF;
-    border-radius: 5px;
-    transition: 0.2s;
-  }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2vw;
+  padding-top: 1%;
+}
 
-  .transactionContainer.active {
-    border: 2px solid #00b2ff;
-    box-shadow: none;
-  }
-  
+.title {
+  font-size: 1.8vw;
+  font-family: "bold";
+}
 
-  .breakText {
-    white-space: pre-line;
-  }
-  
-  .notice {
-    text-align: center;
-    font-size: 1vw;
-    font-family: "bold";
-    padding-top: 2vw;
-    color: #828282;
-  }
+.companyInfoButton {
+  border: 1px solid #00b2ff;
+  background-color: white;
+  color: #00b2ff;
+  padding: 10px 16px;
+  font-family: "bold";
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-  .buttonWrapper {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 5vw;
-  }
+.info {
+  margin-bottom: 4vw;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5vw;
+}
+
+.label {
+  width: 8vw;
+  font-family: "medium";
+  color: #bbbbbb;
+}
+
+.value {
+  font-family: "medium";
+  flex-grow: 1;
+  color: #4a4a4a;
+}
+
+.hiddenContact {
+  color: #828282;
+}
+
+
+.transactions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1vw;
+  margin-bottom: 2vw;
+}
+
+
+.transactionContainer {
+  padding: 1.2vw;
+  background: white;
+  box-shadow: 0 0 10px #CBEFFF;
+  border-radius: 5px;
+  transition: 0.2s;
+}
+
+.transactionContainer.active {
+  border: 2px solid #00b2ff;
+  box-shadow: none;
+}
+
+
+.breakText {
+  white-space: pre-line;
+}
+
+.notice {
+  text-align: center;
+  font-size: 1vw;
+  font-family: "bold";
+  padding-top: 2vw;
+  color: #828282;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 5vw;
+}
+
+/* 거래일지 배경 전체 적용 */
+.transactionLogWrapper {
+  width: 100%;
+  background-color: #f3f5f8;
+  padding: 2vw 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* 거래일지 내부 컨테이너 */
+.transactionLog {
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+}
+
+.logTitle {
+  font-size: 1.6vw;
+  padding-top: 1vw;
+  margin-bottom: 1vw;
+  font-family: "bold";
+  text-align: center;
+}
+
+.logSummary {
+  font-family: 'Regular';
+  text-align: center;
+  margin-bottom: 1.5vw;
+}
+
+/* 거래일지가 없을 경우 중앙 정렬 */
+.noTransactionsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  text-align: center;
+}
+
+.noTransactions {
+  color: #bbbbbb;
+  font-size: 1.2vw;
+}
+
+/*리스트*/
+.transactionList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 9%;
+  row-gap: 3%;
+  max-width: 92%;
+}
+
+.transactionItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: #fff;
+  border-radius: 10px;
+  padding: 5% 8%;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+
+}
+
+.transactionInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.transactionTitle {
+  font-family: 'Bold';
+  font-size: 100%;
+  color: #4A4A4A;
+  margin-top: 10%;
+  margin-bottom: 15%;
+}
+
+.transactionDate {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 10%;
+}
+
+.status {
+  font-family: "Bold";
+  font-size: 80%;
+  padding: 3% 5%;
+  margin-top: 5%;
+  border-radius: 5px;
+  text-align: center;
+  min-width: 20%;
   
-  /* 거래일지 배경 전체 적용 */
-  .transactionLogWrapper {
-    width: 100%;
-    background-color: #f3f5f8;
-    padding: 2vw 0;
-    display: flex;
-    justify-content: center;
-  }
-  
-  /* 거래일지 내부 컨테이너 */
-  .transactionLog {
-    width: 50%;
-    text-align: center;
-  }
-  
-  .logTitle {
-    font-size: 1.6vw;
-    padding-top: 1vw;
-    margin-bottom: 1vw;
-    font-family: "bold";
-    text-align: center;
-  }
-  
-  .logSummary {
-    text-align: center;
-    margin-bottom: 1.5vw;
-  }
-  
-  /* 거래일지가 없을 경우 중앙 정렬 */
-  .noTransactionsContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50%;
-    text-align: center;
-  }
-  
-  .noTransactions {
-    color: #bbbbbb;
-    font-size: 1.2vw;
-  }
-  
+  display: flex;
+  justify-content: center;
+}
+
+.completed {
+  background-color: #00b2ff;
+  color: white;
+}
+
+.scheduled {
+  background-color:#DBDBDB;
+  color: white;
+}
+
+.canceled {
+  background-color:#757575;
+  color: white;
+}
+
+.pagination{
+  margin-bottom: 3%;
+  margin-top: 13%;
+}
