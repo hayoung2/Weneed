@@ -4,12 +4,11 @@ import TransactionContainer from "@/components/common/TransactionContainer/Trans
 import EditButton from "@/components/common/EditButton/EditButton";
 import Header from "@/components/common/Header/Header";
 import Footer from "@/components/common/Footer/Footer";
+import Pagination from "@/components/atoms/Pagination/Pagination";
 
 const TransactionDetail = () => {
   const [showTransactionLog, setShowTransactionLog] = useState(false);
-  const [selectedTransaction, setSelectedTransaction] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const transactionsPerPage = 10;
 
   // 예시 데이터
   const companyName = "위니드 주식회사";
@@ -19,13 +18,36 @@ const TransactionDetail = () => {
   const address = "서울특별시 강남구 테헤란로 123";
   const businessType = "제조업";
 
-  const transactions = [
-    { id: 1, title: "부산물 A", subtitle: "500kg", unit: "kg" },
-    { id: 2, title: "부산물 B", subtitle: "200개", unit: "개" },
-  ];
+    const transactions = [
+      { id: 1, title: "첫번째 거래 일지", date: "2024.02.08", status: "거래 완료" },
+      { id: 2, title: "첫번째 거래 일지", date: "2024.02.14", status: "거래 예정" },
+      { id: 3, title: "첫번째 거래 일지", date: "2024.02.17", status: "거래 취소" },
+      { id: 4, title: "두번째 거래 일지", date: "2024.02.18", status: "거래 완료" },
+      { id: 5, title: "두번째 거래 일지", date: "2024.02.19", status: "거래 예정" },
+      { id: 6, title: "두번째 거래 일지", date: "2024.02.20", status: "거래 취소" },
+      { id: 7, title: "세번째 거래 일지", date: "2024.02.21", status: "거래 완료" },
+      { id: 8, title: "세번째 거래 일지", date: "2024.02.22", status: "거래 예정" },
+      { id: 9, title: "세번째 거래 일지", date: "2024.02.23", status: "거래 취소" },
+      { id: 10, title: "네번째 거래 일지", date: "2024.02.24", status: "거래 완료" },
+      { id: 11, title: "네번째 거래 일지", date: "2024.02.25", status: "거래 예정" },
+      { id: 12, title: "네번째 거래 일지", date: "2024.02.26", status: "거래 취소" },
+      { id: 13, title: "다섯번째 거래 일지", date: "2024.02.27", status: "거래 완료" },
+    ];
+  
 
   const handleTransactionClick = () => {
     setShowTransactionLog(true);
+  };
+
+  const ITEMS_PER_PAGE = 10;
+
+  const totalPages = Math.ceil(transactions.length / ITEMS_PER_PAGE);
+  const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
+  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
+  const currentItems = transactions.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePageClick = (page: number) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -92,8 +114,38 @@ const TransactionDetail = () => {
             <h3 className={styles.logTitle}>위니드 거래일지</h3>
             <p className={styles.logSummary}>
               {transactions.length}개의 거래일지 중{" "}
-              {transactions.filter((tx) => tx.subtitle).length}번 거래를 완료했어요!
+              {transactions.filter((tx) => tx.status === "거래 완료").length}번 거래를 완료했어요!
             </p>
+
+            {/*리스트*/}
+            <div className={styles.transactionList}>
+              {currentItems.map((transaction) => (
+                <div key={transaction.id} className={styles.transactionItem}>
+                  <div className={styles.transactionInfo}>
+                    <p className={styles.transactionTitle}>{transaction.title}</p>
+                    <p className={styles.transactionDate}>{transaction.date}</p>
+                  </div>
+                  <span
+                    className={`${styles.status} ${
+                      transaction.status === "거래 완료"
+                        ? styles.completed
+                        : transaction.status === "거래 예정"
+                        ? styles.scheduled
+                        : styles.canceled
+                    }`}
+                  >
+                    {transaction.status}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/*페이지네이션*/}
+            {totalPages > 1 && (
+              <div className={styles.pagination}>
+                <Pagination totalPages={totalPages} activePage={currentPage} onPageClick={handlePageClick} />
+              </div>
+            )}
 
             {transactions.length === 0 && (
               <div className={styles.noTransactionsContainer}>
