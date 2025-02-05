@@ -11,13 +11,13 @@ const CompanyInfoPage: React.FC = () => {
   if (location.pathname.includes("step3")) step = 3;
 
   return (
-    <CompanyInfo
-      companyName={companyName || ""}
-      businessNumber={businessNumber || ""}
-      representative={representative || ""}
-      step={step}
-      onSkip={() => navigate("/login")} // 건너뛰기 버튼 클릭 시 로그인 페이지로 이동
-    />
+      <CompanyInfo
+          companyName={companyName || ""}
+          businessNumber={businessNumber || ""}
+          representative={representative || ""}
+          step={step}
+          onSkip={() => navigate("/login")}
+      />
   );
 };
 
