@@ -12,6 +12,7 @@ import AiMatching from '@/pages/AiMatching/AiMatching'
 import AiMatchingS from '@/pages/AiMatchingS/AiMatchingS'
 import CompanyInfoPage from "@/pages/CompanyInfo/CompanyInfoPage";
 import UniqueNumberPage from "@/pages/UniqueNumber/UniqueNumberPage";
+import TransactionDetail from '@/pages/TransactionDetail/TransactionDetail'
 
 const router = createBrowserRouter([
   { path: RouterPath.HOME, element: <HomePage /> },
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
     path: `${RouterPath.UNIQUENUMBER}/:companyName/:businessNumber/:representative/:uniqueNumber`,
     element: <UniqueNumberPage />,
   },
+  { path: RouterPath.TRANSACTIONDETAIL, element: <TransactionDetail />},
 
 ]);
 
