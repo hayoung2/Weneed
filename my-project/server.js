@@ -14,8 +14,8 @@ app.use(express.json());
 
 // MySQL 연결 설정
 const sequelize = new Sequelize(process.env.MYSQL_DATABASE, process.env.MYSQL_USER, process.env.MYSQL_PASSWORD, {
-    host: process.env.MYSQL_HOST.split(':')[0], // 호스트명
-    port: process.env.MYSQL_HOST.split(':')[1], // 포트
+    host: process.env.MYSQL_HOST.split(':')[0],
+    port: process.env.MYSQL_HOST.split(':')[1],
     dialect: 'mysql',
 });
 
@@ -57,7 +57,7 @@ sequelize.sync({ force: false })
 app.post('/signup', async (req, res) => {
     const { userType, companyName, representativeName, name, businessNumber, email, password } = req.body;
 
-    const uniqueId = uuidv4(); // UUID 생성
+    const uniqueId = uuidv4();
     const hashedPassword = await bcrypt.hash(password, 10);
 
     try {
@@ -71,15 +71,6 @@ app.post('/signup', async (req, res) => {
             password: hashedPassword,
             uniqueId
         });
-
-        // 회사 정보 저장
-        if (userType === '기업') {
-            await CompanyInfo.create({
-                companyName,
-                businessNumber,
-                representativeName,
-            });
-        }
 
         res.status(201).json({ uniqueId: newUser.uniqueId, companyName, businessNumber, representativeName });
     } catch (error) {
@@ -99,7 +90,12 @@ app.post('/login', async (req, res) => {
     if (!isMatch) return res.status(400).send('Invalid credentials');
 
     const token = jwt.sign({ uniqueId: user.uniqueId }, process.env.JWT_SECRET);
-    res.json({ token, redirectUrl: '/company-info', companyName: user.companyName, businessNumber: user.businessNumber, representativeName: user.representativeName });
+    res.json({
+        token,
+        companyName: user.companyName,
+        businessNumber: user.businessNumber,
+        representativeName: user.representativeName
+    });
 });
 
 // 회사 정보 저장 API
@@ -107,7 +103,6 @@ app.post('/api/company-info', async (req, res) => {
     const { companyName, businessNumber, representative, industry, mainProducts } = req.body;
 
     try {
-        // CompanyInfo 모델에 저장
         const companyInfo = await CompanyInfo.create({
             companyName,
             businessNumber,
