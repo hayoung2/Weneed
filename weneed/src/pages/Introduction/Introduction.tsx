@@ -2,7 +2,6 @@ import { useState } from "react";
 import styles from "@/pages/Introduction/Introduction.module.scss";
 import Footer from "@/components/common/Footer/Footer";
 import Map from "@/components/common/Map/Map";
-import GetMockData from "@/components/atoms/MockDate/GetMockData";
 
 export const IntroductionPage = () => {
   const [selectedProvinces, setSelectedProvinces] = useState<string[]>([]); 
@@ -136,7 +135,6 @@ export const IntroductionPage = () => {
       <div className ={styles.cardContainerWrapper}>
         {selectedProvince && selectedCity ? (
             <div className={styles.cardContainer}>
-              <GetMockData />
             </div>
           ): null
         }

@@ -9,9 +9,10 @@ interface CardProps {
   location: string;
   company: string;
   industry: string;
+  style?: React.CSSProperties;
 }
 
-const Card: FC<CardProps> = ({ title, amount, location, company, industry }) => {
+const Card: FC<CardProps> = ({ title, amount, location, company, industry, style }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const toggleFavorite = () => {
@@ -19,7 +20,7 @@ const Card: FC<CardProps> = ({ title, amount, location, company, industry }) => 
   };
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} style={style}>
       <div className={styles.header}>
         <h2 className={styles.title}>{title}</h2>
         <span className={styles.favorite} onClick={toggleFavorite} role="button" aria-label="Toggle favorite">

@@ -1,0 +1,55 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  gap: 3%;
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+.headerWrapper{
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  gap: 1%;
+}
+.toggleContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3%;
+}
+
+.aiText{
+  font-family: 'Regular';
+  font-size: 0.1%;
+}
+
+.searchContainer {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mainbody{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchResult {
+  font-family: "Bold";
+  font-size: 140%;
+  color:#636363;
+  margin-bottom: 2%;
+}
+
+.searchResult span {
+  color: #00B2FF;
+  text-decoration: none;
+}
+
+.pagination{
+  margin-top: 6%;
+}

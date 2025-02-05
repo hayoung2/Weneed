@@ -1,0 +1,42 @@
+.toggleSwitch {
+  position: relative;
+  display: inline-block;
+  width: 5.5%;
+  min-height: 42px;
+}
+
+.toggleSwitch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e9e9e9; 
+  transition: 0.4s;
+  border-radius: 50px; 
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  width: 40%;
+  height: 80%; 
+  left: 10%;
+  top: 50%;
+  transform: translateY(-50%); 
+  background-color: #bbbbbb; 
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.toggleSwitch input:checked + .slider:before {
+  transform: translate(100%, -50%); 
+  background-color: #00b2ff; 
+}
