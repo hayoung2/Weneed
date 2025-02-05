@@ -14,4 +14,5 @@ export const RouterPath = {
   MEETINGNOTEEDIT:'/meetingEdit',
   COMPANYINFO:'/companyInfo',
   UNIQUENUMBER:'/uniqueNumber',
+  TRANSACTIONDETAIL:'/transactionDetail'
 }
