@@ -1,0 +1,40 @@
+.container {
+    width: 60%;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .formTitle {
+    font-size: 2vw;
+    font-family: "bold";
+    padding-bottom: 1vw;
+  }
+  
+  .formSubtitle {
+    font-size: 1vw;
+    font-family: "medium";
+    color: #757575;
+    margin-bottom: 2vw;
+  }
+  
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    align-items: center;
+  }
+  
+  .textarea {
+    width: 100%;
+    height: 10vw;
+    border-radius: 4px;
+    font-size: 0.9vw;
+    padding: 1%;
+    border: 1px solid var(--sub-color);
+    resize: none;
+    &:focus {
+      border-color: var(--point-color);
+      outline: none;
+    }
+  }
+  
