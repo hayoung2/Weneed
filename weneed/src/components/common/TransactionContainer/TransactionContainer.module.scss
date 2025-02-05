@@ -1,0 +1,35 @@
+.container {
+    border: 1px solid #CBEFFF; 
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 80px;
+  }
+  
+  .title {
+    font-size: 16px;
+    font-family: "bold";
+    text-align: left; 
+  }
+  
+  .text2 {
+    font-size: 14px;
+    text-align: right;
+    font-family: "medium";
+  }
+  
+  .textGroup {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .text3 {
+    font-size: 14px;
+    color: #BBBBBB;
+  }
+  
