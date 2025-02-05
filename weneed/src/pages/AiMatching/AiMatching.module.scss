@@ -1,0 +1,89 @@
+.headerWrapper {
+  background-color: #00B2FF;
+  width: 100%;
+  height: 12vh; 
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+.headerText{
+  font-family: 'Bold';
+  color: #ffffff;
+}
+
+.mainBody {
+  background-color: #F3F5F8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5%;
+}
+
+.title {
+  font-family: "Bold";
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+}
+
+.highlight {
+  color: #00B2FF;
+  font-weight: bold;
+}
+
+
+.description {
+  font-family: "Regular";
+  font-size: 14px;
+  color:#757575;
+  margin-top: 1%;
+}
+
+.recommendationList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.recommendationItem {
+  width: 100%;
+  height: 50px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  width: 100%;
+  margin-top:3%;
+  padding-bottom: 5%;
+}
+
+.searchContainer {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  gap: 5%;
+}
+
+.infoText{
+  font-family: "Regular";
+  font-size:1%;
+  color: #828282;
+  margin-bottom: 1%;
+}
+
+

@@ -6,5 +6,8 @@ export const RouterPath = {
   SIGNUP:'/signup',
   INTRODUCTION:'/introduction',
   MEETINGNOTE:'/meeting',
-  SEARCH:'/search'
+  SEARCH:'/search',
+  LISTPAGE: '/list',
+  AIMATCHING: '/aimatching',
+  AIMATCHINGSEARCH: 'aimatchings'
 }

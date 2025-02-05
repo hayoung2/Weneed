@@ -6,6 +6,7 @@ interface SearchBarProps {
   placeholder?: string
   onChange: (value: string) => void
   onSubmit?: (event: React.MouseEvent<HTMLImageElement> | React.KeyboardEvent<HTMLInputElement>) => void
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 function SearchBar({ value, placeholder, onChange, onSubmit }: SearchBarProps) {
