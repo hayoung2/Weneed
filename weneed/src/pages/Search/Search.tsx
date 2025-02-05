@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Footer from '@/components/common/Footer/Footer';
 import Header from '@/components/common/Header/Header';
 import styles from '@/pages/Search/Search.module.scss';
@@ -9,6 +10,27 @@ import searchIcon from '@/assets/icons/search.svg';
 const Search: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isAiMatch, setIsAiMatch] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    if (isAiMatch) {
+      if (searchTerm.trim() === '') {
+        navigate('/aimatching');
+      } else {
+        navigate(`/aimatchings?search=${encodeURIComponent(searchTerm)}`);
+      }
+    } else {
+      if (searchTerm.trim() !== '') {
+        navigate(`/list?search=${encodeURIComponent(searchTerm)}&aiMatch=false`);
+      }
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   return (
     <div>
@@ -32,14 +54,14 @@ const Search: React.FC = () => {
             : "AI 매칭 없이 검색이 진행돼요!"}
         </p>
 
-
         <div className={styles.searchContainer}>
           <SearchBar
             value={searchTerm}
             onChange={setSearchTerm}
             placeholder="원하는 자원을 검색해보세요."
+            onKeyDown={handleKeyPress}
           />
-          <button className={styles.searchButton}>
+          <button className={styles.searchButton} onClick={handleSearch}>
             <img 
               src={isAiMatch ? chartIcon : searchIcon} 
               alt="검색 버튼 아이콘" 
