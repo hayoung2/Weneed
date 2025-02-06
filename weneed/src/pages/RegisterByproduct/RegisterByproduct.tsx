@@ -7,7 +7,10 @@ import Footer from "@/components/common/Footer/Footer";
 import FormButton from "@/components/common/FormButton/FormButton";
 
 const RegisterByproduct: React.FC = () => {
-  const [formData, setFormData] = useState({ byproductName: "" });
+  const [formData, setFormData] = useState({ 
+    byproductName: "", 
+    byproductAmount: "" 
+  });
   const [selectedUnit, setSelectedUnit] = useState("");
 
   const handleChange = (key: string, value: string) => {
@@ -29,7 +32,12 @@ const RegisterByproduct: React.FC = () => {
             value={formData.byproductName}
             onChange={(e) => handleChange("byproductName", e.target.value)}
           />
-       
+         <InputBox
+            type="text"
+            placeholder="부산물량(단위 없이 입력해주세요.)"
+            value={formData.byproductAmount}
+            onChange={(e) => handleChange("byproductName", e.target.value)}
+          />
           <UnitBigDropdown 
           value={selectedUnit} onChange={setSelectedUnit} />
           <textarea

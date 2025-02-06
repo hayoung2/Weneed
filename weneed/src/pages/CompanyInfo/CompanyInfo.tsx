@@ -42,8 +42,15 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
     additionalInfo: "",
   });
 
-  
+  const [resourceformData, setByProductFormData] = useState({
+    resourceName: "",
+    resourceAmount: "",
+  });
 
+  const [byProductformData, setResourceFormData] = useState({
+    byproductName: "",
+    byproductAmount: "",
+  });
 
   useEffect(() => {
     setFormData((prev) => ({
@@ -193,8 +200,19 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
                 <InputBox
                   type="text"
                   placeholder="부산물 자원 이름"
-                  value={formData.companyName}
-                  onChange={(e) => handleChange("companyName", e.target.value)}
+                  value={byProductformData.byproductName}
+                  onChange={(e) =>
+                    handleChange("byproductName", e.target.value)
+                  }
+                />
+
+                <InputBox
+                  type="text"
+                  placeholder="부산물량(단위 없이 입력해주세요.)"
+                  value={byProductformData.byproductAmount}
+                  onChange={(e) =>
+                    handleChange("byproductAmount", e.target.value)
+                  }
                 />
                 <UnitBigDropdown
                   value={selectedUnit}
@@ -211,13 +229,24 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
           {currentStep === 3 && (
             <>
               <h2 className={styles.formTitle}>필요한 자원 입력하기</h2>
-              <p className={styles.formSubtitle}>회사가 필요로 하는 자원을 입력해주세요.</p>
+              <p className={styles.formSubtitle}>
+                회사가 필요로 하는 자원을 입력해주세요.
+              </p>
               <div className={styles.inputGroup}>
                 <InputBox
                   type="text"
-                  placeholder="부산물 자원 이름"
-                  value={formData.companyName}
-                  onChange={(e) => handleChange("companyName", e.target.value)}
+                  placeholder="자원 이름"
+                  value={resourceformData.resourceName}
+                  onChange={(e) => handleChange("resourceName", e.target.value)}
+                />
+
+                <InputBox
+                  type="text"
+                  placeholder="부산물량(단위 없이 입력해주세요.)"
+                  value={resourceformData.resourceAmount}
+                  onChange={(e) =>
+                    handleChange("resourceAmount", e.target.value)
+                  }
                 />
                 <UnitBigDropdown
                   value={selectedUnit}

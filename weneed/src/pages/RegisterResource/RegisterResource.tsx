@@ -7,7 +7,10 @@ import Footer from "@/components/common/Footer/Footer";
 import EditButton from "@/components/common/EditButton/EditButton";
 
 const RegisterResource: React.FC = () => {
-  const [formData, setFormData] = useState({ byproductName: "" });
+    const [formData, setFormData] = useState({ 
+      resourceName: "", 
+      resourceAmount: "" 
+    });
   const [selectedUnit, setSelectedUnit] = useState("");
 
   const handleChange = (key: string, value: string) => {
@@ -26,11 +29,17 @@ const RegisterResource: React.FC = () => {
           <InputBox
             type="text"
             placeholder="자원 이름"
-            value={formData.byproductName}
+            value={formData.resourceName}
             onChange={(e) => handleChange("byproductName", e.target.value)}
           />
        
-          <UnitBigDropdown   className={styles.customDropdown} 
+       <InputBox
+            type="text"
+            placeholder="부산물량(단위 없이 입력해주세요.)"
+            value={formData.resourceAmount}
+            onChange={(e) => handleChange("byproductName", e.target.value)}
+          />
+          <UnitBigDropdown 
           value={selectedUnit} onChange={setSelectedUnit} />
         </div>
         <p className={styles.bottomText}>
