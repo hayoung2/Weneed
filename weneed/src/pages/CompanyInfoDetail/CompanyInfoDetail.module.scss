@@ -1,0 +1,104 @@
+.container {
+    width: 65%;
+    margin: auto;
+    padding: 3% 0;
+    
+}
+
+.content {
+    width: 60%;
+    margin: auto;
+}
+
+.title {
+    font-size: 2vw;
+    font-family: "bold";
+}
+
+.sectionTitle {
+    font-size: 1.5vw;
+    font-family: "semi-bold";
+    margin-top: 2vw;
+    margin-bottom: 1.5vw;
+    color: #636363;
+}
+
+
+
+.row {
+    display: flex;
+    width: 48%;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1.1vw;
+    padding-top: 0.2vw;
+}
+.labelLong {
+    width: 11vw;
+    font-family: "medium";
+    font-family: 0.8vw;
+    color: #bbbbbb;
+}
+
+.label {
+    width: 8vw;
+    font-family: "medium";
+    font-family: 0.8vw;
+    color: #bbbbbb;
+}
+
+.value {
+    flex-grow: 1;
+    font-family: 0.8vw;
+    font-family: "medium";
+    color: #4a4a4a;
+}
+
+
+
+.transactions {
+    display: flex;
+    justify-content: space-between;
+    gap: 1vw;
+    margin-bottom: 2vw;
+    margin-top: 1vw;
+}
+
+.textareaContainer {
+    margin-top: 2vw;
+    padding-left: 1vw;
+    background: #ffffff;
+    box-shadow: 0 0 4px #CBEFFF; 
+    border: 1px solid #CBEFFF;
+    border-radius: 10px; transition: border 0.2s, box-shadow 0.2s;
+}
+
+.textareaContainer p {
+    font-size: 1vw;
+    font-family: "bold";
+    color: #636363;
+    margin-bottom: 0.8vw;
+}
+
+.textarea {
+    width: 95%;
+    height: 8vw;
+    border: none;
+    padding-bottom: 1vw;
+    outline: none;
+    font-size: 1vw;
+    font-family: "medium";
+    resize: none;
+}
+
+
+.buttonWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 3vw;
+    margin-bottom: 5vw;
+}
+
+.tradeButton {
+    font-size: 1vw;
+}
