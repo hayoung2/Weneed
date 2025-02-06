@@ -15,6 +15,7 @@ import UniqueNumberPage from "@/pages/UniqueNumber/UniqueNumberPage";
 import TransactionDetail from '@/pages/TransactionDetail/TransactionDetail'
 import RegisterByproduct from '@/pages/RegisterByproduct/RegisterByproduct'
 import RegisterResource from '@/pages/RegisterResource/RegisterResource'
+import CompanyInfoDetail from '@/pages/CompanyInfoDetail/CompanyInfoDetail'
 
 
 const router = createBrowserRouter([
@@ -52,7 +53,7 @@ const router = createBrowserRouter([
   { path: RouterPath.TRANSACTIONDETAIL, element: <TransactionDetail />},
   { path: RouterPath.REGISTERRESOURCE, element: <RegisterResource />},
   { path: RouterPath.REGISTERBYPRODUCT, element: <RegisterByproduct />},
-
+  { path: RouterPath.COMPANYINFODETAIL, element: <CompanyInfoDetail />},
 ]);
 
 export const Routes = () => {
