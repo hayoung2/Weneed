@@ -7,8 +7,7 @@ import { useState, useEffect } from "react";
 import RecommendationItem from "@/components/atoms/RecommendationList/RecommendationList";
 
 interface Recommendation {
-  id: number;
-  icon: string;
+  index: number;
   title: string;
   company: string;
   location: string;
@@ -28,9 +27,11 @@ const AiMatching: React.FC<AiMatchingProps> = ({ middleContent }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setRecommendations([
-        { id: 1, icon: "🥇", title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false },
-        { id: 2, icon: "⚫", title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: true },
-        { id: 3, icon: "🥉", title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false }
+        { index: 1, title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false },
+        { index: 2,  title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: true },
+        { index: 3,  title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false },
+        { index: 4, title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false },
+        { index: 5, title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false },
       ]);
       setIsLoading(false);
     }, 2000);
@@ -44,7 +45,15 @@ const AiMatching: React.FC<AiMatchingProps> = ({ middleContent }) => {
       <div className={styles.container}>
         <div className={styles.headerWrapper}>
           <div className={styles.headerText}>
-            {isLoading ? "AI 분석중..." : "AI 분석완료!"}
+          {isLoading ? (
+            "AI 분석중..."
+          ) : (
+            <>
+              
+              AI 분석완료!
+            </>
+          )}
+
           </div>
         </div>
 
@@ -63,7 +72,7 @@ const AiMatching: React.FC<AiMatchingProps> = ({ middleContent }) => {
               ))
             ) : (
               recommendations.map((item) => (
-                <RecommendationItem key={item.id} {...item} />
+                <RecommendationItem key={item.index} {...item} />
               ))
             )}
           </div>

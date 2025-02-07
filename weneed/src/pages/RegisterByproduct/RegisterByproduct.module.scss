@@ -1,0 +1,59 @@
+.container {
+  width: 28.5vw;
+  margin: auto;
+  text-align: center;
+}
+
+.formTitle {
+  font-size: 2vw;
+  padding-top: 5vw;
+  font-family: "bold";
+  padding-bottom: 1vw;
+}
+
+.formSubtitle {
+  font-size: 1vw;
+  font-family: "medium";
+  color: #757575;
+  margin-bottom: 2.5vw;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    align-items: center;
+    width: 100%;
+  }
+  
+
+  
+.textarea {
+  width: 100%;
+  max-width: 30vw;
+  height: 17vw;
+  border-radius: 4px;
+  font-size: 0.9vw;
+  padding: 1vw 1vw;
+  font-family: "bold";
+  border: 1px solid var(--sub-color);
+  resize: none;
+  &:focus {
+    border-color: var(--point-color);
+    outline: none;
+  }
+}
+
+.bottomText {
+  color: #828282;
+  font-family: "medium";
+  font-size: 0.9vw;
+  margin-top: 2.2vw;
+    padding-bottom: 1vw;
+}
+
+.formButton {
+  width: 100%;
+  max-width: 30vw;
+  margin-bottom: 8vw;
+}

@@ -12,6 +12,11 @@ import AiMatching from '@/pages/AiMatching/AiMatching'
 import AiMatchingS from '@/pages/AiMatchingS/AiMatchingS'
 import CompanyInfoPage from "@/pages/CompanyInfo/CompanyInfoPage";
 import UniqueNumberPage from "@/pages/UniqueNumber/UniqueNumberPage";
+import TransactionDetail from '@/pages/TransactionDetail/TransactionDetail'
+import RegisterByproduct from '@/pages/RegisterByproduct/RegisterByproduct'
+import RegisterResource from '@/pages/RegisterResource/RegisterResource'
+import CompanyInfoDetail from '@/pages/CompanyInfoDetail/CompanyInfoDetail'
+
 
 const router = createBrowserRouter([
   { path: RouterPath.HOME, element: <HomePage /> },
@@ -45,7 +50,10 @@ const router = createBrowserRouter([
     path: `${RouterPath.UNIQUENUMBER}/:companyName/:businessNumber/:representative/:uniqueNumber`,
     element: <UniqueNumberPage />,
   },
-
+  { path: RouterPath.TRANSACTIONDETAIL, element: <TransactionDetail />},
+  { path: RouterPath.REGISTERRESOURCE, element: <RegisterResource />},
+  { path: RouterPath.REGISTERBYPRODUCT, element: <RegisterByproduct />},
+  { path: RouterPath.COMPANYINFODETAIL, element: <CompanyInfoDetail />},
 ]);
 
 export const Routes = () => {
