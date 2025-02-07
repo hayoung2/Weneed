@@ -34,8 +34,8 @@ const User = sequelize.define('User', {
     uniqueId: { type: DataTypes.STRING, unique: true }
 });
 
-// 회사 정보 모델 정의
-const CompanyInfo = sequelize.define('CompanyInfo', {
+// 회사 정보 모델 정의 (테이블 이름을 CompanyInfos로 변경)
+const CompanyInfo = sequelize.define('CompanyInfos', {
     companyName: { type: DataTypes.STRING, allowNull: false },
     businessNumber: { type: DataTypes.STRING, allowNull: false },
     representativeName: { type: DataTypes.STRING, allowNull: false },
@@ -55,7 +55,7 @@ sequelize.sync({ force: false })
 
 // 회원가입 라우트
 app.post('/signup', async (req, res) => {
-    const { userType, companyName, representativeName, name, businessNumber, email, password } = req.body;
+    const { userType, companyName, representativeName, name, businessNumber, email, password, industry, mainProducts, revenue, contactNumber, faxNumber, companyAddress, websiteLink } = req.body;
 
     const uniqueId = uuidv4();
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -71,6 +71,22 @@ app.post('/signup', async (req, res) => {
             password: hashedPassword,
             uniqueId
         });
+
+        // 회사 정보 등록
+        if (userType === '기업') {
+            await CompanyInfo.create({
+                companyName,
+                businessNumber,
+                representativeName,
+                industryType: industry,
+                mainProducts,
+                revenue,
+                contactNumber,
+                faxNumber,
+                companyAddress,
+                websiteLink,
+            });
+        }
 
         res.status(201).json({ uniqueId: newUser.uniqueId, companyName, businessNumber, representativeName });
     } catch (error) {
@@ -100,7 +116,9 @@ app.post('/login', async (req, res) => {
 
 // 회사 정보 저장 API
 app.post('/api/company-info', async (req, res) => {
-    const { companyName, businessNumber, representative, industry, mainProducts } = req.body;
+    console.log('Received company info:', req.body); // 요청 본문 로그 추가
+
+    const { companyName, businessNumber, representative, industry, mainProducts, revenue, contactNumber, faxNumber, companyAddress, websiteLink } = req.body;
 
     try {
         const companyInfo = await CompanyInfo.create({
@@ -109,12 +127,17 @@ app.post('/api/company-info', async (req, res) => {
             representativeName: representative,
             industryType: industry,
             mainProducts,
+            revenue,
+            contactNumber,
+            faxNumber,
+            companyAddress,
+            websiteLink,
         });
 
         res.status(201).json({ message: '회사 정보가 저장되었습니다.', companyInfo });
     } catch (error) {
-        console.error('회사 정보 저장 오류:', error);
-        res.status(500).send('서버 오류');
+        console.error('회사 정보 저장 오류:', error); // 오류 로그
+        res.status(500).json({ error: '서버 오류' }); // JSON 형식으로 응답
     }
 });
 
