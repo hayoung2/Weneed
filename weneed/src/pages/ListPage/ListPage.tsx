@@ -6,16 +6,19 @@ import Header from '@/components/common/Header/Header';
 import SearchButton from '@/components/atoms/SearchButton/SearchButton';
 import Toggle from '@/components/atoms/Toggle/Toggle';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
-import CardList from '@/components/atoms/CardList/CardList';
+import CardList from '@/components/common/CardList/CardList/CardList';
 import Pagination from '@/components/atoms/Pagination/Pagination';
+import DropDown from '@/components/atoms/DropDown/DropDown'
 
 const mockData = Array.from({ length: 48 }, (_, index) => ({
   title: `메추리알 껍데기 ${index + 1}`,
   amount: "일평균 100kg",
   location: "부산 영도구 남항동",
-  company: "HJ 중공업",
+  price: 300000,
   industry: "제조업"
 }));
+
+const options = ['최신순', '가격 낮은 순', '배송비 낮은 순']
 
 const ITEMS_PER_PAGE = 10;
 
@@ -30,6 +33,8 @@ const ListPage: React.FC = () => {
   const [isAiMatch, setIsAiMatch] = useState<boolean>(aiMatchQuery);
   const [submittedSearch, setSubmittedSearch] = useState<string>(searchQuery);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedSortOption, setSelectedSortOption] = useState<string>(options[0]);
 
   useEffect(() => {
     setSearchTerm(searchQuery);
@@ -57,6 +62,16 @@ const ListPage: React.FC = () => {
     setCurrentPage(page);
   };
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+  
+  const handleOptionClick = (option: string) => {
+    setSelectedSortOption(option);
+    setIsDropdownOpen(false);
+    console.log("정렬 기준 변경:", option);
+  };
+
   return (
     <div>
       <Header />
@@ -74,7 +89,7 @@ const ListPage: React.FC = () => {
               onSubmit={handleSubmit}
               placeholder="원하는 자원을 검색해보세요."
             />
-            <SearchButton isAiMatch={isAiMatch} />
+            <SearchButton isAiMatch={isAiMatch} onClick={handleSubmit}/>
           </div>
         </div>
       </div>
@@ -85,7 +100,16 @@ const ListPage: React.FC = () => {
             <span>"{submittedSearch}"</span>에 대한 검색결과
           </div>
         )}
-
+        <div className={styles.dropdownWrapper}>
+          <DropDown
+            isOpen={isDropdownOpen}
+            selected={selectedSortOption}
+            options={options}
+            toggleDropdown={toggleDropdown}
+            handleOptionClick={handleOptionClick}
+            className={styles.customDropdown}
+          />
+        </div>
         <div className={styles.listup}>
           {filteredItems.length > 0 ? (
             <CardList cards={currentItems} />

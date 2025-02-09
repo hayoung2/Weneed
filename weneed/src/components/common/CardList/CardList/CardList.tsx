@@ -1,12 +1,12 @@
-import Card from "@/components/common/Card/Card";
-import styles from "@/components/atoms/CardList/CardList.module.scss"; 
+import Card from "@/components/common/CardList/Card/Card";
+import styles from "@/components/common/CardList/CardList/CardList.module.scss"; 
 
 interface CardListProps {
   cards: {
     title: string;
     amount: string;
     location: string;
-    company: string;
+    price: number;
     industry: string;
   }[];
 }

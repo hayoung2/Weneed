@@ -82,35 +82,7 @@
     gap: 1.5%;
     margin: 0 auto;
   }
-  
- 
-  .searchButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.1%;
-    width: 120px; 
-    padding: 10px 16px;
-    font-size: 1vw;
-    font-family: "bold";
-    background-color: var(--point-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-  
-  .searchButton p {
-    font-family: 'bold';
-  }
 
-  .searchIcon {
-    width: 1.3vw;
-    height: 1.3vw;
-    margin-top: 1%;
-    margin-right: 3%;
-  }
   
   .aiDescription {
     font-size: 1vw;

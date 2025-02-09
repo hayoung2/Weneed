@@ -7,12 +7,15 @@
   padding: 10px 16px;
   font-size: 1vw;
   font-family: "bold";
-  background-color: var(--point-color);
-  color: white;
+  background-color: #CBEFFF;
+  color: #00B2FF;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   flex-shrink: 0;
+
+  margin-bottom: 3%;
+  margin-left: 1%;
 }
 
 .searchButton p {
@@ -24,4 +27,13 @@
   height: 1.3vw;
   margin-top: 1%;
   margin-right: 3%;
+}
+
+.aiMatchButton {
+  background-color: #00b2ff;
+  color: #ffffff;
+}
+
+.transitionEffect {
+  transition: background-color 0.2s ease-in-out, color 0.1s ease-in-out;
 }
