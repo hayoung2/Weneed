@@ -27,8 +27,6 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
                                                          }) => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(step);
-  const [selectedUnit, setSelectedUnit] = useState<string>("단위");
-
   const [formData, setFormData] = useState({
     companyName: "",
     businessNumber: "",
@@ -40,7 +38,13 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
     faxNumber: "",
     companyAddress: "",
     websiteLink: "",
-    byproducts: "",
+    availableByproductName: "",
+    availableByproductAmount: "",
+    availableByproductUnit: "",
+    availableByproductAnalysis: "",
+    neededByproductName: "",
+    neededByproductAmount: "",
+    neededByproductUnit: "",
   });
 
   useEffect(() => {
@@ -61,13 +65,12 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
       setCurrentStep(currentStep + 1);
       window.scrollTo(0, 0);
     } else {
-      // 마지막 단계에서 입력된 데이터 제출
       submitCompanyInfo();
     }
   };
 
   const submitCompanyInfo = async () => {
-    console.log('Submitting company info:', formData); // 전송할 데이터 로그 추가
+    console.log('Submitting company info:', formData); // 요청할 데이터 로그 추가
     try {
       const response = await fetch('http://localhost:5000/api/company-info', {
         method: 'POST',
@@ -79,16 +82,18 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data.message); // 성공 메시지 확인
-        navigate(`/companyInfo/${formData.companyName}/${formData.businessNumber}/${formData.representative}`); // 성공적으로 저장된 후 페이지 이동
+        console.log(data.message);
+        alert("저장 완료"); // 데이터 저장 성공 시 알림창 표시
+        navigate(`/companyInfo/${formData.companyName}/${formData.businessNumber}/${formData.representative}`);
       } else {
-        const errorText = await response.text(); // 에러를 텍스트로 읽기
-        console.error('Error:', errorText); // 텍스트로 된 에러 출력
+        const errorText = await response.text();
+        console.error('Error:', errorText);
       }
     } catch (error) {
       console.error('서버 오류:', error);
     }
   };
+
 
 
   return (
@@ -217,16 +222,24 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
                     <InputBox
                         type="text"
                         placeholder="부산물 자원 이름"
-                        value={formData.byproducts} // 수정된 부분
-                        onChange={(e) => handleChange("byproducts", e.target.value)} // 수정된 부분
+                        value={formData.availableByproductName}  // 변경된 부분
+                        onChange={(e) => handleChange("availableByproductName", e.target.value)}  // 변경된 부분
+                    />
+                    <InputBox
+                        type="text"
+                        placeholder="부산물량(단위 없이 입력해주세요.)"
+                        value={formData.availableByproductAmount}  // 변경된 부분
+                        onChange={(e) => handleChange("availableByproductAmount", e.target.value)}  // 변경된 부분
                     />
                     <UnitBigDropdown
-                        value={selectedUnit}
-                        onChange={setSelectedUnit}
+                        value={formData.availableByproductUnit}  // 변경된 부분
+                        onChange={(unit) => handleChange("availableByproductUnit", unit)}  // 변경된 부분
                     />
                     <textarea
                         className={styles.textarea}
-                        placeholder="부산물 성분 분석(자세하게 적을수록 정확한 매칭이 가능합니다.)"
+                        placeholder="부산물 성분 분석"
+                        value={formData.availableByproductAnalysis}  // 변경된 부분
+                        onChange={(e) => handleChange("availableByproductAnalysis", e.target.value)}  // 변경된 부분
                     />
                   </div>
                 </>
@@ -240,12 +253,18 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
                     <InputBox
                         type="text"
                         placeholder="부산물 자원 이름"
-                        value={formData.byproducts} // 수정된 부분
-                        onChange={(e) => handleChange("byproducts", e.target.value)} // 수정된 부분
+                        value={formData.neededByproductName}  // 변경된 부분
+                        onChange={(e) => handleChange("neededByproductName", e.target.value)}  // 변경된 부분
+                    />
+                    <InputBox
+                        type="text"
+                        placeholder="부산물량(단위 없이 입력해주세요.)"
+                        value={formData.neededByproductAmount}  // 변경된 부분
+                        onChange={(e) => handleChange("neededByproductAmount", e.target.value)}  // 변경된 부분
                     />
                     <UnitBigDropdown
-                        value={selectedUnit}
-                        onChange={setSelectedUnit}
+                        value={formData.neededByproductUnit}  // 변경된 부분
+                        onChange={(unit) => handleChange("neededByproductUnit", unit)}  // 변경된 부분
                     />
                   </div>
                 </>
