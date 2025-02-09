@@ -6,24 +6,27 @@ interface CardProps {
   title: string;
   amount: string;
   location: string;
-  company: string;
+  price: number;
   style?: React.CSSProperties;
 }
+const formatPrice = (price: number) => {
+  return `${price.toLocaleString()} 원`;
+};
 
-const Card: FC<CardProps> = ({ title, amount, location, company, style }) => {
+const Card: FC<CardProps> = ({ title, amount, location, price, style }) => {
   return (
     <div className={styles.card} style={style}>
       <div className={styles.header}>
         <h2 className={styles.title}>{title}</h2>
+        <img src={MeetIcon} alt="meeticon" className={styles.MeetIcon} />
       </div>
+      
       <p className={styles.amount}>{amount}</p>
+
       <div className={styles.infoWrapper}>
-        <p className={styles.location}>{location}</p>
         <div className={styles.bottomWrapper}>
-          <p className={styles.company}><strong>{company}</strong></p>
-          <div className={styles.industryContainer}>
-            <img src={MeetIcon} alt="meeticon" className={styles.MeetIcon} />
-          </div>
+          <p className={styles.location}>{location}</p>
+          <p className={styles.price}><strong>{formatPrice(price)}</strong></p>
         </div>
       </div>
     </div>
