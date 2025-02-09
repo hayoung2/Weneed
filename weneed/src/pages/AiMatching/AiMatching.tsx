@@ -39,6 +39,13 @@ const AiMatching: React.FC<AiMatchingProps> = ({ middleContent }) => {
     return () => clearTimeout(timer);
   }, []);
 
+  const handleSearch = () => {
+    if (searchValue.trim() !== '') {
+      console.log("검색 실행:", searchValue);
+    }
+  };
+  
+
   return (
     <div>
       <Header />
@@ -88,7 +95,7 @@ const AiMatching: React.FC<AiMatchingProps> = ({ middleContent }) => {
               onChange={(value) => setSearchValue(value)}
               onSubmit={() => console.log("검색 실행:", searchValue)}
             />
-            <SearchButton isAiMatch={false} />
+            <SearchButton isAiMatch={false} alwaysSearchLabel={true} onClick={handleSearch} />
           </div>
         </div>
       </div>
