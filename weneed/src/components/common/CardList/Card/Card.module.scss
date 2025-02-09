@@ -61,7 +61,13 @@
   color:#636363;
 }
 
-.price{
-  font-family: 'bold';
-  color: #4a4a4a;
+.priceValue {
+  font-family: "bold";
+  color: #00b2ff; 
+}
+
+.priceUnit {
+  font-family: "semi-bold";
+  font-size: 90%;
+  color: #828282;
 }

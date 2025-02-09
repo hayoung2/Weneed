@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   width: 130%;
-  background-color: #f8fbff;
+  background-color:#ffffff;
   border: 1px solid #CBEFFF;
   border-radius: 10px;
   padding: 2% 3%;
@@ -19,7 +19,7 @@
   display: flex;
   align-items: center;
   flex-grow: 1;
-  gap: 1.5%;
+  gap: 3%;
 }
 
 .icon {
@@ -36,18 +36,19 @@
 .middleSection {
   display: flex;
   flex-direction: column;
-  margin-left: 5%;
-  color:#828282;
+  margin: 0 5%;
   font-size: 12px;
 }
 
 .company {
   font-family: "Bold";
   margin-bottom: 3%;
+  color: #636363;
 }
 
 .location {
   font-family: "Regular";
+  color:#828282;
 }
 
 .amountContainer {
@@ -77,20 +78,33 @@
 }
 
 .amountValue {
-  font-size: 90%;
-  font-family: "Bold";
+  font-size: 80%;
+  font-family: "semi-bold";
   color:#4A4A4A;
 }
 
 .rightSection {
+  font-family: "";
   display: flex;
   align-items: center;
+  gap: 3%;
+}
+.noWrap { white-space: nowrap; } 
+.priceValue {
+  font-family: "bold";
+  color: #00b2ff; 
+}
+
+.priceUnit {
+  font-family: "semi-bold";
+  font-size: 90%;
+  color: #828282;
 }
 
 .favorite {
   font-size: 20px;
   cursor: pointer;
-  margin-left: 15px;
+  margin-left: 3%;
   transition: color 0.2s ease-in-out;
   cursor: pointer;
 

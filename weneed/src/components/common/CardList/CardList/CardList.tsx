@@ -8,6 +8,7 @@ interface CardListProps {
     location: string;
     price: number;
     industry: string;
+    company: string;
   }[];
 }
 
