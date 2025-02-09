@@ -74,7 +74,7 @@ const ListPage: React.FC = () => {
               onSubmit={handleSubmit}
               placeholder="원하는 자원을 검색해보세요."
             />
-            <SearchButton isAiMatch={isAiMatch} />
+            <SearchButton isAiMatch={isAiMatch} onClick={handleSubmit}/>
           </div>
         </div>
       </div>

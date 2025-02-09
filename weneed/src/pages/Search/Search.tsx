@@ -4,8 +4,8 @@ import Footer from '@/components/common/Footer/Footer';
 import Header from '@/components/common/Header/Header';
 import styles from '@/pages/Search/Search.module.scss';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
-import chartIcon from '@/assets/icons/chart.svg';
-import searchIcon from '@/assets/icons/search.svg';
+import SearchButton from '@/components/atoms/SearchButton/SearchButton';
+import Toggle from '@/components/atoms/Toggle/Toggle';
 
 const Search: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -32,20 +32,17 @@ const Search: React.FC = () => {
     }
   };
 
+  const handleToggleChange = () => {
+    setIsAiMatch((prev) => !prev);
+  };
+
   return (
     <div>
       <Header />
       <div className={styles.container}>
         <div className={styles.toggleContainer}>
           <p className={styles.aiText}>AI 매칭 {isAiMatch ? "ON" : "OFF"}</p>
-          <label className={styles.toggleSwitch}>
-            <input 
-              type="checkbox" 
-              checked={isAiMatch} 
-              onChange={() => setIsAiMatch(!isAiMatch)} 
-            />
-            <span className={styles.slider}></span>
-          </label>
+          <Toggle checked={isAiMatch} onChange={handleToggleChange} />
         </div>
 
         <p className={styles.aiDescription}>
@@ -61,14 +58,7 @@ const Search: React.FC = () => {
             placeholder="원하는 자원을 검색해보세요."
             onKeyDown={handleKeyPress}
           />
-          <button className={styles.searchButton} onClick={handleSearch}>
-            <img 
-              src={isAiMatch ? chartIcon : searchIcon} 
-              alt="검색 버튼 아이콘" 
-              className={styles.searchIcon} 
-            />
-            <p>{isAiMatch ? "AI 매칭" : "검색하기"}</p>
-          </button>
+          <SearchButton isAiMatch={isAiMatch} onClick={handleSearch} />
         </div>
       </div>
 
