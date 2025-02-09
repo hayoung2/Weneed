@@ -23,7 +23,7 @@ const AiMatchingS = () => {
     title: `메추리알 껍데기 ${index + 1}`,
     amount: "일평균 100kg",
     location: "부산 영도구 남항동",
-    company: "HJ 중공업",
+    price: 300000,
     industry: "제조업"
   }));
 

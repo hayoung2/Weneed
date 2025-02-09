@@ -6,7 +6,7 @@ interface CardListProps {
     title: string;
     amount: string;
     location: string;
-    company: string;
+    price: number;
     industry: string;
   }[];
 }
