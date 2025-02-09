@@ -4,8 +4,6 @@ import AiMatching from '@/pages/AiMatching/AiMatching';
 import CardList from "@/components/common/CardList/CardList/CardList";
 import Pagination from "@/components/atoms/Pagination/Pagination";
 import styles from '@/pages/AiMatchingS/AiMatchingS.module.scss';
-import YellowStar from '@/assets/icons/yellow-star.svg';
-import GrayStar from '@/assets/icons/gray-star.svg';
 
 const AiMatchingS = () => {
   const [currentPage, setCurrentPage] = useState(1);
