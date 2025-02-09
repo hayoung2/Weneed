@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import AiMatching from '@/pages/AiMatching/AiMatching';
-import CardList from "@/components/atoms/CardList/CardList";
+import CardList from "@/components/common/CardList/CardList/CardList";
 import Pagination from "@/components/atoms/Pagination/Pagination";
 import styles from '@/pages/AiMatchingS/AiMatchingS.module.scss';
 import YellowStar from '@/assets/icons/yellow-star.svg';

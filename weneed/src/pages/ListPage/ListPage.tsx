@@ -6,7 +6,7 @@ import Header from '@/components/common/Header/Header';
 import SearchButton from '@/components/atoms/SearchButton/SearchButton';
 import Toggle from '@/components/atoms/Toggle/Toggle';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
-import CardList from '@/components/atoms/CardList/CardList';
+import CardList from '@/components/common/CardList/CardList/CardList';
 import Pagination from '@/components/atoms/Pagination/Pagination';
 
 const mockData = Array.from({ length: 48 }, (_, index) => ({
