@@ -56,6 +56,20 @@
 }
 
 .listup{
-  margin-top: 2%;
+  margin-top: 1%;
   margin-right: 8%;
+}
+
+.dropdownWrapper {
+  display: flex;
+  justify-content: flex-end; 
+  width: 100%; 
+  margin-right: 46%;
+}
+
+.customDropdown{
+  border: 1px solid #00b2ff;
+  border-radius: 25px;
+  color: #00b2ff;
+  position: relative;
 }
