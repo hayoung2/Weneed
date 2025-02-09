@@ -13,6 +13,7 @@ interface Recommendation {
   location: string;
   amount: string;
   favorite: boolean;
+  price: number;
 }
 
 interface AiMatchingProps {
@@ -27,11 +28,11 @@ const AiMatching: React.FC<AiMatchingProps> = ({ middleContent }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setRecommendations([
-        { index: 1, title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false },
-        { index: 2,  title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: true },
-        { index: 3,  title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false },
-        { index: 4, title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false },
-        { index: 5, title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false },
+        { index: 1, title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false, price: 300000 },
+        { index: 2,  title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: true, price: 500000 },
+        { index: 3,  title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false, price: 240000 },
+        { index: 4, title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false, price: 470000},
+        { index: 5, title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false, price: 390000},
       ]);
       setIsLoading(false);
     }, 2000);
@@ -68,9 +69,9 @@ const AiMatching: React.FC<AiMatchingProps> = ({ middleContent }) => {
           <h2 className={styles.title}>
             <span className={styles.highlight}>위니드</span>는 이렇게 추천해요!
           </h2>
-          <p className={styles.description}>
+          <div className={styles.description}>
             AI를 바탕으로 우리 기업에게 필요한 부산물 자원을 추천해줍니다.
-          </p>
+          </div>
 
           <div className={styles.recommendationList}>
             {isLoading ? (
