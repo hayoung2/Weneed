@@ -18,22 +18,30 @@ const Footer: React.FC = () => {
         </div>
       </div>
 
-
       <div className={styles.right}>
+  <div className={styles.supplyAndNeed}>
+    <div>
+      <p className={styles.title}>공급 자원</p>
+      <a href="/registerByproduct">
+        <p className={styles.content}>공급 자원 등록하기</p>
+      </a>
+    </div>
+    <div className={styles.needResource}>
+      <p className={styles.title}>필요 자원</p>
+      <a href="/registerResource">
+        <p className={styles.content}>필요 자원 등록하기</p>
+      </a>
+    </div>
+  </div>
+
         <div>
-          <p className={styles.title}>With 위니드</p>
-          <a href="/introduction"><p className={styles.content}>기업 소개</p></a>
+          <p className={styles.title}>검색 & AI 매칭</p>
+          <a href="/search"><p className={styles.content}>검색하기</p></a>
+          <a href="/search"><p className={styles.content}><span>AI 매칭</span>하기</p></a>
         </div>
         
         <div>
-          <p className={styles.title}>필요 자원</p>
-          <p className={styles.content}>필요 자원 등록하기</p>
-          <p className={styles.content}>탐색하기</p>
-        </div>
-        
-        <div>
-          <p className={styles.title}>공급 자원</p>
-          <p className={styles.content}>공급 자원 등록하기</p>
+          <a href="/introduction"><p className={styles.title}>With 위니트</p></a>
         </div>
       </div>
     </footer>

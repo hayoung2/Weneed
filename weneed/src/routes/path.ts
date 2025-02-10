@@ -18,4 +18,5 @@ export const RouterPath = {
   TRANSACTIONDETAIL:'/transactionDetail',
   REGISTERRESOURCE:'/registerResource',
   REGISTERBYPRODUCT:'/registerByproduct',
+  MYPAGE:'/mypage'
 }
