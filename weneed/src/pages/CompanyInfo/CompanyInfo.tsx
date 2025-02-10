@@ -11,6 +11,7 @@ import UnitBigDropdown from "@/components/common/UnitDropdown/UnitBigDropdown";
 import Footer from "@/components/common/Footer/Footer";
 
 
+import { useAuth } from '@/components/contexts/AuthContext';
 
 interface CompanyInfoPageProps {
   companyName: string;
@@ -51,15 +52,16 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
     neededByproductUnit: "",
     uniqueId:""
   });
-
+  const { user } = useAuth();
   useEffect(() => {
     setFormData((prev) => ({
       ...prev,
       companyName,
       businessNumber,
       representative,
+      uniqueId: user?.uniqueId || '-'
     }));
-  }, [companyName, businessNumber, representative]);
+  }, [companyName, businessNumber, representative,user?.uniqueId]);
 
   const handleChange = (key: string, value: string) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
@@ -77,6 +79,10 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
   const submitCompanyInfo = async () => {
     formData.uniqueId=uniqueId;
     console.log('Submitting company info:', formData); 
+    setFormData((prev) => ({
+      ...prev,
+      uniqueId: user?.uniqueId || '-'
+  }));
     try {
       const response = await fetch('http://localhost:5000/api/company-info', {
         method: 'POST',
@@ -103,6 +109,7 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
 
 
   return (
+    
       <div>
         <Header />
         <div className={styles.container}>
@@ -212,7 +219,10 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
                         type="text"
                         placeholder="홈페이지 링크"
                         value={formData.websiteLink}
-                        onChange={(e) => handleChange("websiteLink", e.target.value)}
+                        onChange={(e) => {
+                          handleChange("websiteLink", e.target.value)
+                          handleChange("uniqueId",user?.uniqueId || '-')
+                        }}
                     />
                      
                   </div>

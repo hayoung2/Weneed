@@ -46,6 +46,7 @@ const CompanyInfo = sequelize.define('CompanyInfos', {
     faxNumber: DataTypes.STRING,
     companyAddress: DataTypes.STRING,
     websiteLink: DataTypes.STRING,
+    uniqueId: { type: DataTypes.STRING, unique: true }
 });
 
 // 공급 가능한 부산물 모델 정의
@@ -54,6 +55,7 @@ const AvailableByproduct = sequelize.define('AvailableByproducts', {
     availableByproductAmount: DataTypes.STRING,
     availableByproductUnit: DataTypes.STRING,
     availableByproductAnalysis: DataTypes.STRING,
+    uniqueId: { type: DataTypes.STRING, unique: true }
 });
 
 // 필요한 부산물 모델 정의
@@ -61,6 +63,7 @@ const NeededByproduct = sequelize.define('NeededByproducts', {
     neededByproductName: DataTypes.STRING,
     neededByproductAmount: DataTypes.STRING,
     neededByproductUnit: DataTypes.STRING,
+    uniqueId: { type: DataTypes.STRING, unique: true }
 });
 
 // 데이터베이스 동기화
@@ -137,6 +140,7 @@ app.post('/api/company-info', async (req, res) => {
         neededByproductName,
         neededByproductAmount,
         neededByproductUnit,
+        uniqueId
     } = req.body;
 
     try {
@@ -152,6 +156,7 @@ app.post('/api/company-info', async (req, res) => {
             faxNumber,
             companyAddress,
             websiteLink,
+            uniqueId
         });
 
         // 2. 공급 가능한 부산물 저장
@@ -160,6 +165,7 @@ app.post('/api/company-info', async (req, res) => {
             availableByproductAmount,
             availableByproductUnit,
             availableByproductAnalysis,
+            uniqueId
         });
 
         // 3. 필요한 부산물 저장
@@ -167,6 +173,7 @@ app.post('/api/company-info', async (req, res) => {
             neededByproductName,
             neededByproductAmount,
             neededByproductUnit,
+            uniqueId
         });
 
         res.status(201).json({ message: '회사 정보가 저장되었습니다.', companyInfo, availableByproduct, neededByproduct });
@@ -175,6 +182,7 @@ app.post('/api/company-info', async (req, res) => {
         res.status(500).json({ error: '서버 오류' });
     }
 });
+
 
 // 서버 시작
 const PORT = process.env.PORT || 5000;
