@@ -25,6 +25,7 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
                                                            companyName,
                                                            businessNumber,
                                                            representative,
+                                                           uniqueId,
                                                            step,
                                                            onSkip,
                                                          }) => {
@@ -74,7 +75,7 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
   };
 
   const submitCompanyInfo = async () => {
-
+    formData.uniqueId=uniqueId;
     console.log('Submitting company info:', formData); 
     try {
       const response = await fetch('http://localhost:5000/api/company-info', {
@@ -237,12 +238,7 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
                         value={formData.availableByproductAmount}  // 변경된 부분
                         onChange={(e) => handleChange("availableByproductAmount", e.target.value)}  // 변경된 부분
                     />
-                      <InputBox
-                        type="text"
-                        placeholder="부산물량(단위 없이 입력해주세요.)"
-                        value={user?.uniqueId}  // 변경된 부분
-                        onChange={(e) => handleChange("availableByproductAmount", e.target.value)}  // 변경된 부분
-                    />
+                     
                     <UnitBigDropdown
                         value={formData.availableByproductUnit}  // 변경된 부분
                         onChange={(unit) => handleChange("availableByproductUnit", unit)}  // 변경된 부분
