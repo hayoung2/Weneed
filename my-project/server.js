@@ -46,10 +46,18 @@ const CompanyInfo = sequelize.define('CompanyInfos', {
     faxNumber: DataTypes.STRING,
     companyAddress: DataTypes.STRING,
     websiteLink: DataTypes.STRING,
+});
+
+// 공급 가능한 부산물 모델 정의
+const AvailableByproduct = sequelize.define('AvailableByproducts', {
     availableByproductName: DataTypes.STRING,
     availableByproductAmount: DataTypes.STRING,
     availableByproductUnit: DataTypes.STRING,
     availableByproductAnalysis: DataTypes.STRING,
+});
+
+// 필요한 부산물 모델 정의
+const NeededByproduct = sequelize.define('NeededByproducts', {
     neededByproductName: DataTypes.STRING,
     neededByproductAmount: DataTypes.STRING,
     neededByproductUnit: DataTypes.STRING,
@@ -128,6 +136,7 @@ app.post('/api/company-info', async (req, res) => {
     } = req.body;
 
     try {
+        // 1. 회사 정보 저장
         const companyInfo = await CompanyInfo.create({
             companyName,
             businessNumber,
@@ -139,16 +148,24 @@ app.post('/api/company-info', async (req, res) => {
             faxNumber,
             companyAddress,
             websiteLink,
+        });
+
+        // 2. 공급 가능한 부산물 저장
+        const availableByproduct = await AvailableByproduct.create({
             availableByproductName,
             availableByproductAmount,
             availableByproductUnit,
             availableByproductAnalysis,
+        });
+
+        // 3. 필요한 부산물 저장
+        const neededByproduct = await NeededByproduct.create({
             neededByproductName,
             neededByproductAmount,
             neededByproductUnit,
         });
 
-        res.status(201).json({ message: '회사 정보가 저장되었습니다.', companyInfo });
+        res.status(201).json({ message: '회사 정보가 저장되었습니다.', companyInfo, availableByproduct, neededByproduct });
     } catch (error) {
         console.error('회사 정보 저장 오류:', error);
         res.status(500).json({ error: '서버 오류' });
