@@ -1,0 +1,31 @@
+.myPagePersonal {
+  width: 100%;
+  margin: 0 auto;
+  
+  display: flex;
+  flex-direction: column;
+  padding-left: 16%;
+  padding-top : 3%;
+  padding-bottom : 3%;
+}
+
+.title {
+  font-size: 170%;
+  font-family: 'bold';
+  color: #0B1215;
+  margin-bottom: 1%;
+}
+
+.subtitle {
+  font-size: 90%;
+  font-family: 'regular';
+  color: #4a4a4a;
+  margin-bottom: 5%;
+}
+
+.sectionTitle {
+  font-size: 130%;
+  font-family: 'bold';
+  color: #0B1215;
+  margin-bottom: 1%;
+}

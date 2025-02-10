@@ -1,0 +1,57 @@
+.card {
+  background: white;
+  border-radius: 25px;
+  box-shadow: 0px 0px 4px rgba(0, 178, 255, 0.3);
+  padding: 1.7% 3%;
+  width: 130px;
+  height: 100px;
+  border: 1px solid #CBEFFF;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  &:hover{
+    background-color: #f2f2f2;
+  }
+}
+.location{
+  font-size: 70% !important;
+  font-family: 'regular';
+  color: #828282;
+  margin-bottom: 1%;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10%;
+  .company {
+    font-size: 140%;;
+    font-family: 'bold';
+    color: #0B1215;
+  }
+}
+.favoriteIcon{
+  margin-top: -11%;
+  margin-right: -3%;
+}
+.title {
+  font-size: 100%;
+  font-family: 'bold';
+  color: #636363;
+
+}
+
+.amount {
+  font-size: 12px;
+  font-family: 'regular';
+  color: #636363;
+  margin-top: 5px;
+}
+
+.location {
+  font-size: 10px;
+  font-family: 'regular';
+  color: #828282;
+}
