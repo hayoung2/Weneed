@@ -1,0 +1,44 @@
+.card {
+    background: white;
+    border-radius: 18px;
+    padding-left: 1.5vw;
+    padding-right: 1.5vw;
+    padding-top: 2vw;
+    padding-bottom: 2vw;
+    width: 50%;
+    max-width: 200px;
+    border: 1px solid #E0F2FF;
+    cursor: pointer;
+    &:hover{
+      background-color: #f2f2f2;
+    }
+  }
+  
+  .header {
+    display: flex;
+  }
+  
+  .title {
+    font-size: 120%;;
+    font-family: 'bold';
+    color: #0B1215;
+    margin-bottom: 0.8vw;
+  }
+  
+  
+
+  
+  .amount {
+    font-size: 80%;
+    color: #828282;
+    margin-top: 1%;
+  }
+  
+  .description {
+    font-size: 90%;
+    color: #4a4a4a;
+    margin-top: 0.9vw;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
