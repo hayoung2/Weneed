@@ -42,4 +42,20 @@
 .customDropdown {
     width: 40%;
     max-width: 25vw;
+  }  
+  .textarea {
+    width: 100%;
+    max-width: 30vw;
+    height: 17vw;
+    border-radius: 4px;
+    font-size: 0.9vw;
+    padding: 1vw 1vw;
+    font-family: "bold";
+    border: 1px solid var(--sub-color);
+    resize: none;
+    &:focus {
+      border-color: var(--point-color);
+      outline: none;
+    }
   }
+  

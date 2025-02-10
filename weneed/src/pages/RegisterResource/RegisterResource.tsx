@@ -41,6 +41,10 @@ const RegisterResource: React.FC = () => {
           />
           <UnitBigDropdown 
           value={selectedUnit} onChange={setSelectedUnit} />
+             <textarea
+            className={styles.textarea}
+            placeholder="사용 용도"
+          />
         </div>
         <p className={styles.bottomText}>
           등록한 정보는 마이페이지에서 확인할 수 있어요.

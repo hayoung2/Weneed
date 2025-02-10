@@ -7,9 +7,10 @@ import Footer from "@/components/common/Footer/Footer";
 import FormButton from "@/components/common/FormButton/FormButton";
 
 const RegisterByproduct: React.FC = () => {
-  const [formData, setFormData] = useState({ 
-    byproductName: "", 
-    byproductAmount: "" 
+  const [formData, setFormData] = useState({
+    byproductName: "",
+    byproductAmount: "",
+    byproductPrice: "",
   });
   const [selectedUnit, setSelectedUnit] = useState("");
 
@@ -32,14 +33,20 @@ const RegisterByproduct: React.FC = () => {
             value={formData.byproductName}
             onChange={(e) => handleChange("byproductName", e.target.value)}
           />
-         <InputBox
+          <InputBox
             type="text"
             placeholder="부산물량(단위 없이 입력해주세요.)"
             value={formData.byproductAmount}
             onChange={(e) => handleChange("byproductName", e.target.value)}
           />
-          <UnitBigDropdown 
-          value={selectedUnit} onChange={setSelectedUnit} />
+          <UnitBigDropdown value={selectedUnit} onChange={setSelectedUnit} />
+
+          <InputBox
+            type="text"
+            placeholder="총 판매 가격"
+            value={formData.byproductPrice}
+            onChange={(e) => handleChange("byproductPrice", e.target.value)}
+          />
           <textarea
             className={styles.textarea}
             placeholder="부산물 성분 분석(자세하게 적을수록 정확한 매칭이 가능합니다.)"
