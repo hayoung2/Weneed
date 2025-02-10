@@ -13,8 +13,10 @@ export const RouterPath = {
   MEETINGNOTEVIEW:'/meetingView',
   MEETINGNOTEEDIT:'/meetingEdit',
   COMPANYINFO:'/companyInfo',
+  COMPANYINFODETAIL:'/companyInfoDetail',
   UNIQUENUMBER:'/uniqueNumber',
   TRANSACTIONDETAIL:'/transactionDetail',
   REGISTERRESOURCE:'/registerResource',
   REGISTERBYPRODUCT:'/registerByproduct',
+  MYPAGE:'/mypage'
 }

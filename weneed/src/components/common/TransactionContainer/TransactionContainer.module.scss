@@ -5,6 +5,7 @@
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
+    background-color: white;
     min-height: 100px;
     box-shadow: 0 0 4px #CBEFFF; 
     border: 1px solid #CBEFFF;
@@ -19,7 +20,7 @@
   }
   
   .title {
-    font-size: 0.9vw;
+    font-size: 1vw;
     font-family: "medium";
     text-align: left;
     white-space: pre-line;
@@ -27,7 +28,7 @@
   }
   
   .text2 {
-    font-size: 1.1vw;
+    font-size: 1.2vw;
     text-align: right;
     font-family: "bold";
     white-space: pre-line;
@@ -42,7 +43,7 @@
   }
   
   .text3 {
-    font-size: 14px;
+    font-size: 1.2vw;
     color: #BBBBBB;
   }
   

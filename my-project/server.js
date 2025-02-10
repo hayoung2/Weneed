@@ -14,8 +14,8 @@ app.use(express.json());
 
 // MySQL 연결 설정
 const sequelize = new Sequelize(process.env.MYSQL_DATABASE, process.env.MYSQL_USER, process.env.MYSQL_PASSWORD, {
-    host: process.env.MYSQL_HOST.split(':')[0], // 호스트명
-    port: process.env.MYSQL_HOST.split(':')[1], // 포트
+    host: process.env.MYSQL_HOST.split(':')[0],
+    port: process.env.MYSQL_HOST.split(':')[1],
     dialect: 'mysql',
 });
 
@@ -34,6 +34,27 @@ const User = sequelize.define('User', {
     uniqueId: { type: DataTypes.STRING, unique: true }
 });
 
+// 회사 정보 모델 정의
+const CompanyInfo = sequelize.define('CompanyInfos', {
+    companyName: { type: DataTypes.STRING, allowNull: false },
+    businessNumber: { type: DataTypes.STRING, allowNull: false },
+    representativeName: { type: DataTypes.STRING, allowNull: false },
+    industryType: DataTypes.STRING,
+    mainProducts: DataTypes.STRING,
+    revenue: DataTypes.DECIMAL(15, 2),
+    contactNumber: DataTypes.STRING,
+    faxNumber: DataTypes.STRING,
+    companyAddress: DataTypes.STRING,
+    websiteLink: DataTypes.STRING,
+    availableByproductName: DataTypes.STRING,
+    availableByproductAmount: DataTypes.STRING,
+    availableByproductUnit: DataTypes.STRING,
+    availableByproductAnalysis: DataTypes.STRING,
+    neededByproductName: DataTypes.STRING,
+    neededByproductAmount: DataTypes.STRING,
+    neededByproductUnit: DataTypes.STRING,
+});
+
 // 데이터베이스 동기화
 sequelize.sync({ force: false })
     .then(() => console.log("MySQL Connected"))
@@ -43,7 +64,7 @@ sequelize.sync({ force: false })
 app.post('/signup', async (req, res) => {
     const { userType, companyName, representativeName, name, businessNumber, email, password } = req.body;
 
-    const uniqueId = uuidv4(); // UUID 생성
+    const uniqueId = uuidv4();
     const hashedPassword = await bcrypt.hash(password, 10);
 
     try {
@@ -57,7 +78,8 @@ app.post('/signup', async (req, res) => {
             password: hashedPassword,
             uniqueId
         });
-        res.status(201).json({ uniqueId: newUser.uniqueId });
+
+        res.status(201).json({ uniqueId: newUser.uniqueId, companyName, businessNumber, representativeName });
     } catch (error) {
         console.error("회원가입 오류:", error);
         res.status(400).json({ error: "회원가입 중 오류가 발생했습니다. 다시 시도해 주세요." });
@@ -75,7 +97,62 @@ app.post('/login', async (req, res) => {
     if (!isMatch) return res.status(400).send('Invalid credentials');
 
     const token = jwt.sign({ uniqueId: user.uniqueId }, process.env.JWT_SECRET);
-    res.json({ token });
+    res.json({
+        token,
+        companyName: user.companyName,
+        businessNumber: user.businessNumber,
+        representativeName: user.representativeName
+    });
+});
+
+// 회사 정보 저장 API
+app.post('/api/company-info', async (req, res) => {
+    const {
+        companyName,
+        businessNumber,
+        representative,
+        industry,
+        mainProducts,
+        revenue,
+        contactNumber,
+        faxNumber,
+        companyAddress,
+        websiteLink,
+        availableByproductName,
+        availableByproductAmount,
+        availableByproductUnit,
+        availableByproductAnalysis,
+        neededByproductName,
+        neededByproductAmount,
+        neededByproductUnit,
+    } = req.body;
+
+    try {
+        const companyInfo = await CompanyInfo.create({
+            companyName,
+            businessNumber,
+            representativeName: representative,
+            industryType: industry,
+            mainProducts,
+            revenue,
+            contactNumber,
+            faxNumber,
+            companyAddress,
+            websiteLink,
+            availableByproductName,
+            availableByproductAmount,
+            availableByproductUnit,
+            availableByproductAnalysis,
+            neededByproductName,
+            neededByproductAmount,
+            neededByproductUnit,
+        });
+
+        res.status(201).json({ message: '회사 정보가 저장되었습니다.', companyInfo });
+    } catch (error) {
+        console.error('회사 정보 저장 오류:', error);
+        res.status(500).json({ error: '서버 오류' });
+    }
 });
 
 // 서버 시작

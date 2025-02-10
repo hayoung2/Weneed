@@ -38,3 +38,18 @@
     color: #00b2ff;
 }
 
+.mypageButton {
+    width: 100px;
+    height: 35px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: 'bold';
+    background-color: #00b2ff;
+    cursor: pointer;
+    border: none;
+    color: white;
+    &:hover {
+      background-color: #009adc;
+    }
+  }

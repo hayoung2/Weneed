@@ -11,13 +11,13 @@ const CompanyInfoPage: React.FC = () => {
   if (location.pathname.includes("step3")) step = 3;
 
   return (
-    <CompanyInfo
-      companyName={companyName || ""}
-      businessNumber={businessNumber || ""}
-      representative={representative || ""}
-      step={step}
-      onSkip={() => navigate("/login")}
-    />
+      <CompanyInfo
+          companyName={companyName || ""}
+          businessNumber={businessNumber || ""}
+          representative={representative || ""}
+          step={step}
+          onSkip={() => navigate("/login")}
+      />
   );
 };
 
