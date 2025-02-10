@@ -23,6 +23,7 @@ import firstDetail from "@/assets/images/step1-detail.png";
 import secondDetail from "@/assets/images/step2-detail.png";
 import thirdDetail from "@/assets/images/step3-detail.png";
 import fourthDetail from "@/assets/images/step4-detail.png";
+import { useAuth } from "@/components/contexts/AuthContext"; 
 
 export const HomePage = () => {
   const imageUrl =
@@ -32,11 +33,37 @@ export const HomePage = () => {
   const [isSupplyHovered, setIsSupplyHovered] = useState(false);
   const [isDemandHovered, setIsDemandHovered] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const handleSubmit = () => {
     if (searchTerm.trim() !== "") {
       console.log("Search submitted:", searchTerm);
     }
+  };
+  
+  const handleSupplyClick = () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    if (user?.userType === "개인") {
+      alert("개인 회원의 경우 공급 자원 등록이 불가능합니다.");
+      return;
+    }
+    navigate("/registerByProduct"); 
+  };
+
+
+  const handleDemandClick = () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    if (user?.userType === "개인") {
+      alert("개인 회원의 경우 필요 자원 등록이 불가능합니다.");
+      return;
+    }
+    navigate("/registerResource");
   };
 
   return (
@@ -57,7 +84,7 @@ export const HomePage = () => {
           <div className={styles.resourceButtons}>
             <div
               className={styles.supplyButton}
-              onClick={() => navigate("/supply")}
+              onClick={handleSupplyClick}
               onMouseEnter={() => setIsSupplyHovered(true)}
               onMouseLeave={() => setIsSupplyHovered(false)}
             >
@@ -71,7 +98,7 @@ export const HomePage = () => {
             </div>
             <div
               className={styles.demandButton}
-              onClick={() => navigate("/demand")}
+              onClick={handleDemandClick} 
               onMouseEnter={() => setIsDemandHovered(true)}
               onMouseLeave={() => setIsDemandHovered(false)}
             >
