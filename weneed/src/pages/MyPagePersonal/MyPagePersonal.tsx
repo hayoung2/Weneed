@@ -19,7 +19,7 @@ export const MyPagePersonal = () => {
     <>
       <Header />
       <div className={styles.myPagePersonal}>
-        <h2 className={styles.title}>회사이름</h2>
+        <h2 className={styles.title}>개인이름</h2>
         <p className={styles.subtitle}>고유번호 | 개인 회원</p>
 
         <h3 className={styles.sectionTitle}>즐겨찾기 등록된 기업</h3>
