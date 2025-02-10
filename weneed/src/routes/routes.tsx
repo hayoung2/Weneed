@@ -45,7 +45,7 @@ const router = createBrowserRouter([
   { path: RouterPath.AIMATCHINGSEARCH, element: <AiMatchingS />},
 
   {
-    path: `${RouterPath.COMPANYINFO}/:companyName/:businessNumber/:representative`,
+    path: `${RouterPath.COMPANYINFO}/:companyName/:businessNumber/:representative/:uniqueNumber`,
     element: <CompanyInfoPage />,
   },
   {
