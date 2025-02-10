@@ -23,7 +23,7 @@ const UniqueNumber: React.FC<UniqueNumberProps> = ({ representative,companyName,
       <Header />
       <div className={styles.container}>
         <p className={styles.title}>
-          <span className={styles.blueText}>{user?.userType ==="개인" ? representative :companyName}</span>의 고유번호
+          <span className={styles.blueText}>{user?.userType =="개인" ? representative :companyName}</span>의 고유번호
         </p>
 
         <CopyToClipboard text={uniqueNumber} onCopy={() => setCopied(true)}>
@@ -36,7 +36,7 @@ const UniqueNumber: React.FC<UniqueNumberProps> = ({ representative,companyName,
 
         {/* 개인/기업에 따라 버튼 텍스트 변경 */}
         <button type="submit" onClick={onNext} className={styles.button}>
-          {user?.userType === "개인" ? "로그인 하러 가기" : "회사 소개 및 부산물 작성하기"}
+          {user?.userType == "개인" ? "로그인 하러 가기" : "회사 소개 및 부산물 작성하기"}
         </button>
 
         <p className={styles.description}>고유번호는 무엇인가요?</p>
