@@ -19,6 +19,11 @@ import MapIcon from '@/assets/icons/home-map.svg'
 import ChartIcon from '@/assets/icons/home-chart.svg'
 import MinistryLogo from '@/assets/icons/ministryLogo.svg'
 
+import firstDetail from '@/assets/images/step1-detail.png'
+import secondDetail from '@/assets/images/step2-detail.png'
+import thirdDetail from '@/assets/images/step3-detail.png'
+import fourthDetail from '@/assets/images/step4-detail.png'
+
 export const HomePage = () => {
 
   const imageUrl = "https://s3-alpha-sig.figma.com/img/8190/e338/5d2a670b08891128fbd753070eebc18f?Expires=1740355200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=U8Hl-yX1-1zVTjG1hRlvGtiDbQPKVCxhBLyYz-MLNK-yb46ryqQQjnIDZpCtP8ESvoWq3wuVRptXdRrJ2wAQWb3mXVnUIy9mtqKUt86vuQNu7zkqyyO2nc5xOP3BhWcq2EU9IivpmtbrcP3vgDK239CwefevNfiH75tK8lcy5BrfHKHmbiYzHyI3dsSwYZglSm8t6YQLUmoYxCBeBHqjU8-ckhVnytxwOxrOyWHqA~RWtlSL2uevbO~7dWMVOiLw7R7pAX5u2B556N1u~7FtYPNpRbWqbr-53BNGPLca85YizTREP0XDWKuRatwS1CXph9PYV-xFaSImGaWIagVKrg__";
@@ -135,6 +140,23 @@ export const HomePage = () => {
           </div>
           </div>
         </div>
+      </div>
+      <div className = {styles.howtoSection}>
+        <h3 className={styles.sectionTitle}>서비스 이용방법</h3>
+          <div className={styles.stepsContainer}>
+            <div className={styles.stepCard}>
+              <img src={firstDetail} alt="Step 1" className={styles.stepImage} />
+            </div>
+            <div className={styles.stepCard}>
+              <img src={secondDetail} alt="Step 2" className={styles.stepImage} />
+            </div>
+            <div className={styles.stepCard}>
+              <img src={thirdDetail} alt="Step 3" className={styles.stepImage} />
+            </div>
+            <div className={styles.stepCard}>
+              <img src={fourthDetail} alt="Step 4" className={styles.stepImage} />
+            </div>
+          </div>
       </div>
     
       <div className={styles.heroSection} style={{ backgroundImage: `url(${imageUrl})` }}>
