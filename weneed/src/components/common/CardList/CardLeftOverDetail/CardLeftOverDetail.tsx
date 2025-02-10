@@ -18,10 +18,15 @@ const CardLeftOverDetail: React.FC<CardLeftOverDetailProps> = ({
     <div className={styles.card}>
       <div className={styles.header}>
         <h2 className={styles.title}>{title}</h2>
-        <span className={styles.price}>{price.toLocaleString()} <span className={styles.priceUnit}>원</span></span>
+        <span className={styles.price}>
+          {price.toLocaleString()} <span className={styles.priceUnit}>원</span>
+        </span>
       </div>
       <p className={styles.amount}>{amount}</p>
-      <p className={styles.description}>{description}</p>
+
+      <div className={styles.descriptionContainer}>
+        <p className={styles.description}>{description}</p>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,110 @@
+.container {
+    width: 65%;
+    margin: auto;
+    padding: 3vw 0;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2vw;
+  }
+  
+  .companyName {
+    font-size: 2vw;
+    font-family: "bold";
+  }
+  
+  .infoButton {
+    font-size: 1vw;
+    font-family: "medium";
+    padding: 0.8vw 1.5vw;
+    border-radius: 4px;
+    border: 1px solid #00b2ff;
+    transition: border-color 0.1s ease-in-out;
+    color: #00b2ff;
+    background-color: white;
+    cursor: pointer;
+  
+  }
+  
+  .infoGrid {
+    margin-bottom: 3vw;
+  }
+  
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+    margin-bottom: 1.5vw;
+  }
+  
+  .label {
+    font-size: 1vw;
+    font-family: "medium"; 
+    color: #bbbbbb; 
+    width: 5vw;
+    text-align: left; 
+    white-space: nowrap;
+  }
+  
+  .value {
+    font-size: 1vw;
+    color: #4a4a4a;
+    flex-grow: 1; 
+  }
+  
+  .section {
+    margin-bottom: 4vw;
+  }
+  
+  .sectionTitle {
+    font-size: 1.5vw;
+    font-family: "semi-bold";
+    margin-bottom: 1vw;
+    color: #636363;
+  }
+  
+  .sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3vw;
+  }
+  
+  .registerButton {
+    font-size: 1vw;
+    font-family: "medium";
+    color: #4a4a4a;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+  
+    &:hover {
+      color: var(--dark-point-color);
+    }
+  }
+  
+  .cardContainer {
+    display: flex;
+    gap: 1vw;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 1vw;
+  
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background: #bbbbbb;
+      border-radius: 10px;
+    }
+  
+    &::-webkit-scrollbar-track {
+      background: #f0f0f0;
+    }
+  }
+  

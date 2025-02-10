@@ -22,7 +22,7 @@ const Header: React.FC = () => {
             <p className={styles.basicText} onClick={() => { logout(); navigate('/'); }}>
               로그아웃
             </p>
-            <button className={styles.mypageButton} onClick={() => navigate('/mypage')}>
+            <button className={styles.mypageButton} onClick={() => user?.userType==="개인" ? navigate('/mypagepersonal'): navigate('/mypage')}>
               마이페이지
             </button>
           </>

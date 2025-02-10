@@ -16,7 +16,7 @@ const CompanyInfoPage: React.FC = () => {
           businessNumber={businessNumber || ""}
           representative={representative || ""}
           step={step}
-          onSkip={() => navigate("/login")}
+          onSkip={() => navigate("/")}
       />
   );
 };
