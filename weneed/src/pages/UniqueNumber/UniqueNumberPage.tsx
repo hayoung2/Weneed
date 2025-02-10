@@ -17,7 +17,7 @@ const UniqueNumberPage: React.FC = () => {
           if(user?.userType==="개인"){
             navigate("/login")
           }else{
-            navigate(`/companyInfo/${companyName}/${businessNumber}/${representative}`)
+            navigate(`/companyInfo/${companyName}/${businessNumber}/${representative}/${user?.uniqueId}`)
           }
         }}
       />
