@@ -89,8 +89,8 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
       if (response.ok) {
         const data = await response.json();
         console.log(data.message);
-        alert("저장 완료"); // 데이터 저장 성공 시 알림창 표시
-        navigate(`/companyInfo/${formData.companyName}/${formData.businessNumber}/${formData.representative}`);
+        alert("저장 완료");
+        navigate('/');
       } else {
         const errorText = await response.text();
         console.error('Error:', errorText);
