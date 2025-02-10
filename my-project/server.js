@@ -109,7 +109,11 @@ app.post('/login', async (req, res) => {
         token,
         companyName: user.companyName,
         businessNumber: user.businessNumber,
-        representativeName: user.representativeName
+        representativeName: user.representativeName,
+        uniqueId:user.uniqueId,
+        email:user.email,
+        userType:user.userType,
+        name:user.name,
     });
 });
 
