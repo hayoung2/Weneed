@@ -17,6 +17,7 @@ import RegisterByproduct from '@/pages/RegisterByproduct/RegisterByproduct'
 import RegisterResource from '@/pages/RegisterResource/RegisterResource'
 import CompanyInfoDetail from '@/pages/CompanyInfoDetail/CompanyInfoDetail'
 import Mypage from '@/pages/MyPage/MyPage'
+import MypagePersonal from '@/pages/MyPagePersonal/MyPagePersonal'
 
 
 const router = createBrowserRouter([
@@ -56,6 +57,7 @@ const router = createBrowserRouter([
   { path: RouterPath.REGISTERBYPRODUCT, element: <RegisterByproduct />},
   { path: RouterPath.COMPANYINFODETAIL, element: <CompanyInfoDetail />},
   { path: RouterPath.MYPAGE, element: <Mypage />},
+  { path: RouterPath.MYPAGEPERSONAL, element: <MypagePersonal />},
 ]);
 
 export const Routes = () => {
