@@ -123,7 +123,7 @@ const Mypage: React.FC = () => {
       {/* 회사 이름 & 소개 버튼 */}
       <div className={styles.header}>
         <h2 className={styles.companyName}>
-          {companyInfo?.companyName || "개인"} | 기업 회원
+          {user?.uniqueId} | 기업 회원
         </h2>
         <button
           className={styles.infoButton}
@@ -148,7 +148,7 @@ const Mypage: React.FC = () => {
         <div className={styles.row}>
           <span className={styles.label}>대표자명</span>
           <span className={styles.value}>
-            {companyInfo?.representativeName || "-"}
+            {user?.representative || "-"}
           </span>
         </div>
         <div className={styles.row}>

@@ -10,10 +10,13 @@ import step3Icon from "@/assets/images/step3.svg";
 import UnitBigDropdown from "@/components/common/UnitDropdown/UnitBigDropdown";
 import Footer from "@/components/common/Footer/Footer";
 
+
+
 interface CompanyInfoPageProps {
   companyName: string;
   businessNumber: string;
   representative: string;
+  uniqueId:string;
   step: number;
   onSkip: () => void | Promise<void>;
 }
@@ -45,6 +48,7 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
     neededByproductName: "",
     neededByproductAmount: "",
     neededByproductUnit: "",
+    uniqueId:""
   });
 
   useEffect(() => {
@@ -70,7 +74,8 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
   };
 
   const submitCompanyInfo = async () => {
-    console.log('Submitting company info:', formData); // 요청할 데이터 로그 추가
+
+    console.log('Submitting company info:', formData); 
     try {
       const response = await fetch('http://localhost:5000/api/company-info', {
         method: 'POST',
@@ -208,6 +213,7 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
                         value={formData.websiteLink}
                         onChange={(e) => handleChange("websiteLink", e.target.value)}
                     />
+                     
                   </div>
                 </>
             )}
@@ -229,6 +235,12 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
                         type="text"
                         placeholder="부산물량(단위 없이 입력해주세요.)"
                         value={formData.availableByproductAmount}  // 변경된 부분
+                        onChange={(e) => handleChange("availableByproductAmount", e.target.value)}  // 변경된 부분
+                    />
+                      <InputBox
+                        type="text"
+                        placeholder="부산물량(단위 없이 입력해주세요.)"
+                        value={user?.uniqueId}  // 변경된 부분
                         onChange={(e) => handleChange("availableByproductAmount", e.target.value)}  // 변경된 부분
                     />
                     <UnitBigDropdown

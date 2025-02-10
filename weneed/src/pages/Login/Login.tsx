@@ -29,27 +29,29 @@ export const LoginPage = () => {
 
       const { token, userType, companyName, businessNumber, representative, email } = response.data;
 
-      if (userType === "기업") {
+ 
+      if (userType == "기업") {
         login({
           uniqueId: response.data.uniqueId,
-          userType,
-          companyName,
-          businessNumber,
-          representative,
-          email,
+          userType :response.data.userType,
+          companyName: response.data.name,
+          email:response.data.email,
+          businessNumber : response.data.businessNumber,
+          representative : response.data.representative,
           token: response.data.token, 
         });
       } else {
         login({
           uniqueId: response.data.uniqueId,
-          userType,
-          email,
+          userType:response.data.userType,
+          companyName: response.data.name,
+          email:response.data.email,
           token: response.data.token,
         });
-      }
+      }   
       
-      if (userType === '기업') {
-        navigate(`/companyInfo/${encodeURIComponent(companyName)}/${encodeURIComponent(businessNumber)}/${encodeURIComponent(representative)}`);
+      if (userType == "기업") {
+        navigate('/');
       } else {
         navigate('/');
       }
