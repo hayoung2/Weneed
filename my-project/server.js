@@ -55,6 +55,7 @@ const AvailableByproduct = sequelize.define('AvailableByproducts', {
     availableByproductAmount: DataTypes.STRING,
     availableByproductUnit: DataTypes.STRING,
     availableByproductAnalysis: DataTypes.STRING,
+    availableByproductPrice: DataTypes.STRING,
     uniqueId: { type: DataTypes.STRING, unique: true }
 });
 
@@ -76,6 +77,7 @@ const TransactionLog = sequelize.define('TransactionLog', {
             key: 'uniqueId'
         }
     },
+    contactNumber: { type: DataTypes.STRING, allowNull: false }, //상대방 연락처
     callDate: { type: DataTypes.STRING, allowNull: false }, // 통화 일시 (문자열 형식)
     callHandler: { type: DataTypes.STRING, allowNull: false }, // 통화 담당자
     recordHandler: { type: DataTypes.STRING, allowNull: false }, // 기록 담당자
@@ -163,6 +165,7 @@ app.post('/api/company-info', async (req, res) => {
         availableByproductAmount,
         availableByproductUnit,
         availableByproductAnalysis,
+        availableByproductPrice,
         neededByproductName,
         neededByproductAmount,
         neededByproductUnit,
@@ -191,6 +194,7 @@ app.post('/api/company-info', async (req, res) => {
             availableByproductAmount,
             availableByproductUnit,
             availableByproductAnalysis,
+            availableByproductPrice,
             uniqueId
         });
 
@@ -213,6 +217,7 @@ app.post('/api/company-info', async (req, res) => {
 app.post('/api/transaction-log', async (req, res) => {
     const {
         uniqueId, // uniqueId 사용
+        contactNumber,
         callDate,
         callHandler,
         recordHandler,
@@ -232,6 +237,7 @@ app.post('/api/transaction-log', async (req, res) => {
     try {
         const transactionLog = await TransactionLog.create({
             uniqueId, // uniqueId 사용
+            contactNumber,
             callDate,
             callHandler,
             recordHandler,
