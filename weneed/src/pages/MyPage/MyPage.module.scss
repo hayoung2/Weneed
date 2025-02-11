@@ -16,6 +16,13 @@
     font-family: "bold";
   }
   
+  .userText {
+    color: #4a4a4a;
+    font-family: "medium";
+    font-size: 1.1vw;
+    margin-bottom: 2vw;
+  }
+
   .infoButton {
     font-size: 1vw;
     font-family: "medium";
@@ -53,6 +60,7 @@
     font-size: 1vw;
     color: #4a4a4a;
     flex-grow: 1; 
+    font-family: "medium";
   }
   
   .section {

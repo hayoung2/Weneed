@@ -445,6 +445,30 @@ app.get('/api/available-byproducts', async (req, res) => {
     }
 });
 
+
+// 사용자 정보 조회 API (CompanyInfo 테이블에서 가져오기)
+app.get('/api/user-info/:uniqueId', async (req, res) => {
+    const { uniqueId } = req.params;
+
+    try {
+        const companyInfo = await CompanyInfo.findOne({
+            where: { uniqueId },  
+            attributes: { exclude: ['createdAt', 'updatedAt'] } 
+        });
+
+        if (!companyInfo) {
+            return res.status(404).json({ error: '해당 회사 정보를 찾을 수 없습니다.' });
+        }
+
+        res.json(companyInfo);
+    } catch (error) {
+        console.error('회사 정보 조회 오류:', error);
+        res.status(500).json({ error: '서버 오류 발생' });
+    }
+});
+
+
+
 // 서버 시작
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
