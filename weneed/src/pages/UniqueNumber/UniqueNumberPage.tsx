@@ -15,7 +15,7 @@ const UniqueNumberPage: React.FC = () => {
         uniqueNumber={uniqueNumber || ""}
         onNext={() => {
           if(user?.userType==="개인"){
-            navigate("/login")
+            navigate("/")
           }else{
             navigate(`/companyInfo/${companyName}/${businessNumber}/${representative}/${user?.uniqueId}`)
           }

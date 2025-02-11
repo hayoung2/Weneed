@@ -37,9 +37,9 @@ export const HomePage = () => {
 
   const handleSubmit = () => {
     if (searchTerm.trim() !== "") {
-      console.log("Search submitted:", searchTerm);
+      navigate(`/list?search=${encodeURIComponent(searchTerm)}`);
     }
-  };
+  }
   
   const handleSupplyClick = () => {
     if (!user) {

@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./Footer.module.scss";
 import logo from "@/assets/icons/logo.svg";
+import { useAuth } from '@/components/contexts/AuthContext';
 
 const Footer: React.FC = () => {
+  const { user } = useAuth();
   return (
     <footer className={styles.footer}>
 
@@ -41,7 +43,7 @@ const Footer: React.FC = () => {
         </div>
         
         <div>
-          <a href="/introduction"><p className={styles.title}>With 위니트</p></a>
+          <a href="/introduction"><p className={styles.title}>With 위니드</p></a>
         </div>
       </div>
     </footer>
