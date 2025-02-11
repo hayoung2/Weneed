@@ -6,6 +6,7 @@ const MeetingNotePage: React.FC = () => {
   const location = useLocation();
 
 
+  
   let mode: "default" | "view" | "edit" = "default";
   if (location.pathname.includes("meetingView")) mode = "view";
   if (location.pathname.includes("meetingEdit")) mode = "edit";
