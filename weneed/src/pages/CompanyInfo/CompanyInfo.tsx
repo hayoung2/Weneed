@@ -114,8 +114,8 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
         <Header />
         <div className={styles.container}>
           <h1 className={styles.title}>위니드를 이용하기 위한 기본단계에요.</h1>
-          <p className={styles.subtitle}>각 단계는 건너뛰기가 가능해요.</p>
-
+          <p className={styles.subtitle1}>각 단계는 건너뛰기가 가능해요.</p>
+          <p className={styles.subtitle2}>단, 건너뛸 경우 서비스 이용이 원활하지 않을 수 있습니다.</p>
           <div className={styles.steps}>
             {[1, 2, 3].map((stepNumber) => (
                 <div
