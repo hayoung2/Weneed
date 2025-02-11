@@ -94,6 +94,30 @@ const TransactionLog = sequelize.define('TransactionLog', {
     additionalNotes: { type: DataTypes.STRING } // 기타 내용
 });
 
+// 즐겨찾기 모델 정의
+const Favorite = sequelize.define('Favorite', {
+    userId: { // 즐겨찾기를 한 사용자 고유 ID
+        type: DataTypes.STRING,
+        allowNull: false,
+        references: {
+            model: User,
+            key: 'uniqueId'
+        }
+    },
+    favoriteCompanyId: { // 즐겨찾기를 당한 기업의 고유 ID
+        type: DataTypes.STRING,
+        allowNull: false,
+        references: {
+            model: CompanyInfo,
+            key: 'uniqueId'
+        }
+    },
+    companyName: { // 기업 이름
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+});
+
 // 데이터베이스 동기화
 sequelize.sync({ force: false })
     .then(() => console.log("MySQL Connected"))
@@ -313,7 +337,7 @@ app.post('/api/transaction-log', async (req, res) => {
 // 특정 지역의 기업 정보 조회 API
 app.get('/api/company-info/:province/:city', async (req, res) => {
     const { province, city } = req.params;
-    
+
     try {
         // companyAddress에 선택된 지역명이 포함된 기업 조회
         const companies = await CompanyInfo.findAll({
@@ -322,12 +346,71 @@ app.get('/api/company-info/:province/:city', async (req, res) => {
                     [Sequelize.Op.like]: `%${province} ${city}%`
                 }
             },
-            attributes: { exclude: ['uniqueId', 'createdAt', 'updatedAt'] } 
+            attributes: { exclude: ['uniqueId', 'createdAt', 'updatedAt'] }
         });
 
         res.json(companies);
     } catch (error) {
         console.error("지역별 기업 정보 조회 오류:", error);
+        res.status(500).json({ error: "서버 오류 발생" });
+    }
+});
+
+// 즐겨찾기 추가 API
+app.post('/api/favorites', async (req, res) => {
+    const { userId, favoriteCompanyId, companyName } = req.body;
+
+    if (!userId || !favoriteCompanyId || !companyName) {
+        return res.status(400).json({ error: "모든 필드를 입력해주세요." });
+    }
+
+    try {
+        const favorite = await Favorite.create({
+            userId,
+            favoriteCompanyId,
+            companyName
+        });
+
+        res.status(201).json({ message: "즐겨찾기가 추가되었습니다.", favorite });
+    } catch (error) {
+        console.error("즐겨찾기 추가 오류:", error);
+        res.status(500).json({ error: "서버 오류 발생" });
+    }
+});
+
+// 사용자 즐겨찾기 조회 API
+app.get('/api/favorites/:userId', async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        const favorites = await Favorite.findAll({
+            where: { userId },
+            attributes: { exclude: ['createdAt', 'updatedAt'] }
+        });
+
+        res.json(favorites);
+    } catch (error) {
+        console.error("즐겨찾기 조회 오류:", error);
+        res.status(500).json({ error: "서버 오류 발생" });
+    }
+});
+
+// 즐겨찾기 삭제 API
+app.delete('/api/favorites/favoriteCompanyId/:favoriteCompanyId', async (req, res) => {
+    const { favoriteCompanyId } = req.params;
+
+    try {
+        const result = await Favorite.destroy({
+            where: { favoriteCompanyId }
+        });
+
+        if (result === 0) {
+            return res.status(404).json({ error: "즐겨찾기를 찾을 수 없습니다." });
+        }
+
+        res.json({ message: "즐겨찾기가 삭제되었습니다." });
+    } catch (error) {
+        console.error("즐겨찾기 삭제 오류:", error);
         res.status(500).json({ error: "서버 오류 발생" });
     }
 });
