@@ -310,6 +310,27 @@ app.post('/api/transaction-log', async (req, res) => {
     }
 });
 
+// 특정 지역의 기업 정보 조회 API
+app.get('/api/company-info/:province/:city', async (req, res) => {
+    const { province, city } = req.params;
+    
+    try {
+        // companyAddress에 선택된 지역명이 포함된 기업 조회
+        const companies = await CompanyInfo.findAll({
+            where: {
+                companyAddress: {
+                    [Sequelize.Op.like]: `%${province} ${city}%`
+                }
+            },
+            attributes: { exclude: ['uniqueId', 'createdAt', 'updatedAt'] } 
+        });
+
+        res.json(companies);
+    } catch (error) {
+        console.error("지역별 기업 정보 조회 오류:", error);
+        res.status(500).json({ error: "서버 오류 발생" });
+    }
+});
 
 // 서버 시작
 const PORT = process.env.PORT || 5000;
