@@ -197,6 +197,12 @@ app.post('/api/company-info', async (req, res) => {
     } = req.body;
 
     try {
+        // uniqueId가 이미 있는지 확인
+        const existingCompany = await CompanyInfo.findOne({ where: { uniqueId } });
+        if (existingCompany) {
+            return res.status(400).json({ error: "이 uniqueId는 이미 존재합니다." });
+        }
+
         // 1. 회사 정보 저장
         const companyInfo = await CompanyInfo.create({
             companyName,
@@ -245,6 +251,12 @@ app.post('/api/needed-byproduct', async (req, res) => {
         return res.status(400).json({ error: "모든 필드를 입력해주세요." });
     }
 
+    // uniqueId가 이미 있는지 확인
+    const existingNeededByproduct = await NeededByproduct.findOne({ where: { uniqueId } });
+    if (existingNeededByproduct) {
+        return res.status(400).json({ error: "이 uniqueId는 이미 존재합니다." });
+    }
+
     try {
         const neededByproduct = await NeededByproduct.create({
             neededByproductName,
@@ -266,6 +278,12 @@ app.post('/api/available-byproduct', async (req, res) => {
 
     if (!availableByproductName || !availableByproductAmount || !availableByproductUnit || !availableByproductPrice || !uniqueId) {
         return res.status(400).json({ error: "모든 필드를 입력해주세요." });
+    }
+
+    // uniqueId가 이미 있는지 확인
+    const existingByproduct = await AvailableByproduct.findOne({ where: { uniqueId } });
+    if (existingByproduct) {
+        return res.status(400).json({ error: "이 uniqueId는 이미 존재합니다." });
     }
 
     try {
