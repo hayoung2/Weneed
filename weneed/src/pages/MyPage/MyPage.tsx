@@ -8,6 +8,7 @@ import CardLeftOverDetailList from "@/components/common/CardList/CardLeftOverDet
 import CardResourceDetailList from "@/components/common/CardList/CardResourceDetailList/CardResourceDetailList";
 import Header from "@/components/common/Header/Header";
 import Footer from "@/components/common/Footer/Footer";
+import axios from "axios";
 
 const Mypage: React.FC = () => {
   const navigate = useNavigate();
@@ -116,6 +117,19 @@ const Mypage: React.FC = () => {
     },
   ];
 
+  useEffect(() => {
+    if (user?.uniqueId) {
+      axios
+        .get(`http://localhost:5000/api/user-info/${user.uniqueId}`)
+        .then((response) => {
+          setCompanyInfo(response.data);
+        })
+        .catch((error) => {
+          console.error("사용자 정보 불러오기 오류:", error);
+        });
+    }
+  }, [user?.uniqueId]);
+
   return (
     <>
     <Header />
@@ -123,7 +137,7 @@ const Mypage: React.FC = () => {
       {/* 회사 이름 & 소개 버튼 */}
       <div className={styles.header}>
         <h2 className={styles.companyName}>
-          {user?.uniqueId} | 기업 회원
+          {companyInfo?.companyName}
         </h2>
         <button
           className={styles.infoButton}
@@ -131,6 +145,9 @@ const Mypage: React.FC = () => {
         >
           회사 소개 보러가기
         </button>
+      </div>
+      <div>
+        <p className={styles.userText}>{user?.uniqueId} | 기업 회원</p>
       </div>
 
       {/* 회사 정보 */}
@@ -148,7 +165,7 @@ const Mypage: React.FC = () => {
         <div className={styles.row}>
           <span className={styles.label}>대표자명</span>
           <span className={styles.value}>
-            {user?.representative || "-"}
+            {companyInfo?.representativeName || "-"}
           </span>
         </div>
         <div className={styles.row}>
