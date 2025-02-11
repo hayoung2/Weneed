@@ -6,10 +6,11 @@ import { useState, useEffect } from 'react';
 interface SearchButtonProps {
   isAiMatch?: boolean;
   alwaysSearchLabel?: boolean;
+  style?: React.CSSProperties;
   onClick: () => void;
 }
 
-const SearchButton: React.FC<SearchButtonProps> = ({ isAiMatch = false, alwaysSearchLabel = false, onClick }) => {
+const SearchButton: React.FC<SearchButtonProps> = ({ isAiMatch = false, alwaysSearchLabel = false,style, onClick }) => {
   const [animatedClass, setAnimatedClass] = useState('');
 
   useEffect(() => {
@@ -19,7 +20,7 @@ const SearchButton: React.FC<SearchButtonProps> = ({ isAiMatch = false, alwaysSe
   return (
     <button 
       className={`${styles.searchButton} ${isAiMatch ? styles.aiMatchButton : ''} ${animatedClass}`} 
-      onClick={onClick}
+      onClick={onClick} style={style}
     >
       <img 
         src={isAiMatch && !alwaysSearchLabel ? chartIcon : searchIcon} 
