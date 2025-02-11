@@ -4,6 +4,7 @@ import YearBox from "@/components/common/YearBox/YearBox";
 import MonthBox from "@/components/common/MonthBox/MonthBox";
 import InputBox from "@/components/common/InputBox/InputBox";
 import UnitDropdown from "@/components/common/UnitDropdown/UnitDropdown";
+import PaymentDropdown from "@/components/common/PaymentDropdown/PaymentDropdown"
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import EditButton from "../EditButton/EditButton";
@@ -31,6 +32,7 @@ const MeetingNote: React.FC<MeetingNoteProps> = ({
   const [callPersons, setCallPersons] = useState(["", ""]);
   const [callDate, setCallDate] = useState<string[]>(["", "", "", "", ""]);
   const [selectedUnit, setSelectedUnit] = useState<string>("kg");
+  const [selectedPayment, setSelectedPayment] = useState<string>("");
 
   const handleDateChange = (index: number, value: string) => {
     const updatedDate = [...callDate];
@@ -244,6 +246,62 @@ const MeetingNote: React.FC<MeetingNoteProps> = ({
               <div className={styles.dropdownWrapper}>
                 <UnitDropdown value={selectedUnit} onChange={setSelectedUnit} />
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className = {styles.inputGroup} style={{ gap: "5%" }}>
+          <div className = {styles.inputBox}>
+            <p className={styles.label}>거래 가격</p>
+            <div className = {styles.inputBoxs}>
+            <InputBox
+                type="text"
+                placeholder="거래 가격을 입력해주세요."
+                value={callPersons[0]}
+                onChange={(e) =>
+                  setCallPersons([e.target.value, callPersons[1]])
+                }
+              />
+              <p className={styles.dateText} style={{ marginRight: "5%" }}>
+                원
+              </p>
+              </div>
+          </div>
+          
+          <div className = {styles.inputBox} style={{ marginBottom: "5%" }}>
+            <p className={styles.label}>거래 방식</p>
+            <div className={styles.dropdownWrapper}>
+                <PaymentDropdown value={selectedPayment} onChange={setSelectedPayment} />
+              </div>
+          </div>
+
+          <div className = {styles.inputBox1}>
+            <p className={styles.label}>거래 계좌번호 및 예금주</p>
+            <div className = {styles.inputBoxs} style={{ gap: "1%" }}>
+              <InputBox
+                type="text"
+                placeholder="거래 은행"
+                value={callPersons[0]}
+                onChange={(e) =>
+                  setCallPersons([e.target.value, callPersons[1]])
+                }
+              />
+              <InputBox
+                type="text"
+                placeholder="거래 대금을 입금할 계좌를 입력해주세요."
+                value={callPersons[0]}
+                onChange={(e) =>
+                  setCallPersons([e.target.value, callPersons[1]])
+                }
+              />
+              <InputBox
+                type="text"
+                placeholder="예금주"
+                value={callPersons[0]}
+                onChange={(e) =>
+                  setCallPersons([e.target.value, callPersons[1]])
+                }
+              />
             </div>
           </div>
         </div>
