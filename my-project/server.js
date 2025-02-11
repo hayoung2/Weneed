@@ -31,7 +31,7 @@ const User = sequelize.define('User', {
     businessNumber: DataTypes.STRING,
     email: { type: DataTypes.STRING, unique: true, allowNull: false },
     password: { type: DataTypes.STRING(60), allowNull: false },
-    uniqueId: { type: DataTypes.STRING, unique: true }
+    uniqueId: { type: DataTypes.STRING, unique: true } // 사용자 고유 ID
 });
 
 // 회사 정보 모델 정의
@@ -66,6 +66,32 @@ const NeededByproduct = sequelize.define('NeededByproducts', {
     uniqueId: { type: DataTypes.STRING, unique: true }
 });
 
+// 거래일지 모델 정의
+const TransactionLog = sequelize.define('TransactionLog', {
+    uniqueId: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        references: {
+            model: User,
+            key: 'uniqueId'
+        }
+    },
+    callDate: { type: DataTypes.STRING, allowNull: false }, // 통화 일시 (문자열 형식)
+    callHandler: { type: DataTypes.STRING, allowNull: false }, // 통화 담당자
+    recordHandler: { type: DataTypes.STRING, allowNull: false }, // 기록 담당자
+    transactionDate: { type: DataTypes.STRING, allowNull: false }, // 거래 예정 시간 (문자열 형식)
+    transactionLocation: { type: DataTypes.STRING, allowNull: false }, // 거래 예정 장소
+    byproductName: { type: DataTypes.STRING, allowNull: false }, // 거래 부산물명
+    byproductQuantity: { type: DataTypes.FLOAT, allowNull: false }, // 거래 부산물량
+    byproductUnit: { type: DataTypes.STRING, allowNull: false }, // 단위
+    transactionPrice: { type: DataTypes.INTEGER, allowNull: false }, // 거래 가격
+    transactionMethod: { type: DataTypes.STRING, allowNull: false }, // 거래 방식
+    bank: { type: DataTypes.STRING, allowNull: false }, // 은행 이름 추가
+    accountNumber: { type: DataTypes.STRING, allowNull: false }, // 계좌번호
+    depositorName: { type: DataTypes.STRING, allowNull: false }, // 예금주 이름
+    additionalNotes: { type: DataTypes.STRING } // 기타 내용
+});
+
 // 데이터베이스 동기화
 sequelize.sync({ force: false })
     .then(() => console.log("MySQL Connected"))
@@ -87,7 +113,7 @@ app.post('/signup', async (req, res) => {
             businessNumber: userType === '기업' ? businessNumber : null,
             email,
             password: hashedPassword,
-            uniqueId
+            uniqueId // 사용자 고유 ID
         });
 
         res.status(201).json({ uniqueId: newUser.uniqueId, companyName, businessNumber, representativeName });
@@ -113,10 +139,10 @@ app.post('/login', async (req, res) => {
         companyName: user.companyName,
         businessNumber: user.businessNumber,
         representativeName: user.representativeName,
-        uniqueId:user.uniqueId,
-        email:user.email,
-        userType:user.userType,
-        name:user.name,
+        uniqueId: user.uniqueId,
+        email: user.email,
+        userType: user.userType,
+        name: user.name,
     });
 });
 
@@ -183,6 +209,51 @@ app.post('/api/company-info', async (req, res) => {
     }
 });
 
+// 거래일지 저장 API
+app.post('/api/transaction-log', async (req, res) => {
+    const {
+        uniqueId, // uniqueId 사용
+        callDate,
+        callHandler,
+        recordHandler,
+        transactionDate,
+        transactionLocation,
+        byproductName,
+        byproductQuantity,
+        byproductUnit,
+        transactionPrice,
+        transactionMethod,
+        bank,
+        accountNumber,
+        depositorName,
+        additionalNotes
+    } = req.body;
+
+    try {
+        const transactionLog = await TransactionLog.create({
+            uniqueId, // uniqueId 사용
+            callDate,
+            callHandler,
+            recordHandler,
+            transactionDate,
+            transactionLocation,
+            byproductName,
+            byproductQuantity,
+            byproductUnit,
+            transactionPrice,
+            transactionMethod,
+            bank,
+            accountNumber,
+            depositorName,
+            additionalNotes
+        });
+
+        res.status(201).json({ message: '거래일지가 저장되었습니다.', transactionLog });
+    } catch (error) {
+        console.error('거래일지 저장 오류:', error);
+        res.status(500).json({ error: '서버 오류' });
+    }
+});
 
 // 서버 시작
 const PORT = process.env.PORT || 5000;
