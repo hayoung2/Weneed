@@ -213,6 +213,55 @@ app.post('/api/company-info', async (req, res) => {
     }
 });
 
+// 필요한 부산물 저장 API
+app.post('/api/needed-byproduct', async (req, res) => {
+    const { neededByproductName, neededByproductAmount, neededByproductUnit, uniqueId } = req.body;
+
+    if (!neededByproductName || !neededByproductAmount || !neededByproductUnit || !uniqueId) {
+        return res.status(400).json({ error: "모든 필드를 입력해주세요." });
+    }
+
+    try {
+        const neededByproduct = await NeededByproduct.create({
+            neededByproductName,
+            neededByproductAmount,
+            neededByproductUnit,
+            uniqueId,
+        });
+
+        res.status(201).json({ message: "필요 자원이 등록되었습니다.", neededByproduct });
+    } catch (error) {
+        console.error("필요 자원 등록 오류:", error);
+        res.status(500).json({ error: "서버 오류 발생" });
+    }
+});
+
+// 공급 가능한 부산물 저장 API
+app.post('/api/available-byproduct', async (req, res) => {
+    const { availableByproductName, availableByproductAmount, availableByproductUnit, availableByproductPrice, availableByproductAnalysis, uniqueId } = req.body;
+
+    if (!availableByproductName || !availableByproductAmount || !availableByproductUnit || !availableByproductPrice || !uniqueId) {
+        return res.status(400).json({ error: "모든 필드를 입력해주세요." });
+    }
+
+    try {
+        const availableByproduct = await AvailableByproduct.create({
+            availableByproductName,
+            availableByproductAmount,
+            availableByproductUnit,
+            availableByproductPrice,
+            availableByproductAnalysis,
+            uniqueId,
+        });
+
+        res.status(201).json({ message: "공급 가능한 부산물이 등록되었습니다.", availableByproduct });
+    } catch (error) {
+        console.error("공급 가능한 부산물 등록 오류:", error);
+        res.status(500).json({ error: "서버 오류 발생" });
+    }
+});
+
+
 // 거래일지 저장 API
 app.post('/api/transaction-log', async (req, res) => {
     const {
@@ -261,8 +310,34 @@ app.post('/api/transaction-log', async (req, res) => {
     }
 });
 
+// 특정 지역의 기업 정보 조회 API
+app.get('/api/company-info/:province/:city', async (req, res) => {
+    const { province, city } = req.params;
+    
+    try {
+        // companyAddress에 선택된 지역명이 포함된 기업 조회
+        const companies = await CompanyInfo.findAll({
+            where: {
+                companyAddress: {
+                    [Sequelize.Op.like]: `%${province} ${city}%`
+                }
+            },
+            attributes: { exclude: ['uniqueId', 'createdAt', 'updatedAt'] } 
+        });
+
+        res.json(companies);
+    } catch (error) {
+        console.error("지역별 기업 정보 조회 오류:", error);
+        res.status(500).json({ error: "서버 오류 발생" });
+    }
+});
+
 // 서버 시작
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+
+
+
