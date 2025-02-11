@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes ,Op} = require('sequelize');
 const { v4: uuidv4 } = require('uuid');
 
 dotenv.config();
@@ -415,12 +415,38 @@ app.delete('/api/favorites/favoriteCompanyId/:favoriteCompanyId', async (req, re
     }
 });
 
+AvailableByproduct.belongsTo(CompanyInfo, {
+    foreignKey: 'uniqueId', 
+    targetKey: 'uniqueId',
+    as: 'companyInfo' 
+});
+
+
+
+//  **특정 검색어로 `AvailableByproducts` 조회 + 회사 정보 포함**
+app.get('/api/available-byproducts', async (req, res) => {
+    const { search } = req.query;
+    try {
+        const results = await AvailableByproduct.findAll({
+            where: {
+                availableByproductName: { [Op.like]: `%${search}%` }
+            },
+            include: [
+                {
+                    model: CompanyInfo,
+                    as: 'companyInfo' 
+                }
+            ]
+        });
+        res.json(results);
+    } catch (error) {
+        console.error('검색 오류:', error);
+        res.status(500).json({ error: '서버 오류' });
+    }
+});
+
 // 서버 시작
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
-
-
-
