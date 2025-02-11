@@ -57,8 +57,9 @@ const Search: React.FC = () => {
             onChange={setSearchTerm}
             placeholder="원하는 자원을 검색해보세요."
             onKeyDown={handleKeyPress}
+         
           />
-          <SearchButton isAiMatch={isAiMatch} onClick={handleSearch} />
+          <SearchButton    style={{marginTop:'1.5vw'}} isAiMatch={isAiMatch} onClick={handleSearch} />
         </div>
       </div>
 

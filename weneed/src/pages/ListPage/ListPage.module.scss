@@ -5,23 +5,30 @@
   margin-top: 2%;
   margin-bottom: 3%;
 }
-.headerWrapper{
+.headerWrapper {
   display: flex;
   flex-direction: row;
-  justify-content:center;
-  gap: 1%;
-}
-.toggleContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: 3%;
+  width: 100%;
+  align-items: center; 
 }
 
-.aiText{
+
+.searchbutton {
+  padding-top: 0.5%;
+}
+
+.aiText {
   font-family: 'Regular';
-  font-size: 0.1%;
+  font-size: 0.8vw;
+  min-width: 100px; 
+  padding-left: 1.3vw;
+}
+
+
+.toogleContainer  {
+
+ padding-bottom: 10vw;
 }
 
 .searchContainer {
@@ -30,6 +37,7 @@
   align-items: center;
   gap: 10px;
 }
+
 
 .mainbody{
   display: flex;
