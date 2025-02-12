@@ -30,7 +30,7 @@ const CardList: React.FC<CardListProps> = ({ cards, onCardClick, onFavoriteToggl
           companyName={item.companyName}
           isFavorite={item.isFavorite}
           onClick={() => onCardClick(item)}
-          onFavoriteToggle={onFavoriteToggle} // ✅ companyName 전달
+          onFavoriteToggle={onFavoriteToggle}
         />
       ))}
     </div>
