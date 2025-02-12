@@ -4,14 +4,20 @@ import YellowStar from '@/assets/icons/yellow-star.svg';
 import GrayStar from '@/assets/icons/gray-star.svg';
 
 interface CardSmallProps {
-  location: string;
-  company: string;
-  title: string;
-  amount: string;
+  companyName: string;
+  companyAddress: string;
+  byproductName?:string;
+  byproductAmount?:number;
   style?: React.CSSProperties;
 }
 
-const CardSmall: FC<CardSmallProps> = ({ location, company, title, amount, style }) => {
+const CardSmall: FC<CardSmallProps> = ({ 
+  companyName,
+  companyAddress,
+  byproductName ='',
+  byproductAmount='',
+  style
+ }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const toggleFavorite = () => {
@@ -20,9 +26,9 @@ const CardSmall: FC<CardSmallProps> = ({ location, company, title, amount, style
 
   return (
     <div className={styles.card} style={style}>
-      <div className={styles.location}>{location}</div>
+      <div className={styles.location}>{byproductName && `${byproductName}`}</div>
       <div className={styles.header}>
-        <h2 className={styles.company}>{company}</h2>
+        <h2 className={styles.company}>{byproductAmount && `${byproductAmount}`}</h2>
         <img 
           src={isFavorite ? YellowStar : GrayStar} 
           alt="favorite icon" 
@@ -30,8 +36,8 @@ const CardSmall: FC<CardSmallProps> = ({ location, company, title, amount, style
           onClick={toggleFavorite} 
         />
       </div>
-      <p className={styles.title}>{title}</p>
-      <p className={styles.amount}>{amount}</p>
+      <p className={styles.title}>{companyAddress}</p>
+      <p className={styles.amount}>{companyName}</p>
     </div>
   );
 };

@@ -144,9 +144,9 @@ const ListPage: React.FC = () => {
             onFavoriteToggle={handleFavoriteToggle} 
           />
         ) : (
-          <div className={styles.noResults}>
+          <p className={styles.subContent}>
             검색 결과가 없습니다.
-          </div>
+          </p>
         )}
 
         {totalPages > 1 && (

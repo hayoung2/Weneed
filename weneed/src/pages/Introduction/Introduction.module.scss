@@ -146,13 +146,6 @@
 }
 
 
-.cardContainerWrapper{
-    display: flex;
-    justify-content: center;
-
-    margin-top: 3%;
-}
-
 .cardContainer {
     width: 65%;
     max-height: 85vh;
@@ -167,3 +160,12 @@
     scrollbar-gutter: stable;    
 
 }
+.cardContainerWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5vh auto;
+    overflow: hidden;
+  }
+  
+  

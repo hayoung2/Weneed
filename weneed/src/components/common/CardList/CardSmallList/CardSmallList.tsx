@@ -4,10 +4,10 @@ import styles from '@/components/common/CardList/CardSmallList/CardSmallList.mod
 
 interface CardSmallListProps {
   cards: {
-    location: string;
-    company: string;
-    title: string;
-    amount: string;
+    companyName: string;
+    companyAddress: string;
+    byproductName?:string;
+    byproductAmount?:number;
     style?: React.CSSProperties;
   }[];
 }
