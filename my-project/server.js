@@ -56,7 +56,7 @@ const AvailableByproduct = sequelize.define('AvailableByproducts', {
     availableByproductUnit: DataTypes.STRING,
     availableByproductAnalysis: DataTypes.STRING,
     availableByproductPrice: DataTypes.STRING,
-    uniqueId: { type: DataTypes.STRING, unique: true }
+    uniqueId: { type: DataTypes.STRING, unique: false }
 });
 
 // 필요한 부산물 모델 정의
@@ -65,7 +65,7 @@ const NeededByproduct = sequelize.define('NeededByproducts', {
     neededByproductAmount: DataTypes.STRING,
     neededByproductUnit: DataTypes.STRING,
     neededByproductProperty: DataTypes.STRING, // 추가된 필드
-    uniqueId: { type: DataTypes.STRING, unique: true }
+    uniqueId: { type: DataTypes.STRING, unique: false }
 });
 
 
