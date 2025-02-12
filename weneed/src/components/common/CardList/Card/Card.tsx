@@ -18,9 +18,9 @@ interface CardProps {
   id: string;
   availableByproductName: string;
   amount: string;
-  price: number;
-  industryType: string;
+  companyAddress: string;
   companyName: string;
+  price: number;
   isFavorite: boolean;
   style?: React.CSSProperties;
   onClick: () => void;
@@ -31,9 +31,9 @@ const Card: FC<CardProps> = ({
   id,
   availableByproductName,
   amount,
-  price,
-  industryType,
+  companyAddress,
   companyName,
+  price,
   isFavorite,
   style,
   onClick,
@@ -55,11 +55,11 @@ const Card: FC<CardProps> = ({
       </div>
 
       <p className={styles.amount}>{amount}</p>
+      <p className={styles.companyAddress}><strong>{companyAddress}</strong></p>
 
       <div className={styles.bottomWrapper}>
-        <p className={styles.company}><strong>{companyName}</strong></p>
-        <p className={styles.industry}><strong>{industryType}</strong></p>
-        <p className={styles.price}><strong>{price.toLocaleString()} 원</strong></p>
+        <p className={styles.companyName}><strong>{companyName}</strong></p>
+        <p className={styles.price}><strong>{formatPrice(price)}</strong></p>
       </div>
     </div>
   );
