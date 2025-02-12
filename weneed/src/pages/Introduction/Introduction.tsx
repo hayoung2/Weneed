@@ -3,6 +3,7 @@ import Footer from "@/components/common/Footer/Footer";
 import Map from "@/components/common/Map/Map";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import CardSmall from "@/components/common/CardList/CardSmall/CardSmall";
 
 export const IntroductionPage = () => {
   const [selectedProvinces, setSelectedProvinces] = useState<string[]>([]);
@@ -398,43 +399,31 @@ export const IntroductionPage = () => {
             </p>
           )}
 
-          <div className={styles.cardContainerWrapper}>
-            {companies.length > 0 ? (
-              <div className={styles.cardContainer}>
-                {companies.map((company, index) => (
-                  <div key={index} className={styles.companyCard}>
-                    <h3>{company.companyName}</h3>
-                    <p>대표자: {company.representativeName}</p>
-                    <p>사업자 등록번호: {company.businessNumber}</p>
-                    <p>업종: {company.industryType}</p>
-                    <p>주요 생산품: {company.mainProducts}</p>
-                    <p>매출액: {company.revenue}</p>
-                    <p>연락처: {company.contactNumber}</p>
-                    <p>주소: {company.companyAddress}</p>
-                    {company.websiteLink && (
-                      <p>
-                        홈페이지:{" "}
-                        <a
-                          href={company.websiteLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {company.websiteLink}
-                        </a>
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            ) : (
-              selectedProvince &&
-              selectedCity && (
-                <p className={styles.subContent}>
-                  해당 지역의 등록된 기업이 없습니다.
-                </p>
-              )
-            )}
-          </div>
+<div className={styles.cardContainerWrapper}>
+  {companies.length > 0 ? (
+    <div className={styles.cardContainer}>
+      {companies.map((company, index) => (
+        <CardSmall
+          key={index}
+          companyName={company.companyName}
+          companyAddress={company.companyAddress}
+          style={{ 
+            width: "250px",
+            padding: "5%"
+          }}
+        />
+      ))}
+    </div>
+  ) : (
+    selectedProvince &&
+    selectedCity && (
+      <p className={styles.subContent}>
+        해당 지역의 등록된 기업이 없습니다.
+      </p>
+    )
+  )}
+</div>
+
         </div>
  
       <Footer />

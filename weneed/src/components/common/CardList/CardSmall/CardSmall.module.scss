@@ -1,7 +1,7 @@
 .card {
   background: white;
   border-radius: 25px;
-  padding: 1.7% 3%;
+  padding: 0 3%;
   width: 130px;
   height: 100px;
   border: 1px solid #CBEFFF;
@@ -32,25 +32,20 @@
   }
 }
 .favoriteIcon{
-  margin-top: -11%;
-  margin-right: -3%;
+  margin-top: -15%;
 }
-.title {
-  font-size: 100%;
-  font-family: 'bold';
-  color: #636363;
 
+.title {
+  font-size:70%;
+  font-family: 'regular';
+  color: #636363;
 }
 
 .amount {
-  font-size: 12px;
-  font-family: 'regular';
+  font-size: 100%;
+  font-family: 'bold';
   color: #636363;
-  margin-top: 5px;
+  margin-top: 2%;
+  margin-bottom: -8%;
 }
 
-.location {
-  font-size: 10px;
-  font-family: 'regular';
-  color: #828282;
-}
