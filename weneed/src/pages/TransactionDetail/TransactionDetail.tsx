@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom"
 import styles from "./TransactionDetail.module.scss";
 import TransactionContainer from "@/components/common/TransactionContainer/TransactionContainer";
 import EditButton from "@/components/common/EditButton/EditButton";
@@ -6,17 +7,28 @@ import Header from "@/components/common/Header/Header";
 import Footer from "@/components/common/Footer/Footer";
 import Pagination from "@/components/atoms/Pagination/Pagination";
 
+
+const API_URL = "http://localhost:5000/api";
+
 const TransactionDetail = () => {
   const [showTransactionLog, setShowTransactionLog] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const { id } = useParams(); 
+  const [byproduct, setByproduct] = useState<any>(null);
 
-  // 예시 데이터
-  const companyName = "위니드 주식회사";
-  const contact = "010-1234-5678";
-  const fax = "02-9876-5432";
-  const representative = "김대표";
-  const address = "서울특별시 강남구 테헤란로 123";
-  const businessType = "제조업";
+  useEffect(() => {
+    if (id) {
+      fetch(`${API_URL}/transactionDetail/${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("불러온 부산물 데이터:", data);
+          setByproduct(data);
+        })
+        .catch((error) => console.error("부산물 데이터 불러오기 오류:", error));
+    }
+  }, [id]);
+
+  if (!byproduct) return <p className={styles.loading}>로딩 중...</p>;
 
     const transactions = [
       { id: 1, title: "첫번째 거래 일지", date: "2024.02.08", status: "거래 완료" },
@@ -56,8 +68,7 @@ const TransactionDetail = () => {
 
       <div className={styles.content}>
         <div className={styles.header}>
-          <h2 className={styles.title}>{companyName}</h2>
-          <button className={styles.companyInfoButton}>회사소개 보러가기</button>
+          <h2 className={styles.title}>{byproduct.companyInfo?.companyName || "회사명 없음"}</h2>
         </div>
 
    
@@ -65,36 +76,36 @@ const TransactionDetail = () => {
           <div className={styles.row}>
             <span className={styles.label}>연락처</span>
             <span className={`${styles.value} ${!showTransactionLog && styles.hiddenContact}`}>
-              {showTransactionLog ? contact : "이 회사와 거래를 결정하면 연락처를 알려드려요."}
+              {showTransactionLog ? byproduct.companyInfo?.contactNumber || "정보 없음" : "이 회사와 거래를 결정하면 연락처를 알려드려요."}
             </span>
           </div>
           <div className={styles.row}>
             <span className={styles.label}>팩스</span>
             <span className={`${styles.value} ${!showTransactionLog && styles.hiddenContact}`}>
-              {showTransactionLog ? fax : "이 회사와 거래를 결정하면 팩스 정보를 알려드려요."}
+              {showTransactionLog ? byproduct.companyInfo?.faxNumber || "정보 없음" : "이 회사와 거래를 결정하면 팩스 정보를 알려드려요."}
             </span>
           </div>
 
           <div className={styles.row}>
             <span className={styles.label}>대표자명</span>
-            <span className={styles.value}>{representative}</span>
+            <span className={styles.value}>{byproduct.companyInfo?.representativeName || "정보 없음"}</span>
           </div>
           <div className={styles.row}>
             <span className={styles.label}>주소</span>
-            <span className={styles.value}>{address}</span>
+            <span className={styles.value}>{byproduct.companyInfo?.companyAddress || "주소 없음"}</span>
           </div>
           <div className={styles.row}>
             <span className={styles.label}>업종</span>
-            <span className={styles.value}>{businessType}</span>
+            <span className={styles.value}>{byproduct.companyInfo?.industryType || "-"}</span>
           </div>
         </div>
 
    
         <div className={styles.transactions}>
-        <TransactionContainer title="부산물 종류" text2="메추리알" />
+        <TransactionContainer title="부산물 종류" text2={byproduct.availableByproductName} />
           <TransactionContainer title="우리 회사와의 거래 횟수" text2="" />
           <TransactionContainer title="우리 회사와의 거래성공률" text2="" />
-          <TransactionContainer title="부산물량 월별 평균" text2="100" text3="kg" />
+          <TransactionContainer title="부산물량 월별 평균" text2={byproduct.availableByproductAmount} text3={byproduct.availableByproductUnit} />
           <TransactionContainer title="오늘의 거래 여부" text2="거래 가능" />
         </div>
 
