@@ -495,14 +495,17 @@ app.get('/api/user-info/:uniqueId', async (req, res) => {
 });
 
 // 검색 정보 상세 조회 API (CompanyInfo 테이블에서 가져오기)
-//대표자명,회사명으로 해야할지도 in companyinfos / 공급부산물은 id로 찾기 
 app.get('/api/transactionDetail/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
         const byProductInfo = await AvailableByproduct.findOne({
-            where: { id },  
-            attributes: { exclude: ['updatedAt'] } 
+            where: { id },
+            include: [{
+                model: CompanyInfo, // ✅ CompanyInfo 테이블과 조인
+                as: 'companyInfo',
+                attributes: { exclude: ['updatedAt'] }
+            }]
         });
 
         if (!byProductInfo) {

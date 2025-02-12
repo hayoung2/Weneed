@@ -57,11 +57,11 @@ const ListPage: React.FC = () => {
       navigate(`/list?search=${encodeURIComponent(searchTerm)}&aiMatch=${isAiMatch}`);
     }
   };
-
   const handleCardClick = (item: any) => {
-    navigate(`/companyDetail/${item.uniqueId}`, { state: item });
+    console.log("클릭한 아이템:", item); 
+    navigate(`/transactionDetail/${item.id}`, { state: item }); 
   };
-
+  
   const handleFavoriteToggle = (companyId: string, companyName: string) => {
     if (favorites.includes(companyId)) {
       fetch(`${API_URL}/favorites/remove`, {
@@ -128,7 +128,8 @@ const ListPage: React.FC = () => {
         {currentItems.length > 0 ? (
           <CardList 
             cards={currentItems.map(item => ({
-              id: item.uniqueId,
+              id: item.id,
+              uniqueId:item.uniqueId,
               availableByproductName: item.availableByproductName,
               amount: `${item.availableByproductAmount} ${item.availableByproductUnit}`,
               price: Number(item.availableByproductPrice),
