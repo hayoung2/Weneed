@@ -1,5 +1,5 @@
 import styles from '@/components/common/CardList/Card/Card.module.scss';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import YellowStar from '@/assets/icons/yellow-star.svg';
 import GrayStar from '@/assets/icons/gray-star.svg';
 
