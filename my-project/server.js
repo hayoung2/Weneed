@@ -519,6 +519,39 @@ app.get('/api/transactionDetail/:id', async (req, res) => {
     }
 });
 
+// 특정 사용자의 공급 가능한 부산물 조회 API
+app.get('/api/available-byproducts/:uniqueId', async (req, res) => {
+    const { uniqueId } = req.params;
+
+    try {
+        const availableByproducts = await AvailableByproduct.findAll({
+            where: { uniqueId },
+            attributes: { exclude: ['updatedAt'] }
+        });
+
+        res.json(availableByproducts);
+    } catch (error) {
+        console.error("공급 가능한 부산물 조회 오류:", error);
+        res.status(500).json({ error: "서버 오류 발생" });
+    }
+});
+
+// 특정 사용자의 필요 자원 조회 API
+app.get('/api/needed-byproducts/:uniqueId', async (req, res) => {
+    const { uniqueId } = req.params;
+
+    try {
+        const neededByproducts = await NeededByproduct.findAll({
+            where: { uniqueId },
+            attributes: { exclude: ['updatedAt'] }
+        });
+
+        res.json(neededByproducts);
+    } catch (error) {
+        console.error("필요 자원 조회 오류:", error);
+        res.status(500).json({ error: "서버 오류 발생" });
+    }
+});
 
 
 // 서버 시작
