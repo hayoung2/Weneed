@@ -4,10 +4,11 @@ import styles from '@/components/common/CardList/CardSmallList/CardSmallList.mod
 
 interface CardSmallListProps {
   cards: {
-    location: string;
-    company: string;
-    title: string;
-    amount: string;
+    companyName: string;
+    companyAddress: string;
+    byproductName?:string;
+    byproductAmount?:number;
+    onClick?: () => void;
     style?: React.CSSProperties;
   }[];
 }
@@ -17,7 +18,7 @@ const CardSmallList: React.FC<CardSmallListProps> = ({ cards }) => {
     <div className={styles.cardSmallListContainer}>
       <div className={styles.cardSmallList}>
         {cards.map((item, index) => (
-          <CardSmall key={index} {...item} style={{ minWidth: '200px' }} />
+          <CardSmall key={index} {...item} style={{ minWidth: '200px' }}  onClick={() => console.log('클릭됨')}  />
         ))}
       </div>
     </div>

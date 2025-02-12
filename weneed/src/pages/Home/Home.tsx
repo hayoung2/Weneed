@@ -68,7 +68,9 @@ export const HomePage = () => {
 
   return (
     <div className={styles.home}>
-      <Header />
+      <div className = {styles.headerWrappers}>
+        <Header />
+      </div>
       <div className={styles.header}>
         <div className={styles.container}>
           <div className={styles.title}>
@@ -94,6 +96,7 @@ export const HomePage = () => {
               <img
                 src={isSupplyHovered ? SupplyIconHover : SupplyIcon}
                 alt="공급 아이콘"
+                className = {styles.supplyIcon}
               />
             </div>
             <div
@@ -108,6 +111,7 @@ export const HomePage = () => {
               <img
                 src={isDemandHovered ? DemandIconHover : DemandIcon}
                 alt="수요 아이콘"
+                className = {styles.demandIcon}
               />
             </div>
           </div>
@@ -260,8 +264,9 @@ export const HomePage = () => {
           합니다.
         </p>
       </div>
-
+      <div className = {styles.footerWrapper}>
       <Footer />
+      </div>
     </div>
   );
 };

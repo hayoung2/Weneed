@@ -1,14 +1,18 @@
 import styles from "@/pages/Introduction/Introduction.module.scss";
+import Header from "@/components/common/Header/Header"
 import Footer from "@/components/common/Footer/Footer";
 import Map from "@/components/common/Map/Map";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import CardSmall from "@/components/common/CardList/CardSmall/CardSmall";
+import { useNavigate } from 'react-router-dom';
 
 export const IntroductionPage = () => {
   const [selectedProvinces, setSelectedProvinces] = useState<string[]>([]);
   const [selectedProvince, setSelectedProvince] = useState<string | null>(null);
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [companies, setCompanies] = useState<any[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (selectedProvince && selectedCity) {
@@ -23,7 +27,7 @@ export const IntroductionPage = () => {
           console.error("기업 정보 가져오기 실패:", error);
         });
     }
-  }, [selectedProvince, selectedCity]); // ✅ 선택된 지역이 바뀔 때마다 API 요청
+  }, [selectedProvince, selectedCity]); 
 
   const regionMap: { [key: string]: string } = {
     seoul: "서울",
@@ -312,6 +316,7 @@ export const IntroductionPage = () => {
   return (
     <div>
       <div className={styles.container}>
+        <Header/>
         <p className={styles.title}>With 위니드</p>
         <p className={styles.content}>
           <span>위니드</span>와 함께하는 기업들을 소개하는 페이지예요.
@@ -398,43 +403,38 @@ export const IntroductionPage = () => {
             </p>
           )}
 
-          <div className={styles.cardContainerWrapper}>
-            {companies.length > 0 ? (
-              <div className={styles.cardContainer}>
-                {companies.map((company, index) => (
-                  <div key={index} className={styles.companyCard}>
-                    <h3>{company.companyName}</h3>
-                    <p>대표자: {company.representativeName}</p>
-                    <p>사업자 등록번호: {company.businessNumber}</p>
-                    <p>업종: {company.industryType}</p>
-                    <p>주요 생산품: {company.mainProducts}</p>
-                    <p>매출액: {company.revenue}</p>
-                    <p>연락처: {company.contactNumber}</p>
-                    <p>주소: {company.companyAddress}</p>
-                    {company.websiteLink && (
-                      <p>
-                        홈페이지:{" "}
-                        <a
-                          href={company.websiteLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {company.websiteLink}
-                        </a>
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            ) : (
-              selectedProvince &&
-              selectedCity && (
-                <p className={styles.subContent}>
-                  해당 지역의 등록된 기업이 없습니다.
-                </p>
-              )
-            )}
-          </div>
+<div className={styles.cardContainerWrapper}>
+  {companies.length > 0 ? (
+    <div className={styles.cardContainer}>
+      {companies.map((company, index) => {
+        const latestByproduct=company.byproducts?.[0];
+
+        return (
+          <CardSmall
+            key={index}
+            companyName={company.companyName}
+            companyAddress={company.companyAddress}
+            byproductAmount={latestByproduct?.availableByproductAmount}
+            byproductName={latestByproduct?.availableByproductName}
+            onClick={() => navigate(`/companyInfoDetail/${company.uniqueId}`, { state: company })}
+            style={{ 
+              width: "250px",
+              padding: "5%"
+            }}
+          />
+        )
+      })}
+    </div>
+  ) : (
+    selectedProvince &&
+    selectedCity && (
+      <p className={styles.subContent}>
+        해당 지역의 등록된 기업이 없습니다.
+      </p>
+    )
+  )}
+</div>
+
         </div>
  
       <Footer />

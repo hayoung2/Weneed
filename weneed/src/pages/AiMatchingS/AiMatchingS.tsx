@@ -20,12 +20,11 @@ const AiMatchingS = () => {
   }, [location]);
 
   const mockData = Array.from({ length: 48 }, (_, index) => ({
-    title: `메추리알 껍데기 ${index + 1}`,
+    availableByproductName: `메추리알 껍데기 ${index + 1}`,
     amount: "일평균 100kg",
     location: "부산 영도구 남항동",
     price: 300000,
-    industry: "제조업",
-    company: "HJ 중공업",
+    companyName: "HJ 중공업",
     favorite: false
   }));
 

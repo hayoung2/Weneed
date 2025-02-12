@@ -7,12 +7,9 @@ import SearchButton from '@/components/atoms/SearchButton/SearchButton';
 import Toggle from '@/components/atoms/Toggle/Toggle';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
 import Pagination from '@/components/atoms/Pagination/Pagination';
-import DropDown from '@/components/atoms/DropDown/DropDown';
 import CardList from '@/components/common/CardList/CardList/CardList';
 
 const API_URL = "http://localhost:5000/api"; // 백엔드 API 주소
-
-const options = ['최신순', '가격 낮은 순', '배송비 낮은 순'];
 
 const ITEMS_PER_PAGE = 10;
 
@@ -29,8 +26,6 @@ const ListPage: React.FC = () => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedSortOption, setSelectedSortOption] = useState<string>(options[0]);
 
   const userId = "currentUserId"; // TODO: 로그인된 유저 ID 가져오기
 
@@ -128,7 +123,8 @@ const ListPage: React.FC = () => {
             <span>"{submittedSearch}"</span>에 대한 검색결과
           </div>
         )}
-
+      
+      <div className = {styles.listupWrapper}>
         {currentItems.length > 0 ? (
           <CardList 
             cards={currentItems.map(item => ({
@@ -136,20 +132,20 @@ const ListPage: React.FC = () => {
               availableByproductName: item.availableByproductName,
               amount: `${item.availableByproductAmount} ${item.availableByproductUnit}`,
               price: Number(item.availableByproductPrice),
-              industryType: item.companyInfo?.industryType || "정보 없음",
-              companyName: item.companyInfo?.companyName || "정보 없음",
+              companyAddress: item.companyInfo?.companyAddress || "주소주소 주소주소",
+              companyName: item.companyInfo?.companyName || "회사회사",
               isFavorite: favorites.includes(item.uniqueId),
             }))}
             onCardClick={handleCardClick}
             onFavoriteToggle={handleFavoriteToggle} 
           />
         ) : (
-          <div className={styles.noResults}>
+          <p className={styles.subContent}>
             검색 결과가 없습니다.
-          </div>
-        )}
-
-        {totalPages > 1 && (
+          </p>
+        )}  
+      </div>
+      {totalPages > 1 && (
           <div className={styles.pagination}>
             <Pagination totalPages={totalPages} activePage={currentPage} onPageClick={handlePageClick} />
           </div>

@@ -489,6 +489,28 @@ app.get('/api/user-info/:uniqueId', async (req, res) => {
     }
 });
 
+// 검색 정보 상세 조회 API (CompanyInfo 테이블에서 가져오기)
+//대표자명,회사명으로 해야할지도 in companyinfos / 공급부산물은 id로 찾기
+app.get('/api/transactionDetail/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const byProductInfo = await AvailableByproduct.findOne({
+            where: { id },
+            attributes: { exclude: ['updatedAt'] }
+        });
+
+        if (!byProductInfo) {
+            return res.status(404).json({ error: '부산물 정보를 찾을 수 없습니다.' });
+        }
+
+        res.json(byProductInfo);
+    } catch (error) {
+        console.error('회사 정보 조회 오류:', error);
+        res.status(500).json({ error: '서버 오류 발생' });
+    }
+});
+
 
 
 // 서버 시작

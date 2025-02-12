@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./UniqueNumber.module.scss";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import chartIcon from "@/assets/icons/copy.svg"; 
@@ -15,7 +14,6 @@ interface UniqueNumberProps {
 }
   
 const UniqueNumber: React.FC<UniqueNumberProps> = ({ representative,companyName, uniqueNumber, onNext }) => {
-  const [copied, setCopied] = useState(false);
   const { user } = useAuth();
 
   return (

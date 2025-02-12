@@ -3,7 +3,8 @@
   flex-direction: column;
   gap: 3%;
   margin-top: 2%;
-  margin-bottom: 3%;
+
+  min-height: 35vh;
 }
 .headerWrapper {
   display: flex;
@@ -15,42 +16,36 @@
 
 
 .searchbutton {
-  padding-top: 0.5%;
+  padding-top: 1%;
 }
 
 .aiText {
   font-family: 'Regular';
-  font-size: 0.8vw;
+  font-size: 0.6vw;
   min-width: 100px; 
   padding-left: 1.3vw;
-}
-
-
-.toogleContainer  {
-
- padding-bottom: 10vw;
+  margin-bottom: 5%;
 }
 
 .searchContainer {
   width: 60%;
   display: flex;
   align-items: center;
-  gap: 10px;
 }
 
 
 .mainbody{
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  margin-top: -10%;
 }
 
 .searchResult {
   font-family: "Bold";
   font-size: 140%;
   color:#636363;
-  margin-bottom: 2%;
+  margin-bottom: 3%;
 }
 
 .searchResult span {
@@ -58,26 +53,21 @@
   text-decoration: none;
 }
 
-.pagination{
-  margin-top: 5%;
-  margin-bottom: 2%;
+.subContent {
+  color: #bbbbbb;
+  font-size: 0.9vw;
+  font-family: 'regular';
+  margin-top: 120%;
+  margin-bottom: 20%;
 }
 
-.listup{
-  margin-top: 1%;
-  margin-right: 8%;
-}
-
-.dropdownWrapper {
+.listupWrapper {
   display: flex;
-  justify-content: flex-end; 
-  width: 100%; 
-  margin-right: 46%;
+  flex-direction: column;
+  margin-bottom: 6%;
+  margin-right: 3%;
 }
 
-.customDropdown{
-  border: 1px solid #00b2ff;
-  border-radius: 25px;
-  color: #00b2ff;
-  position: relative;
+.pagination{
+  margin-bottom: 3%;
 }

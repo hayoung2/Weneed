@@ -1,9 +1,8 @@
 .card {
   background: white;
   border-radius: 25px;
-  padding: 1.7% 3%;
-  width: 130px;
-  height: 100px;
+  width: 30vw;
+  height: 15vh;
   border: 1px solid #CBEFFF;
 
   display: flex;
@@ -14,43 +13,42 @@
     background-color: #f2f2f2;
   }
 }
-.location{
-  font-size: 70% !important;
-  font-family: 'regular';
-  color: #828282;
+.byproductName{
+  font-size: 130% !important;
+  font-family: 'bold';
+  color: #0B1215;
   margin-bottom: 1%;
+  margin-left: 3%;
 }
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10%;
-  .company {
-    font-size: 140%;;
-    font-family: 'bold';
+  .byproductAmount {
+    font-size: 80%;;
+    font-family: 'regular';
     color: #0B1215;
+    margin-left: 3%;
   }
 }
 .favoriteIcon{
-  margin-top: -11%;
-  margin-right: -3%;
+  margin-top: -15%;
+  margin-right: 5%;
 }
-.title {
-  font-size: 100%;
-  font-family: 'bold';
-  color: #636363;
 
+.title {
+  font-size:70%;
+  font-family: 'regular';
+  color: #636363;
+  margin-left: 3%;
 }
 
 .amount {
-  font-size: 12px;
-  font-family: 'regular';
+  font-size: 100%;
+  font-family: 'bold';
   color: #636363;
-  margin-top: 5px;
+  margin-top: 2%;
+  margin-left: 3%;
 }
 
-.location {
-  font-size: 10px;
-  font-family: 'regular';
-  color: #828282;
-}

@@ -52,10 +52,10 @@ const router = createBrowserRouter([
     path: `${RouterPath.UNIQUENUMBER}/:companyName/:businessNumber/:representative/:uniqueNumber`,
     element: <UniqueNumberPage />,
   },
-  { path: RouterPath.TRANSACTIONDETAIL, element: <TransactionDetail />},
+  { path: `${RouterPath.TRANSACTIONDETAIL}/:id`, element: <TransactionDetail />},
   { path: RouterPath.REGISTERRESOURCE, element: <RegisterResource />},
   { path: RouterPath.REGISTERBYPRODUCT, element: <RegisterByproduct />},
-  { path: RouterPath.COMPANYINFODETAIL, element: <CompanyInfoDetail />},
+  { path: `${RouterPath.COMPANYINFODETAIL}/:uniqueId`, element: <CompanyInfoDetail />},
   { path: RouterPath.MYPAGE, element: <Mypage />},
   { path: RouterPath.MYPAGEPERSONAL, element: <MypagePersonal />},
 ]);

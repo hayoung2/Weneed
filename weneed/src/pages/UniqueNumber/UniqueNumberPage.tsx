@@ -1,4 +1,4 @@
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import UniqueNumber from "./UniqueNumber";
 import { useAuth } from "@/components/contexts/AuthContext";
 
