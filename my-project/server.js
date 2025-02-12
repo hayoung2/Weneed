@@ -354,15 +354,15 @@ app.get('/api/company-info/:province/:city', async (req, res) => {
                     [Sequelize.Op.like]: `%${province} ${city}%`
                 }
             },
-            attributes: { exclude: ['createdAt', 'updatedAt'] }
+            attributes: { exclude: [ 'updatedAt'] }
         });
 
         // **2. 각 기업의 모든 부산물 정보 가져오기**
         const results = await Promise.all(companies.map(async (company) => {
             const byproducts = await AvailableByproduct.findAll({
                 where: { uniqueId: company.uniqueId },
-                order: [['createdAt', 'DESC']], // 최신순 정렬
-                attributes: { exclude: ['createdAt', 'updatedAt'] }
+                order: [['createdAt', 'DESC']], 
+                attributes: { exclude: [ 'updatedAt'] }
             });
 
             return {
