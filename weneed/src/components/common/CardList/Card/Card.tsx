@@ -4,7 +4,6 @@ import YellowStar from '@/assets/icons/yellow-star.svg';
 import GrayStar from '@/assets/icons/gray-star.svg';
 
 
-
 const formatPrice = (price: number) => {
   return (
     <span>
@@ -54,7 +53,7 @@ const Card: FC<CardProps> = ({
         />
       </div>
 
-      <p className={styles.amount}>{amount}</p>
+      <p className={styles.amount}>월평균 {amount}</p>
       <p className={styles.companyAddress}><strong>{companyAddress}</strong></p>
 
       <div className={styles.bottomWrapper}>
