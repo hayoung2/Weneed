@@ -21,14 +21,10 @@
 
 .aiText {
   font-family: 'Regular';
-  font-size: 0.8vw;
+  font-size: 0.6vw;
   min-width: 100px; 
   padding-left: 1.3vw;
-}
-
-
-.togleContainer  {
- padding-bottom: 10vw;
+  margin-bottom: 5%;
 }
 
 .searchContainer {
@@ -61,10 +57,6 @@
   margin-bottom: 2%;
 }
 
-.listup{
-  margin-right: 8%;
-}
-
 .subContent {
   color: #bbbbbb;
   font-size: 0.9vw;
@@ -78,4 +70,5 @@
   flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 8%;
+  margin-right: 3%;
 }

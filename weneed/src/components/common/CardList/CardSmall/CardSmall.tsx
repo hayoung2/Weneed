@@ -28,9 +28,9 @@ const CardSmall: FC<CardSmallProps> = ({
 
   return (
     <div className={styles.card} style={style} onClick={onClick}>
-      <div className={styles.location}>{byproductName && `${byproductName}`}</div>
+      <div className={styles.byproductName}>{byproductName && `${byproductName}`}</div>
       <div className={styles.header}>
-        <h2 className={styles.company}>{byproductAmount && `${byproductAmount}`}</h2>
+        <h2 className={styles.byproductAmount}>{byproductAmount && `${byproductAmount}`}</h2>
         <img 
           src={isFavorite ? YellowStar : GrayStar} 
           alt="favorite icon" 
