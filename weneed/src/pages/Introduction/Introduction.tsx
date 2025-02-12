@@ -5,12 +5,14 @@ import Map from "@/components/common/Map/Map";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import CardSmall from "@/components/common/CardList/CardSmall/CardSmall";
+import { useNavigate } from 'react-router-dom';
 
 export const IntroductionPage = () => {
   const [selectedProvinces, setSelectedProvinces] = useState<string[]>([]);
   const [selectedProvince, setSelectedProvince] = useState<string | null>(null);
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [companies, setCompanies] = useState<any[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (selectedProvince && selectedCity) {
@@ -25,7 +27,7 @@ export const IntroductionPage = () => {
           console.error("기업 정보 가져오기 실패:", error);
         });
     }
-  }, [selectedProvince, selectedCity]); // ✅ 선택된 지역이 바뀔 때마다 API 요청
+  }, [selectedProvince, selectedCity]); 
 
   const regionMap: { [key: string]: string } = {
     seoul: "서울",
@@ -404,17 +406,24 @@ export const IntroductionPage = () => {
 <div className={styles.cardContainerWrapper}>
   {companies.length > 0 ? (
     <div className={styles.cardContainer}>
-      {companies.map((company, index) => (
-        <CardSmall
-          key={index}
-          companyName={company.companyName}
-          companyAddress={company.companyAddress}
-          style={{ 
-            width: "250px",
-            padding: "5%"
-          }}
-        />
-      ))}
+      {companies.map((company, index) => {
+        const latestByproduct=company.byproducts?.[0];
+
+        return (
+          <CardSmall
+            key={index}
+            companyName={company.companyName}
+            companyAddress={company.companyAddress}
+            byproductAmount={latestByproduct?.availableByproductAmount}
+            byproductName={latestByproduct?.availableByproductName}
+            onClick={() => navigate(`/companyInfoDetail/${company.uniqueId}`, { state: company })}
+            style={{ 
+              width: "250px",
+              padding: "5%"
+            }}
+          />
+        )
+      })}
     </div>
   ) : (
     selectedProvince &&

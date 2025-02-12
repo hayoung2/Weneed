@@ -56,7 +56,7 @@ const AvailableByproduct = sequelize.define('AvailableByproducts', {
     availableByproductUnit: DataTypes.STRING,
     availableByproductAnalysis: DataTypes.STRING,
     availableByproductPrice: DataTypes.STRING,
-    uniqueId: { type: DataTypes.STRING, unique: true }
+    uniqueId:  DataTypes.STRING 
 });
 
 // 필요한 부산물 모델 정의
@@ -64,7 +64,7 @@ const NeededByproduct = sequelize.define('NeededByproducts', {
     neededByproductName: DataTypes.STRING,
     neededByproductAmount: DataTypes.STRING,
     neededByproductUnit: DataTypes.STRING,
-    uniqueId: { type: DataTypes.STRING, unique: true }
+    uniqueId:  DataTypes.STRING
 });
 
 // 거래일지 모델 정의
@@ -197,6 +197,12 @@ app.post('/api/company-info', async (req, res) => {
     } = req.body;
 
     try {
+        // uniqueId가 이미 있는지 확인
+        const existingCompany = await CompanyInfo.findOne({ where: { uniqueId } });
+        if (existingCompany) {
+            return res.status(400).json({ error: "이 uniqueId는 이미 존재합니다." });
+        }
+
         // 1. 회사 정보 저장
         const companyInfo = await CompanyInfo.create({
             companyName,
@@ -268,6 +274,7 @@ app.post('/api/available-byproduct', async (req, res) => {
         return res.status(400).json({ error: "모든 필드를 입력해주세요." });
     }
 
+
     try {
         const availableByproduct = await AvailableByproduct.create({
             availableByproductName,
@@ -309,7 +316,7 @@ app.post('/api/transaction-log', async (req, res) => {
 
     try {
         const transactionLog = await TransactionLog.create({
-            uniqueId, // uniqueId 사용
+            uniqueId, 
             contactNumber,
             callDate,
             callHandler,
@@ -334,27 +341,43 @@ app.post('/api/transaction-log', async (req, res) => {
     }
 });
 
-// 특정 지역의 기업 정보 조회 API
+
+// 특정 지역의 기업 정보 + 모든 부산물 정보 조회 API
 app.get('/api/company-info/:province/:city', async (req, res) => {
     const { province, city } = req.params;
 
     try {
-        // companyAddress에 선택된 지역명이 포함된 기업 조회
+        // **1. 해당 지역의 기업 리스트 조회**
         const companies = await CompanyInfo.findAll({
             where: {
                 companyAddress: {
                     [Sequelize.Op.like]: `%${province} ${city}%`
                 }
             },
-            attributes: { exclude: ['uniqueId', 'createdAt', 'updatedAt'] }
+            attributes: { exclude: ['createdAt', 'updatedAt'] }
         });
 
-        res.json(companies);
+        // **2. 각 기업의 모든 부산물 정보 가져오기**
+        const results = await Promise.all(companies.map(async (company) => {
+            const byproducts = await AvailableByproduct.findAll({
+                where: { uniqueId: company.uniqueId },
+                order: [['createdAt', 'DESC']], // 최신순 정렬
+                attributes: { exclude: ['createdAt', 'updatedAt'] }
+            });
+
+            return {
+                ...company.toJSON(),  
+                byproducts            
+            };
+        }));
+
+        res.json(results);
     } catch (error) {
         console.error("지역별 기업 정보 조회 오류:", error);
         res.status(500).json({ error: "서버 오류 발생" });
     }
 });
+
 
 // 즐겨찾기 추가 API
 app.post('/api/favorites', async (req, res) => {
@@ -446,7 +469,7 @@ app.get('/api/available-byproducts', async (req, res) => {
 });
 
 
-// 사용자 정보 조회 API (CompanyInfo 테이블에서 가져오기)
+//마이페이지 값 가져오기 (상단 데이터 가져오기 )
 app.get('/api/user-info/:uniqueId', async (req, res) => {
     const { uniqueId } = req.params;
 
@@ -461,6 +484,28 @@ app.get('/api/user-info/:uniqueId', async (req, res) => {
         }
 
         res.json(companyInfo);
+    } catch (error) {
+        console.error('회사 정보 조회 오류:', error);
+        res.status(500).json({ error: '서버 오류 발생' });
+    }
+});
+
+// 검색 정보 상세 조회 API (CompanyInfo 테이블에서 가져오기)
+//대표자명,회사명으로 해야할지도 in companyinfos / 공급부산물은 id로 찾기 
+app.get('/api/transactionDetail/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const byProductInfo = await AvailableByproduct.findOne({
+            where: { id },  
+            attributes: { exclude: ['updatedAt'] } 
+        });
+
+        if (!byProductInfo) {
+            return res.status(404).json({ error: '부산물 정보를 찾을 수 없습니다.' });
+        }
+
+        res.json(byProductInfo);
     } catch (error) {
         console.error('회사 정보 조회 오류:', error);
         res.status(500).json({ error: '서버 오류 발생' });
