@@ -64,8 +64,10 @@ const NeededByproduct = sequelize.define('NeededByproducts', {
     neededByproductName: DataTypes.STRING,
     neededByproductAmount: DataTypes.STRING,
     neededByproductUnit: DataTypes.STRING,
+    neededByproductProperty: DataTypes.STRING, // 추가된 필드
     uniqueId: { type: DataTypes.STRING, unique: true }
 });
+
 
 // 거래일지 모델 정의
 const TransactionLog = sequelize.define('TransactionLog', {
@@ -245,7 +247,7 @@ app.post('/api/company-info', async (req, res) => {
 
 // 필요한 부산물 저장 API
 app.post('/api/needed-byproduct', async (req, res) => {
-    const { neededByproductName, neededByproductAmount, neededByproductUnit, uniqueId } = req.body;
+    const { neededByproductName, neededByproductAmount, neededByproductUnit, neededByproductProperty, uniqueId } = req.body;
 
     if (!neededByproductName || !neededByproductAmount || !neededByproductUnit || !uniqueId) {
         return res.status(400).json({ error: "모든 필드를 입력해주세요." });
@@ -262,6 +264,7 @@ app.post('/api/needed-byproduct', async (req, res) => {
             neededByproductName,
             neededByproductAmount,
             neededByproductUnit,
+            neededByproductProperty, // 추가된 필드 저장
             uniqueId,
         });
 
@@ -271,6 +274,7 @@ app.post('/api/needed-byproduct', async (req, res) => {
         res.status(500).json({ error: "서버 오류 발생" });
     }
 });
+
 
 // 공급 가능한 부산물 저장 API
 app.post('/api/available-byproduct', async (req, res) => {
