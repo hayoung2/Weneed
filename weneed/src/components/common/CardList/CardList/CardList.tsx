@@ -3,13 +3,15 @@ import styles from "@/components/common/CardList/CardList/CardList.module.scss";
 
 interface CardListProps {
   cards: {
+    index: number;
     id: string;
     availableByproductName: string;
     amount: string;
-    price: number;
-    industryType: string;
+    companyAddress: string;
     companyName: string;
+    price: number;
     isFavorite: boolean;
+    style?: React.CSSProperties;
   }[];
   onCardClick: (item: any) => void;
   onFavoriteToggle: (id: string, companyName: string) => void; 
@@ -25,7 +27,7 @@ const CardList: React.FC<CardListProps> = ({ cards, onCardClick, onFavoriteToggl
           availableByproductName={item.availableByproductName}
           amount={item.amount}
           price={item.price}
-          industryType={item.industryType}
+          companyAddress={item.companyAddress}
           companyName={item.companyName}
           isFavorite={item.isFavorite}
           onClick={() => onCardClick(item)}

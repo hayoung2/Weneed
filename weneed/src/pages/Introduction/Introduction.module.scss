@@ -145,21 +145,6 @@
     font-family: 'regular';
 }
 
-
-.cardContainer {
-    width: 65%;
-    max-height: 85vh;
-    overflow-y: auto; 
-    overflow-x: hidden;
-
-    display: grid;
-    grid-template-columns: repeat(3, auto); 
-    grid-auto-rows: auto;
-    row-gap: 2%;
-    column-gap: 0%;
-    scrollbar-gutter: stable;    
-
-}
 .cardContainerWrapper {
     display: flex;
     justify-content: center;
@@ -168,4 +153,9 @@
     overflow: hidden;
   }
   
+.gridWrapper{
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important; 
+}
+
   

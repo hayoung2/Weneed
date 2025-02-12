@@ -1,8 +1,9 @@
 .cardList {
   display: grid;
-  grid-template-columns: repeat(2, minmax(280px, 1fr)); 
-  column-gap: 19%;
-  row-gap: 1.5%;
-
-  width: fit-content;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 5%;
+  column-gap: -20%;
+  width: 60vw;
+  max-width: 80vw;
+  margin: 0 -2% 0 auto;
 }
