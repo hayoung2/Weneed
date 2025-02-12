@@ -181,14 +181,14 @@ const Mypage: React.FC = () => {
         <div className={styles.sectionHeader}>
           <p className={styles.sectionTitle}>우리 기업과 최근 거래한 기업</p>
         </div>
-        <div><CardSmallList cards={favoriteCompanies} /></div>
+        {/* <div><CardSmallList cards={favoriteCompanies} /></div> */}
       </div>
 
       <div className={styles.section}>
         <div className={styles.sectionHeader}>
           <p className={styles.sectionTitle}>즐겨찾기 등록된 기업</p>
         </div>
-        <div><CardSmallList cards={favoriteCompanies} /></div>
+        {/* <div><CardSmallList cards={favoriteCompanies} /></div> */}
       </div>
 
       <div className={styles.section}>
