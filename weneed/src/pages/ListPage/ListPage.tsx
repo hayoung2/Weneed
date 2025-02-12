@@ -143,14 +143,13 @@ const ListPage: React.FC = () => {
           <p className={styles.subContent}>
             검색 결과가 없습니다.
           </p>
-        )}
-
-        {totalPages > 1 && (
+        )}  
+      </div>
+      {totalPages > 1 && (
           <div className={styles.pagination}>
             <Pagination totalPages={totalPages} activePage={currentPage} onPageClick={handlePageClick} />
           </div>
         )}
-      </div>
       </div>
 
       <Footer />

@@ -1,9 +1,9 @@
 .cardList {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  row-gap: 5%;
+  row-gap: 2%;
   column-gap: 2%;
   width: 55vw;
   max-width: 80vw;
-  margin: 0 -2% 0 auto;
+  margin: 0 -3% 0 auto;
 }
