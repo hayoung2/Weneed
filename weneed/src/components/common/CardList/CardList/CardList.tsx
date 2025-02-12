@@ -3,7 +3,6 @@ import styles from "@/components/common/CardList/CardList/CardList.module.scss";
 
 interface CardListProps {
   cards: {
-    index: number;
     id: string;
     availableByproductName: string;
     amount: string;
