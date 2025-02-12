@@ -5,7 +5,6 @@ const MeetingNotePage: React.FC = () => {
   const { title, representative, address, businessType, contact, fax } = useParams();
   const location = useLocation();
 
-
   
   let mode: "default" | "view" | "edit" = "default";
   if (location.pathname.includes("meetingView")) mode = "view";

@@ -4,7 +4,7 @@ import Footer from "@/components/common/Footer/Footer";
 import Map from "@/components/common/Map/Map";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import CardSmall from "@/components/common/CardList/CardSmall/CardSmall";
+import CardSmallIntroduction from "@/components/common/CardList/CardSmallIntroduction/CardSmallIntroduction";
 import { useNavigate } from 'react-router-dom';
 
 export const IntroductionPage = () => {
@@ -410,7 +410,7 @@ export const IntroductionPage = () => {
         const latestByproduct=company.byproducts?.[0];
 
         return (
-          <CardSmall
+          <CardSmallIntroduction
             key={index}
             companyName={company.companyName}
             companyAddress={company.companyAddress}

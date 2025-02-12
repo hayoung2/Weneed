@@ -1,0 +1,29 @@
+.cardSmallListContainer {
+  width: 100%;
+  height: 800px; // 원하는 높이로 지정 (예: 600px)
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 0;
+
+  /* 스크롤바 스타일 */
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #f2f2f2;
+  }
+}
+
+.cardSmallList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); // 한 줄에 3개씩 배치
+  gap: 12px; // 카드 간의 간격
+  padding: 0 10px;
+}
