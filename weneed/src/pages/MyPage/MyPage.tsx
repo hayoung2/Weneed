@@ -139,12 +139,7 @@ const Mypage: React.FC = () => {
         <h2 className={styles.companyName}>
           {companyInfo?.companyName}
         </h2>
-        <button
-          className={styles.infoButton}
-          onClick={() => navigate("/companyInfo")}
-        >
-          회사 소개 보러가기
-        </button>
+
       </div>
       <div>
         <p className={styles.userText}>{user?.uniqueId} | 기업 회원</p>
