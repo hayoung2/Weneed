@@ -1,5 +1,5 @@
 import styles from "@/pages/Introduction/Introduction.module.scss";
-import Header from '@/components/common/Header/Header'
+import Header from "@/components/common/Header/Header"
 import Footer from "@/components/common/Footer/Footer";
 import Map from "@/components/common/Map/Map";
 import { useState, useEffect } from "react";
