@@ -56,7 +56,7 @@ const AvailableByproduct = sequelize.define('AvailableByproducts', {
     availableByproductUnit: DataTypes.STRING,
     availableByproductAnalysis: DataTypes.STRING,
     availableByproductPrice: DataTypes.STRING,
-    uniqueId: { type: DataTypes.STRING, unique: false }
+    uniqueId:  { type: DataTypes.STRING, unique: false }
 });
 
 // 필요한 부산물 모델 정의
@@ -64,10 +64,9 @@ const NeededByproduct = sequelize.define('NeededByproducts', {
     neededByproductName: DataTypes.STRING,
     neededByproductAmount: DataTypes.STRING,
     neededByproductUnit: DataTypes.STRING,
-    neededByproductProperty: DataTypes.STRING, // 추가된 필드
-    uniqueId: { type: DataTypes.STRING, unique: false }
+    neededByproductProperty:DataTypes.STRING,
+    uniqueId:  { type: DataTypes.STRING, unique: false }
 });
-
 
 // 거래일지 모델 정의
 const TransactionLog = sequelize.define('TransactionLog', {
@@ -195,6 +194,7 @@ app.post('/api/company-info', async (req, res) => {
         neededByproductName,
         neededByproductAmount,
         neededByproductUnit,
+        neededByproductProperty,
         uniqueId
     } = req.body;
 
@@ -235,6 +235,7 @@ app.post('/api/company-info', async (req, res) => {
             neededByproductName,
             neededByproductAmount,
             neededByproductUnit,
+            neededByproductProperty,
             uniqueId
         });
 
@@ -247,16 +248,10 @@ app.post('/api/company-info', async (req, res) => {
 
 // 필요한 부산물 저장 API
 app.post('/api/needed-byproduct', async (req, res) => {
-    const { neededByproductName, neededByproductAmount, neededByproductUnit, neededByproductProperty, uniqueId } = req.body;
+    const { neededByproductName, neededByproductAmount, neededByproductUnit,neededByproductProperty, uniqueId } = req.body;
 
-    if (!neededByproductName || !neededByproductAmount || !neededByproductUnit || !uniqueId) {
+    if (!neededByproductName || !neededByproductAmount || !neededByproductUnit || !neededByproductProperty || !uniqueId) {
         return res.status(400).json({ error: "모든 필드를 입력해주세요." });
-    }
-
-    // uniqueId가 이미 있는지 확인
-    const existingNeededByproduct = await NeededByproduct.findOne({ where: { uniqueId } });
-    if (existingNeededByproduct) {
-        return res.status(400).json({ error: "이 uniqueId는 이미 존재합니다." });
     }
 
     try {
@@ -264,7 +259,7 @@ app.post('/api/needed-byproduct', async (req, res) => {
             neededByproductName,
             neededByproductAmount,
             neededByproductUnit,
-            neededByproductProperty, // 추가된 필드 저장
+            neededByproductProperty,
             uniqueId,
         });
 
@@ -275,20 +270,14 @@ app.post('/api/needed-byproduct', async (req, res) => {
     }
 });
 
-
 // 공급 가능한 부산물 저장 API
-app.post('/api/available-byproduct', async (req, res) => {
+app.post('/api/availablebyproduct', async (req, res) => {
     const { availableByproductName, availableByproductAmount, availableByproductUnit, availableByproductPrice, availableByproductAnalysis, uniqueId } = req.body;
 
     if (!availableByproductName || !availableByproductAmount || !availableByproductUnit || !availableByproductPrice || !uniqueId) {
         return res.status(400).json({ error: "모든 필드를 입력해주세요." });
     }
 
-    // uniqueId가 이미 있는지 확인
-    const existingByproduct = await AvailableByproduct.findOne({ where: { uniqueId } });
-    if (existingByproduct) {
-        return res.status(400).json({ error: "이 uniqueId는 이미 존재합니다." });
-    }
 
     try {
         const availableByproduct = await AvailableByproduct.create({
@@ -331,7 +320,7 @@ app.post('/api/transaction-log', async (req, res) => {
 
     try {
         const transactionLog = await TransactionLog.create({
-            uniqueId, // uniqueId 사용
+            uniqueId, 
             contactNumber,
             callDate,
             callHandler,
@@ -356,27 +345,43 @@ app.post('/api/transaction-log', async (req, res) => {
     }
 });
 
-// 특정 지역의 기업 정보 조회 API
+
+// 특정 지역의 기업 정보 + 모든 부산물 정보 조회 API
 app.get('/api/company-info/:province/:city', async (req, res) => {
     const { province, city } = req.params;
 
     try {
-        // companyAddress에 선택된 지역명이 포함된 기업 조회
+        // **1. 해당 지역의 기업 리스트 조회**
         const companies = await CompanyInfo.findAll({
             where: {
                 companyAddress: {
                     [Sequelize.Op.like]: `%${province} ${city}%`
                 }
             },
-            attributes: { exclude: ['uniqueId', 'createdAt', 'updatedAt'] }
+            attributes: { exclude: [ 'updatedAt'] }
         });
 
-        res.json(companies);
+        // **2. 각 기업의 모든 부산물 정보 가져오기**
+        const results = await Promise.all(companies.map(async (company) => {
+            const byproducts = await AvailableByproduct.findAll({
+                where: { uniqueId: company.uniqueId },
+                order: [['createdAt', 'DESC']], 
+                attributes: { exclude: [ 'updatedAt'] }
+            });
+
+            return {
+                ...company.toJSON(),  
+                byproducts            
+            };
+        }));
+
+        res.json(results);
     } catch (error) {
         console.error("지역별 기업 정보 조회 오류:", error);
         res.status(500).json({ error: "서버 오류 발생" });
     }
 });
+
 
 // 즐겨찾기 추가 API
 app.post('/api/favorites', async (req, res) => {
@@ -468,7 +473,7 @@ app.get('/api/available-byproducts', async (req, res) => {
 });
 
 
-// 사용자 정보 조회 API (CompanyInfo 테이블에서 가져오기)
+//마이페이지 값 가져오기 (상단 데이터 가져오기 )
 app.get('/api/user-info/:uniqueId', async (req, res) => {
     const { uniqueId } = req.params;
 
@@ -490,14 +495,14 @@ app.get('/api/user-info/:uniqueId', async (req, res) => {
 });
 
 // 검색 정보 상세 조회 API (CompanyInfo 테이블에서 가져오기)
-//대표자명,회사명으로 해야할지도 in companyinfos / 공급부산물은 id로 찾기
+//대표자명,회사명으로 해야할지도 in companyinfos / 공급부산물은 id로 찾기 
 app.get('/api/transactionDetail/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
         const byProductInfo = await AvailableByproduct.findOne({
-            where: { id },
-            attributes: { exclude: ['updatedAt'] }
+            where: { id },  
+            attributes: { exclude: ['updatedAt'] } 
         });
 
         if (!byProductInfo) {

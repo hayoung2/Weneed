@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import styles from "./RegisterResource.module.scss";
 import InputBox from "@/components/common/InputBox/InputBox";
 import UnitBigDropdown from "@/components/common/UnitDropdown/UnitBigDropdown";
@@ -8,6 +7,8 @@ import Footer from "@/components/common/Footer/Footer";
 import EditButton from "@/components/common/EditButton/EditButton";
 import { useAuth } from "@/components/contexts/AuthContext"; 
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+
 
 const RegisterResource: React.FC = () => {
   const { user } = useAuth(); 
@@ -15,6 +16,7 @@ const RegisterResource: React.FC = () => {
     neededByproductName: "", 
     neededByproductAmount: "",
     neededByproductUnit: "",
+    neededByproductProperty:"",
     uniqueId: user?.uniqueId || "", 
   });
   const navigate = useNavigate();
@@ -23,12 +25,13 @@ const RegisterResource: React.FC = () => {
   };
 
   const handleSubmit = async () => {
-    if (!formData.neededByproductName || !formData.neededByproductAmount || !formData.neededByproductUnit) {
+    if (!formData.neededByproductName || !formData.neededByproductAmount || !formData.neededByproductUnit || !formData.neededByproductProperty) {
       alert("모든 필드를 입력해주세요.");
       return;
     }
 
     try {
+      await axios.post("http://localhost:5000/api/needed-byproduct", formData);
       alert("필요 자원이 성공적으로 등록되었습니다.");
       navigate('/')
     } catch (error) {
@@ -66,7 +69,7 @@ const RegisterResource: React.FC = () => {
           <textarea
             className={styles.textarea}
             placeholder="사용 용도"
-            onChange={(e) => handleChange("usage", e.target.value)}
+            onChange={(e) => handleChange("neededByproductProperty", e.target.value)}
           />
         </div>
 
