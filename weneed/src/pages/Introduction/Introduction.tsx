@@ -1,4 +1,5 @@
 import styles from "@/pages/Introduction/Introduction.module.scss";
+import Header from '@/components/common/Header/Header'
 import Footer from "@/components/common/Footer/Footer";
 import Map from "@/components/common/Map/Map";
 import { useState, useEffect } from "react";
@@ -313,6 +314,7 @@ export const IntroductionPage = () => {
   return (
     <div>
       <div className={styles.container}>
+        <Header/>
         <p className={styles.title}>With 위니드</p>
         <p className={styles.content}>
           <span>위니드</span>와 함께하는 기업들을 소개하는 페이지예요.
