@@ -1,10 +1,8 @@
 import React from "react";
 import styles from "./Footer.module.scss";
 import logo from "@/assets/icons/logo.svg";
-import { useAuth } from '@/components/contexts/AuthContext';
 
 const Footer: React.FC = () => {
-  const { user } = useAuth();
   return (
     <footer className={styles.footer}>
 

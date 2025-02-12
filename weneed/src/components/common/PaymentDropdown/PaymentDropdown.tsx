@@ -9,7 +9,7 @@ interface PaymentDropdownProps {
   onChange: (unit: string) => void;
 }
 
-const UnitDropdown: React.FC<PaymentDropdownProps> = ({ value, onChange }) => {
+const UnitDropdown: React.FC<PaymentDropdownProps> = ({ onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState<string>("선불 계좌 이체"); // 기본값 "단위"
 

@@ -32,8 +32,6 @@ const MeetingNote: React.FC<MeetingNoteProps> = ({
   mode = "default",
 }) => {
  
-  const [callDate, setCallDate] = useState<string[]>(["", "", "", "", ""]);
-
   const { user } = useAuth();
 
 
