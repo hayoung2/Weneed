@@ -4,10 +4,10 @@ import YellowStar from '@/assets/icons/yellow-star.svg';
 import GrayStar from '@/assets/icons/gray-star.svg';
 
 interface CardSmallProps {
-  companyName: string;
-  companyAddress: string;
-  byproductName:string;
-  byproductAmount:number;
+  companyName?: string;
+  companyAddress?: string;
+  byproductName?:string;
+  byproductAmount?:number;
   onClick: () => void;
   style?: React.CSSProperties;
 }
