@@ -146,16 +146,189 @@
 }
 
 .cardContainerWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin: 5vh auto;
-    overflow: hidden;
+    height: 50vh; 
+    overflow-y: auto; 
+    overflow-x: hidden;
+    padding: 0 10px;
+  
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  
+    &::-webkit-scrollbar-track {
+      background: #f2f2f2;
+    }
   }
   
-.gridWrapper{
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important; 
-}
+  .cardContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 한 줄에 3열 */
+    row-gap: 3%;
+    padding: 0 21%;
+  }
+  
+@media (max-width: 768px) {
+    
+    .title {
+      font-family: 'bold';
+      font-size: 6vw;
+      text-align: center;
+      padding-top: 4%;
+    }
+    
+    .content {
+      font-family: 'medium';
+      font-size: 3vw;
+      margin-top: 2%;
+      text-align: center;
+      color: #4a4a4a;
+    }
+    
+    .content span {
+      color: #00b2ff;
+    }
+    
+    .subTitle{
+        margin-right: 13%;
+        font-size: 3vw !important;
+    }
+    .selectGroup {
+      display: flex; 
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .selectionMapBox {
+      align-items: center;
+      width: 70vw;
+      height: 30vh;
+      background-color: transparent; 
 
+      margin-top: 5%;
+      margin-left: 10%;
+
+    }
+    
+    .innerMapBox {
+      width: 100%;
+      height: 60vh; 
+      padding-left: 16%;
+      padding-top: 10%;
+      padding-bottom: 6%;
+      display: flex;
+      margin-right: 15%;
+    
+      background-color: white;
+      border-radius: 3%;
+      box-shadow: rgba(0, 178, 255, 0.2) 0px 0px 4px;
+    }
+    
+    .selectionBox {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 70vw;
+      height: 30vh;
+      background-color: transparent; 
+    }
+    
+    .innerBox {
+      width: 100%;
+      height: 65vh; 
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      background-color: white;
+      border-radius: 3%;
+      padding-top: 4%;
+      box-shadow: rgba(0, 178, 255, 0.2) 0px 0px 4px;
+    }
+    
+    .scrollBox {
+      width: 80%;
+      height: 100%; 
+      max-height: 90%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      font-family: 'medium';
+      font-size: 1.2vw;
+      row-gap: 1.5%;
+      column-gap: 2.5%;
+      padding-right: 0.5%;
+      margin-top: 5%;
+    
+      display: grid;
+      grid-template-columns: 1fr 1fr; 
+      grid-auto-rows: auto;
+      grid-auto-flow: row dense;
+      align-content: start;
+    }
+    
+    .provinceBox, .cityBox {
+      width: 100%; 
+      height: 60px; 
+      text-align: center;
+      align-content: center;
+      border: 1px solid #cbefff;
+      border-radius: 9%;
+      cursor: pointer;
+      background-color: white;
+      transition: 0.2s;
+    
+      &:hover {
+        background-color: #f2f2f2;
+      }
+    
+      &.selected { 
+        background-color: #f2f2f2 !important;
+      }
+    }
+    
+    .recommendationText {
+      font-family: 'regular';
+      font-size: 1.4vw;
+      text-align: center;
+      margin-bottom: 1%;
+    }
+    
+    .recommendationText span {
+      font-family: 'bold';
+      font-size: 1.4vw;
+      color: #00b2ff;
+    }
+    
+    .subTitle {
+      font-family: 'medium';
+      font-size: 1.2vw;
+      color: #4a4a4a;
+    }
+    
+    .subContent {
+      color: #bbbbbb;
+      font-size: 0.9vw;
+      text-align: center;
+      font-family: 'regular';
+    }
+    
+    .cardContainerWrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 5vh auto;
+      overflow: hidden;
+    }
+      
+    .gridWrapper {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important; 
+    }
+  }
   
