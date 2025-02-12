@@ -8,7 +8,6 @@ interface CardSmallProps {
   companyAddress: string;
   byproductName:string;
   byproductAmount:number;
-  onClick: () => void;
   style?: React.CSSProperties;
 }
 
@@ -17,7 +16,6 @@ const CardSmall: FC<CardSmallProps> = ({
   companyAddress,
   byproductName ='',
   byproductAmount='',
-  onClick,
   style
  }) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -27,7 +25,7 @@ const CardSmall: FC<CardSmallProps> = ({
   };
 
   return (
-    <div className={styles.card} style={style} onClick={onClick}>
+    <div className={styles.card} style={style} >
       <div className={styles.byproductName}>{byproductName && `${byproductName}`}</div>
       <div className={styles.header}>
         <h2 className={styles.byproductAmount}>{byproductAmount && `${byproductAmount}`}</h2>
