@@ -9,7 +9,7 @@ interface UnitDropdownProps {
   onChange: (unit: string) => void;
 }
 
-const UnitDropdown: React.FC<UnitDropdownProps> = ({ value, onChange }) => {
+const UnitDropdown: React.FC<UnitDropdownProps> = ({  onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedUnit, setSelectedUnit] = useState<string>("단위"); // 기본값 "단위"
 

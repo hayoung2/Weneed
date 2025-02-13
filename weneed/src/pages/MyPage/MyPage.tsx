@@ -17,7 +17,7 @@ const Mypage: React.FC = () => {
   const [companyInfo, setCompanyInfo] = useState<any>(null);
   const [availableByproducts, setAvailableByproducts] = useState<any[]>([]);
   const [neededByproducts, setNeededByproducts] = useState<any[]>([]);
-  const [showTransactionLog, setShowTransactionLog] = useState(true);
+  const [showTransactionLog] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [transactions, setTransactions] = useState<any[]>([]);
 
