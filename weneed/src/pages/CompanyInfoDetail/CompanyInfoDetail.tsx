@@ -92,7 +92,7 @@ const CompanyInfoDetail: React.FC = () => {
 
         <div className={styles.transactions}>
           <TransactionContainer title="부산물 종류" text2={latestByproduct?.availableByproductName || "정보 없음"}/>
-          <TransactionContainer title="총거래횟수" text2="" />
+          <TransactionContainer title="총 거래횟수" text2="" />
           <TransactionContainer title="총 거래성공률" text2="" />
           <TransactionContainer
             title="부산물량 월별 평균"

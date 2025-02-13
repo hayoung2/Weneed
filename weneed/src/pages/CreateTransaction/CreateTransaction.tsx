@@ -8,38 +8,85 @@ import YearBox from "@/components/common/YearBox/YearBox";
 import MonthBox from "@/components/common/MonthBox/MonthBox";
 import InputBox from "@/components/common/InputBox/InputBox";
 import UnitDropdown from "@/components/common/UnitDropdown/UnitDropdown";
+import { useAuth } from '@/components/contexts/AuthContext';
 
+const API_URL = "http://localhost:5000/api"; // 백엔드 API 주소
 const CreateTransaction: React.FC = () => {
-  const location = useLocation();
-  const company = location.state?.company || null; 
-  const [transactionDateTime, setTransactionDateTime] = useState<string[]>(["", "", "", "", ""]);
-  const [transactionLocation, setTransactionLocation] = useState<string>("");
-  const [transactionPrice, setTransactionPrice] = useState<string>("");
-  const [byproductName, setByproductName] = useState<string>("");
-  const [byproductAmount, setByproductAmount] = useState<string>("");
-  const [byproductUnit, setByproductUnit] = useState<string>("kg");
-  const [transactionNotes, setTransactionNotes] = useState<string>("");
-  const navigate = useNavigate();
-
+    const location = useLocation();
+    const company = location.state?.company || null; // ✅ company 정보 받아오기
+    const navigate = useNavigate();
+    const { user } = useAuth(); // ✅ 현재 로그인한 유저 정보 가져오기
+  
+    // 상태 관리
+    const [transactionDateTime, setTransactionDateTime] = useState<string[]>(["", "", "", "", ""]);
+    const [transactionLocation, setTransactionLocation] = useState<string>("");
+    const [transactionPrice, setTransactionPrice] = useState<string>("");
+    const [byproductName, setByproductName] = useState<string>("");
+    const [byproductAmount, setByproductAmount] = useState<string>("");
+    const [byproductUnit, setByproductUnit] = useState<string>("kg");
+    const [transactionNotes, setTransactionNotes] = useState<string>("");
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  
+    if (!company) {
+      console.error("Error: No company data received!");
+      return (
+        <>
+          <Header />
+          <div className={styles.container}>
+            <h2 className={styles.title}>거래 예정서 작성</h2>
+            <p className={styles.error}>회사 정보를 찾을 수 없습니다.</p>
+          </div>
+          <Footer />
+        </>
+      );
+    }
+  
+    // 거래 정보 저장 API 호출
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (isSubmitting) return; // 중복 요청 방지
+      setIsSubmitting(true);
+  
+      const transactionData = {
+        uniqueId: user?.uniqueId, // 로그인한 사용자 ID
+        contactNumber: company.contactNumber,
+        transactionDate: `${transactionDateTime[0]}-${transactionDateTime[1]}-${transactionDateTime[2]} ${transactionDateTime[3]}:${transactionDateTime[4]}`, // YYYY-MM-DD HH:mm 형식
+        byproductName,
+        byproductQuantity: parseFloat(byproductAmount),
+        byproductUnit,
+        transactionPrice: parseInt(transactionPrice, 10),
+        additionalNotes: transactionNotes,
+        status: "거래 요청",
+      };
+  
+      try {
+        const response = await fetch(`${API_URL}/create-transaction`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(transactionData),
+        });
+  
+        const result = await response.json();
+        if (result.success) {
+          alert("거래 요청이 성공적으로 등록되었습니다.");
+          navigate("/mypage"); // ✅ 성공 시 마이페이지로 이동
+        } else {
+          alert("거래 요청 등록에 실패했습니다. 다시 시도해주세요.");
+        }
+      } catch (error) {
+        console.error("거래 요청 오류:", error);
+        alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+      } finally {
+        setIsSubmitting(false);
+      }
+    };
+  
   const handleTransactionDateChange = (index: number, value: string) => {
     const updatedDateTime = [...transactionDateTime]; // 기존 배열 복사
     updatedDateTime[index] = value; // 특정 인덱스 값 변경
     setTransactionDateTime(updatedDateTime); // 변경된 배열 업데이트
   };
 
-  // 폼 제출 핸들러 추가
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // 실제 제출 로직(예: API 요청) 추가 가능
-    console.log("Form submitted with data:", {
-      transactionDateTime,
-      transactionLocation,
-      transactionPrice,
-      byproductName,
-      byproductAmount,
-      byproductUnit,
-    });
-  };
 
   if (!company) {
     console.error("Error: No company data received!");

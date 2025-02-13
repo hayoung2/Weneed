@@ -39,16 +39,7 @@ const ListPage: React.FC = () => {
     }
   }, [submittedSearch]);
 
-  // 🔥 즐겨찾기 가져오기
-  useEffect(() => {
-    fetch(`${API_URL}/favorites?userId=${userId}`)
-      .then(response => response.json())
-      .then(data => {
-        const favoriteIds = data.map((fav: any) => fav.favoriteCompanyId);
-        setFavorites(favoriteIds);
-      })
-      .catch(error => console.error("즐겨찾기 불러오기 오류:", error));
-  }, []);
+ 
 
   // 🔥 검색 실행 시 즉시 반영되도록 변경
   const handleSubmit = () => {
@@ -58,33 +49,10 @@ const ListPage: React.FC = () => {
     }
   };
   const handleCardClick = (item: any) => {
-    console.log("클릭한 아이템:", item); 
     navigate(`/transactionDetail/${item.id}`, { state: item }); 
   };
   
-  const handleFavoriteToggle = (companyId: string, companyName: string) => {
-    if (favorites.includes(companyId)) {
-      fetch(`${API_URL}/favorites/remove`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, favoriteCompanyId: companyId }),
-      })
-      .then(() => {
-        setFavorites(favorites.filter(id => id !== companyId));
-      })
-      .catch(error => console.error("즐겨찾기 삭제 오류:", error));
-    } else {
-      fetch(`${API_URL}/favorites/add`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, favoriteCompanyId: companyId, companyName }),
-      })
-      .then(() => {
-        setFavorites([...favorites, companyId]);
-      })
-      .catch(error => console.error("즐겨찾기 추가 오류:", error));
-    }
-  };
+ 
 
   const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
   const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
@@ -138,7 +106,6 @@ const ListPage: React.FC = () => {
               isFavorite: favorites.includes(item.uniqueId),
             }))}
             onCardClick={handleCardClick}
-            onFavoriteToggle={handleFavoriteToggle} 
           />
         ) : (
           <p className={styles.subContent}>
@@ -152,9 +119,8 @@ const ListPage: React.FC = () => {
           </div>
         )}
       </div>
-      <div className = {styles.footerWrapper}>
+
       <Footer />
-      </div>
     </div>
   );
 };
