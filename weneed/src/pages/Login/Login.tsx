@@ -27,7 +27,7 @@ export const LoginPage = () => {
     try {
       const response = await axios.post('http://localhost:5000/login', { uniqueId: id, password });
 
-      const { token, userType, companyName, businessNumber, representative, email } = response.data;
+      const {  userType } = response.data;
 
  
       if (userType == "기업") {

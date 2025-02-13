@@ -24,7 +24,7 @@ const UniqueNumber: React.FC<UniqueNumberProps> = ({ representative,companyName,
           <span className={styles.blueText}>{user?.userType =="개인" ? representative :companyName}</span>의 고유번호
         </p>
 
-        <CopyToClipboard text={uniqueNumber} onCopy={() => setCopied(true)}>
+        <CopyToClipboard text={uniqueNumber} onCopy={() => true}>
           <div className={styles.inputContainer}>
             <img src={chartIcon} alt="chart icon" className={styles.icon} />
             <input type="text" value={uniqueNumber} readOnly />
