@@ -1,7 +1,5 @@
 import styles from '@/components/common/CardList/CardSmallIntroduction/CardSmallIntroduction.module.scss';
-import { FC, useState } from 'react';
-import YellowStar from '@/assets/icons/yellow-star.svg';
-import GrayStar from '@/assets/icons/gray-star.svg';
+import { FC } from 'react';
 
 interface CardSmallIntroductionProps {
   companyName?: string;
@@ -20,23 +18,12 @@ const CardSmallIntroduction: FC<CardSmallIntroductionProps> = ({
   onClick,
   style
  }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  const toggleFavorite = () => {
-    setIsFavorite(prev => !prev);
-  };
 
   return (
     <div className={styles.card} style={style} onClick={onClick}>
       <div className={styles.byproductName}>{byproductName && `${byproductName}`}</div>
       <div className={styles.header}>
-        <h2 className={styles.byproductAmount}>{byproductAmount && `${byproductAmount}`}</h2>
-        <img 
-          src={isFavorite ? YellowStar : GrayStar} 
-          alt="favorite icon" 
-          className={styles.favoriteIcon} 
-          onClick={toggleFavorite} 
-        />
+        <h2 className={styles.byproductAmount}> {byproductAmount && `${byproductAmount}`}</h2>
       </div>
       <p className={styles.title}>{companyAddress}</p>
       <p className={styles.amount}>{companyName}</p>
