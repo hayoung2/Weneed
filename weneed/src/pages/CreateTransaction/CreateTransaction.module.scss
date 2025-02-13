@@ -1,0 +1,187 @@
+.container {
+  width: 65%;
+  margin: auto;
+  padding: 3% 0;
+}
+
+.content {
+  width: 60%;
+  margin: auto;
+}
+
+.title {
+  font-size: 2vw;
+  font-family: "bold";
+  margin-bottom: 1.5vw;
+}
+
+.sectionTitle {
+  font-size: 1.5vw;
+  font-family: "semi-bold";
+  margin-top: 2vw;
+  margin-bottom: 1.5vw;
+  color: #636363;
+}
+
+/* 추가: 회사 기본정보 그리드 레이아웃 */
+.infoGrid {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1vw;
+  margin-bottom: 2vw;
+}
+
+.row {
+  display: flex;
+  width: 48%;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.2vw; 
+}
+
+.labelLong {
+  width: 11vw;
+  font-family: "medium";
+  font-size: 0.8vw;
+  color: #bbbbbb;
+}
+
+.label {
+  width: 8vw;
+  font-family: "medium";
+  font-size: 1.1vw;
+  color: #757575;
+  margin-bottom: 2%;
+}
+
+.label2{
+  width: 8vw;
+  font-family: "medium";
+  font-size: 1.2vw;
+  color: #bbbbbb;
+}
+
+.value {
+  flex-grow: 1;
+  font-family: "medium";
+  font-size: 1vw;
+  color: #4a4a4a;
+}
+
+.highlightTitle {
+  font-family: 'bold';
+  font-size: 2vw;
+  color: #00b2ff;
+  margin-top: 4vw;
+  margin-bottom: 1vw;
+}
+
+.description {
+  font-family: "medium";
+  font-size: 0.9vw;
+  color: #b0b0b0;
+}
+
+.inputGroup {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 3%;
+}
+
+.inputBox {
+  flex: 1;
+  margin-top: 3%;
+}
+
+.dateText {
+  padding-top: 2%;
+  padding-left: 0.5%;
+  padding-right: 2%;
+  font-size: 1vw;
+  font-family: "medium";
+}
+
+.dateInput {
+  display: flex;
+  gap: 1%;
+  flex: 1;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+/* 추가: 거래 희망 장소 입력 래퍼 */
+.personInput {
+  width: 100%;
+}
+
+.unitContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.unitContainer > div {
+  flex: 4;
+  min-width: 100px;
+}
+
+.dropdownWrapper {
+  flex: 1;
+  min-width: 80px;
+}
+
+.unitDropdown {
+  width: 100%;
+  height: 40px;
+  min-height: 40px;
+}
+
+.inputBoxs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* 추가: 제출 버튼 래퍼 - 중앙 정렬 */
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 2vw;
+}
+
+/* 선택사항: 폼 기본 스타일 */
+form {
+  width: 100%;
+}
+
+.label1 {
+  font-size: 1.2vw;
+  font-family: "bold";
+  margin-bottom: 2%;
+}
+
+.textarea {
+  width: 100%;
+  height: 10vw;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: "bold";
+  padding-left: 2%;
+  padding-top: 2%;
+  border: 1px solid var(--sub-color);
+  transition: border-color 0.1s ease-in-out;
+
+  &::placeholder {
+    color: var(--place-holder-gray);
+    font-family: "semi-bold";
+  }
+
+  &:focus {
+    border: 1px solid var(--point-color);
+    outline: none;
+  }
+  resize: none; 
+}
