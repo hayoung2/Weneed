@@ -26,33 +26,66 @@ const TransactionDetail = () => {
 
   useEffect(() => {
     if (id) {
+      // 부산물 데이터 가져오기
       fetch(`${API_URL}/transactionDetail/${id}`)
-          .then((res) => res.json())
-          .then((data) => {
-            console.log("불러온 부산물 데이터:", data);
-            setByproduct(data);
-          })
-          .catch((error) => console.error("부산물 데이터 불러오기 오류:", error))
-          .finally(() => setLoading(false));
-          fetch(`${API_URL}/transactions/${id}`)
-          .then((res) => res.json())
-          .then((transactions: Transaction[]) => {  // ✅ 여기서 타입을 지정
-            const transactionCountMap = new Map<string, number>();
-        
-            transactions.forEach((transaction: Transaction) => { // ✅ 타입 명시
-              transactionCountMap.set(transaction.uniqueId, (transactionCountMap.get(transaction.uniqueId) || 0) + 1);
-            });
-        
-            setTotalTransactions(transactions.length);
-        
-            const successCount = transactions.filter((transaction: Transaction) => transaction.status === "거래 완료").length;
-            const successRateValue = transactions.length > 0 ? (successCount / transactions.length) * 100 : 0;
-            
-            setSuccessRate(parseFloat(successRateValue.toFixed(2))); // ✅ 숫자로 변환
-          })
-          .catch((error) => console.error("거래 데이터 불러오기 오류:", error));
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("불러온 부산물 데이터:", data);
+          setByproduct(data);
+        })
+        .catch((error) => console.error("부산물 데이터 불러오기 오류:", error))
+        .finally(() => setLoading(false));
+  
+      // 🔥 임시 데이터로 거래 내역 설정
+      const mockTransactions: Transaction[] = [
+        {
+          id: 1,
+          uniqueId: "d019cc8c-f3fe-452a-8351-85923297cb62",
+          status: "거래 완료",
+          transactionDate: "2024-02-14 15:30:00",
+        },
+        {
+          id: 2,
+          uniqueId: "d019cc8c-f3fe-452a-8351-85923297cb62",
+          status: "거래 요청",
+          transactionDate: "2024-02-18 12:00:00",
+        },
+        {
+          id: 3,
+          uniqueId: "d019cc8c-f3fe-452a-8351-85923297cb62",
+          status: "입금 요청",
+          transactionDate: "2024-02-20 10:45:00",
+        },
+        {
+          id: 4,
+          uniqueId: "d019cc8c-f3fe-452a-8351-85923297cb62",
+          status: "거래 확정",
+          transactionDate: "2024-02-22 17:15:00",
+        },
+        {
+          id: 5,
+          uniqueId: "d019cc8c-f3fe-452a-8351-85923297cb62",
+          status: "거래 완료",
+          transactionDate: "2024-02-24 09:30:00",
+        },
+      ];
+  
+      // 🔥 거래 개수 설정
+      setTotalTransactions(mockTransactions.length);
+  
+      // 🔥 거래 완료된 개수 가져와서 성공률 계산
+      const successCount = mockTransactions.filter(
+        (transaction) => transaction.status === "거래 완료"
+      ).length;
+      const successRateValue =
+        mockTransactions.length > 0
+          ? (successCount / mockTransactions.length) * 100
+          : 0;
+  
+      setSuccessRate(parseFloat(successRateValue.toFixed(2))); // 소수점 2자리까지 반올림
     }
   }, [id]);
+  
 
   if (loading) return <p className={styles.loading}>로딩 중...</p>;
   if (!byproduct) return <p className={styles.error}>해당 정보를 찾을 수 없습니다.</p>;

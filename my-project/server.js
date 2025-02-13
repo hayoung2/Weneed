@@ -69,14 +69,10 @@ const NeededByproduct = sequelize.define('NeededByproducts', {
 });
 
 // 거래일지 모델 정의
-const TransactionLog = sequelize.define('TransactionLog', {
+const TransactionLog = sequelize.define('TransactionLogs', {
     uniqueId: {
         type: DataTypes.STRING,
         allowNull: false,
-        references: {
-            model: User,
-            key: 'uniqueId'
-        }
     },
     contactNumber: { type: DataTypes.STRING, allowNull: false }, //상대방 연락처
     transactionDate: { type: DataTypes.STRING, allowNull: false }, // 거래 예정 시간 (문자열 형식)
@@ -730,22 +726,6 @@ app.get('/api/user/:uniqueId', async (req, res) => {
     }
 });
 
-app.get("/api/transactions/:uniqueId", async (req, res) => {
-    const { uniqueId } = req.params;
-  
-    try {
-      const transactions = await TransactionLog.findAll({
-        where: { uniqueId },
-        attributes: { exclude: ["updatedAt"] },
-        order: [["transactionDate", "DESC"]], // 최신 거래일 기준 내림차순 정렬
-      });
-  
-      res.json(transactions);
-    } catch (error) {
-      console.error("❌ 거래 데이터 조회 오류:", error);
-      res.status(500).json({ error: "서버 오류 발생" });
-    }
-  });
 
 // 서버 시작
 const PORT = process.env.PORT || 5000;
