@@ -65,7 +65,7 @@ export const HomePage = () => {
       navigate("/login");
       return;
     }
-    if (user?.userType === "개인") {
+    if (user?.userType == "개인") {
       alert("개인 회원의 경우 공급 자원 등록이 불가능합니다.");
       return;
     }
@@ -78,7 +78,7 @@ export const HomePage = () => {
       navigate("/login");
       return;
     }
-    if (user?.userType === "개인") {
+    if (user?.userType == "개인") {
       alert("개인 회원의 경우 필요 자원 등록이 불가능합니다.");
       return;
     }
