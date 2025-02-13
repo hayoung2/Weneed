@@ -36,59 +36,13 @@ const TransactionView: React.FC = () => {
     );
   }
 
-  const formatDateTime = (dateTimeString: string) => {
-    const dateObj = new Date(dateTimeString);
-    const year = dateObj.getFullYear();
-    const month = String(dateObj.getMonth() + 1).padStart(2, "0"); // 월 (0부터 시작하므로 +1 필요)
-    const day = String(dateObj.getDate()).padStart(2, "0"); // 일
-    const hour = String(dateObj.getHours()).padStart(2, "0"); // 시
-    const minute = String(dateObj.getMinutes()).padStart(2, "0"); // 분
-    return { year, month, day, hour, minute };
-  };
-
-  const { year, month, day, hour, minute } = formatDateTime(transaction.transactionDate);
-
   return (
     <>
       <Header />
-      {/* ✅ 거래 상태 배너 */}
-      <div className={styles.bannerWrapper}>
+      <div className={styles.container}>
+        {/* ✅ 거래 상태 배너 */}
         <div className={`${styles.banner} ${statusColors[transaction.status]}`}>
           <p>{statusMessages[transaction.status]}</p>
-        </div>
-      </div>
-      <div className = {styles.titleWrapper}>
-        <h2 className={styles.title}>거래 정보서</h2>
-        <p className={styles.description}>
-          아래의 정보는 위니드 고객센터에서 중개한 내용을 기반으로 입력되었습니다.
-        </p>
-      </div>
-
-      {/* ✅ 거래 예정 시간 & 거래 장소 */}
-      <div className={styles.inputGroup}>
-        <div className={styles.inputBox}>
-          <label>거래 예정 시간</label>
-          <div className={styles.dateInput}>
-            <input type="text" value={year} readOnly />
-            <span>년</span>
-            <input type="text" value={month} readOnly />
-            <span>월</span>
-            <input type="text" value={day} readOnly />
-            <span>일</span>
-            <input type="text" value={hour} readOnly />
-            <span>시</span>
-            <input type="text" value={minute} readOnly />
-            <span>분</span>
-          </div>
-          <div className={styles.inputBox}>
-            <label>거래 장소</label>
-            <input type="text" value={transaction.transactionLocation} readOnly />
-          </div>
-        </div>
-         <div className={styles.fullInputBox}>
-          <label>거래 예정 주소</label>
-          <input type="text" value="경상북도 위니드 산업로 514-6" readOnly />
-        </div>
         </div>
 
         {/* ✅ 거래 상세 정보 */}
@@ -102,37 +56,22 @@ const TransactionView: React.FC = () => {
           <p><strong>추가 정보:</strong> {transaction.additionalNotes || "없음"}</p>
         </div>
 
-        <div style={{ borderTop: "1px solid #e0e0e0", margin: "20px 0" }} />
-
         {/* ✅ 회사 정보 */}
-
-        <div className={styles.companyInfoWrappper}>
-          <p className={styles.title}>{companyInfo.companyName}</p>
-
-          <div className={styles.companyInfo}>
-            <div className={styles.row}>
-              <span className={styles.label2}>대표자명</span>
-              <span className={styles.value}> {companyInfo.representativeName || "-"}</span>
-            </div>
-            <div className={styles.row}>
-              <span className={styles.label2}>주소</span>
-              <span className={styles.value}>{companyInfo.companyAddress || "-"}</span>
-            </div>
-            <div className={styles.row}>
-              <span className={styles.label2}>업종</span>
-              <span className={styles.value}>{companyInfo.industryType || "-"}</span>
-            </div>
-            <div className={styles.row}>
-              <span className={styles.label2}>연락처</span>
-              <span className={styles.value}>{companyInfo.contactNumber || "-"}</span>
-            </div>
-            <div className={styles.row}>
-              <span className={styles.label2}>팩스</span>
-              <span className={styles.value}>{companyInfo.faxNumber || "-"}</span>
-            </div>
-          </div>
+        <div className={styles.companyInfo}>
+          <h3>회사 정보</h3>
+          <p><strong>회사명:</strong> {companyInfo.companyName || "-"}</p>
+          <p><strong>대표자명:</strong> {companyInfo.representativeName || "-"}</p>
+          <p><strong>주소:</strong> {companyInfo.companyAddress || "-"}</p>
+          <p><strong>업종:</strong> {companyInfo.industryType || "-"}</p>
+          <p><strong>연락처:</strong> {companyInfo.contactNumber || "-"}</p>
+          <p><strong>팩스:</strong> {companyInfo.faxNumber || "-"}</p>
         </div>
 
+        {/* ✅ 홈으로 돌아가기 버튼 */}
+        <button className={styles.backButton} onClick={() => navigate(-1)}>
+          뒤로 가기
+        </button>
+      </div>
       <Footer />
     </>
   );
