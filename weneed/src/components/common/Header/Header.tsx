@@ -8,6 +8,14 @@ const Header: React.FC = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
+  const handleMyPageClick = () => {
+    if (user?.userType === "개인") {
+      alert("❌ 개인 회원은 마이페이지에 접근할 수 없습니다.");
+      return;
+    }
+    navigate("/mypage");
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
@@ -22,7 +30,7 @@ const Header: React.FC = () => {
             <p className={styles.basicText} onClick={() => { logout(); navigate('/'); }}>
               로그아웃
             </p>
-            <button className={styles.mypageButton} onClick={() => user?.userType=="개인" ? navigate('/mypagepersonal'): navigate('/mypage')}>
+            <button className={styles.mypageButton}onClick={handleMyPageClick}>
               마이페이지
             </button>
           </>
