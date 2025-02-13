@@ -152,8 +152,9 @@ const ListPage: React.FC = () => {
           </div>
         )}
       </div>
-
+      <div className = {styles.footerWrapper}>
       <Footer />
+      </div>
     </div>
   );
 };
