@@ -31,8 +31,6 @@ const AiMatching: React.FC<AiMatchingProps> = ({ middleContent }) => {
         { index: 1, title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false, price: 300000 },
         { index: 2,  title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: true, price: 500000 },
         { index: 3,  title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false, price: 240000 },
-        { index: 4, title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false, price: 470000},
-        { index: 5, title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false, price: 390000},
       ]);
       setIsLoading(false);
     }, 2000);
@@ -75,7 +73,7 @@ const AiMatching: React.FC<AiMatchingProps> = ({ middleContent }) => {
 
           <div className={styles.recommendationList}>
             {isLoading ? (
-              [...Array(5)].map((_, index) => (
+              [...Array(3)].map((_, index) => (
                 <div key={index} className={styles.recommendationItem}></div>
               ))
             ) : (

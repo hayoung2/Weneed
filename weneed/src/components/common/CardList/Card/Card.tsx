@@ -48,7 +48,7 @@ const Card: FC<CardProps> = ({
           className={styles.favoriteIcon}
           onClick={(e) => {
             e.stopPropagation();
-            onFavoriteToggle(id, companyName); // ✅ 항상 companyName 전달
+            onFavoriteToggle(id, companyName);
           }}
         />
       </div>
