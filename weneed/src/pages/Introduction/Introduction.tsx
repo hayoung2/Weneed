@@ -38,14 +38,14 @@ export const IntroductionPage = () => {
     daejeon: "대전",
     ulsan: "울산",
     sejong: "세종",
-    gyeonggi: "경기",
-    gangwon: "강원",
-    chungbuk: "충북",
-    chungnam: "충남",
-    jeonbuk: "전북",
-    jeonnam: "전남",
-    gyeongbuk: "경북",
-    gyeongnam: "경남",
+    gyeonggi: "경기도",
+    gangwon: "강원도",
+    chungbuk: "충청북도",
+    chungnam: "충청남도",
+    jeonbuk: "전라북도",
+    jeonnam: "전라남도",
+    gyeongbuk: "경상북도",
+    gyeongnam: "경상남도",
     jeju: "제주",
   };
 
@@ -165,7 +165,7 @@ export const IntroductionPage = () => {
       "하남시",
       "화성시",
     ],
-    강원: [
+    강원도: [
       "강릉시",
       "고성군",
       "동해시",
@@ -185,7 +185,7 @@ export const IntroductionPage = () => {
       "화천군",
       "횡성군",
     ],
-    충북: [
+    충청북도: [
       "괴산군",
       "단양군",
       "보은군",
@@ -201,7 +201,7 @@ export const IntroductionPage = () => {
       "청주시 흥덕구",
       "충주시",
     ],
-    충남: [
+    충청남도: [
       "계룡시",
       "공주시",
       "금산군",
@@ -219,7 +219,7 @@ export const IntroductionPage = () => {
       "태안군",
       "홍성군",
     ],
-    전북: [
+    전라북도: [
       "고창군",
       "군산시",
       "김제시",
@@ -236,7 +236,7 @@ export const IntroductionPage = () => {
       "정읍시",
       "진안군",
     ],
-    전남: [
+    전라남도: [
       "강진군",
       "고흥군",
       "곡성군",
@@ -260,7 +260,7 @@ export const IntroductionPage = () => {
       "해남군",
       "화순군",
     ],
-    경북: [
+    경상북도: [
       "경산시",
       "경주시",
       "고령군",
@@ -286,7 +286,7 @@ export const IntroductionPage = () => {
       "포항시 남구",
       "포항시 북구",
     ],
-    경남: [
+    경상남도: [
       "거제시",
       "거창군",
       "고성군",
