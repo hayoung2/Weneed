@@ -78,6 +78,13 @@ const Mypage: React.FC = () => {
     setCurrentPage(page);
   };
 
+  const handleTransactionClick = (transaction: any) => {
+    navigate("/transactionView", {
+      state: { transaction, companyInfo },
+    });
+  };
+
+  
   return (
     <>
       <Header />
@@ -146,7 +153,7 @@ const Mypage: React.FC = () => {
               <div className={styles.transactionList}>
                 {currentItems.length > 0 ? (
                   currentItems.map((transaction) => (
-                    <div key={transaction.id} className={styles.transactionItem}>
+                    <div key={transaction.id} className={styles.transactionItem} onClick={() => handleTransactionClick(transaction)}>
                       <div className={styles.transactionInfo}>
                         <p className={styles.transactionTitle}>{transaction.byproductName}</p>
                         <p className={styles.transactionDate}>{transaction.transactionDate}</p>
