@@ -539,12 +539,24 @@ app.get('/api/needed-byproducts/:uniqueId', async (req, res) => {
     }
 });
 
+
 app.post('/api/ai-recommendation', async (req, res) => {
     try {
-        const { byProductName, requiredQuantity, requestingCompanyUniqueId } = req.body;
+        const { neededByproductName, needByproductAmount, needByproductUnit, requestingCompanyUniqueId } = req.body;
+
+        // NeededByproducts 테이블에서 데이터 가져오기
+        const neededProduct = await NeededByproduct.findOne({
+            where: { uniqueId: requestingCompanyUniqueId },
+            attributes: ['uniqueId', 'neededByproductName', 'neededByproductAmount', 'neededByproductUnit']
+        });
+
+        if (!neededProduct) {
+            return res.status(404).json({ success: false, message: "요청된 제품 정보를 찾을 수 없습니다." });
+        }
+
 
         const requestingCompany = await CompanyInfo.findOne({
-            where: { uniqueId: requestingCompanyUniqueId },
+            where: { uniqueId: neededProduct.uniqueId },
             attributes: ['companyAddress']
         });
 
@@ -555,7 +567,7 @@ app.post('/api/ai-recommendation', async (req, res) => {
         let byproducts = await AvailableByproduct.findAll({
             where: {
                 availableByproductName: {
-                    [Op.like]: `%${byProductName}%`
+                    [Op.like]: `%${neededByproductName}%`
                 }
             },
             include: [{
@@ -581,7 +593,7 @@ app.post('/api/ai-recommendation', async (req, res) => {
         });
 
         const recommendations = byproducts
-            .filter(item => parseFloat(item.availableByproductAmount) >= requiredQuantity)
+            .filter(item => parseFloat(item.availableByproductAmount) >= parseFloat(needByproductAmount))
             .map(item => ({
                 id: item.id,
                 availableByproductName: item.availableByproductName,
@@ -593,7 +605,7 @@ app.post('/api/ai-recommendation', async (req, res) => {
                 uniqueId: item.companyInfo.uniqueId,
                 companyAddress: item.companyInfo.companyAddress,
                 distance: item.distance,
-                reason: generateRecommendationReason(item, requestingCompany.companyAddress, requiredQuantity)
+                reason: generateRecommendationReason(item, requestingCompany.companyAddress, needByproductAmount)
             }));
 
         res.json({ success: true, recommendations });
@@ -642,9 +654,6 @@ function generateRecommendationReason(item, requestingAddress, requiredQuantity)
     reasons.push(`1kg당 가격이 ${item.pricePerKg.toFixed(2)}원으로 경제적입니다.`);
     return reasons.join(" ");
 }
-
-
-
 
 
 
