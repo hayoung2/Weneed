@@ -23,7 +23,6 @@ const Mypage: React.FC = () => {
 
   const ITEMS_PER_PAGE = 10;
 
-  // ✅ 사용자 정보 및 부산물 데이터 가져오기
   useEffect(() => {
     if (user?.uniqueId) {
       axios
@@ -34,7 +33,7 @@ const Mypage: React.FC = () => {
         .catch((error) => {
           console.error("사용자 정보 불러오기 오류:", error);
         });
-
+  
       axios
         .get(`${API_URL}/available-byproducts/${user.uniqueId}`)
         .then((response) => {
@@ -43,7 +42,7 @@ const Mypage: React.FC = () => {
         .catch((error) => {
           console.error("공급 가능한 부산물 불러오기 오류:", error);
         });
-
+  
       axios
         .get(`${API_URL}/needed-byproducts/${user.uniqueId}`)
         .then((response) => {
@@ -52,22 +51,65 @@ const Mypage: React.FC = () => {
         .catch((error) => {
           console.error("필요 자원 불러오기 오류:", error);
         });
+  
+      // 🔥 거래 내역을 임시 데이터로 설정
+      const mockTransactions = [
+        {
+          id: 1,
+          uniqueId: user.uniqueId,
+          byproductName: "폐목재",
+          transactionDate: "2024-02-14 15:30:00",
+          byproductQuantity: 100,
+          byproductUnit: "kg",
+          transactionPrice: 50000,
+          status: "거래 완료",
+        },
+        {
+          id: 2,
+          uniqueId: user.uniqueId,
+          byproductName: "재활용 플라스틱",
+          transactionDate: "2024-02-18 12:00:00",
+          byproductQuantity: 200,
+          byproductUnit: "kg",
+          transactionPrice: 80000,
+          status: "거래 요청",
+        },
+        {
+          id: 3,
+          uniqueId: user.uniqueId,
+          byproductName: "금속 스크랩",
+          transactionDate: "2024-02-20 10:45:00",
+          byproductQuantity: 50,
+          byproductUnit: "kg",
+          transactionPrice: 30000,
+          status: "입금 요청",
+        },
+        {
+          id: 4,
+          uniqueId: user.uniqueId,
+          byproductName: "폐종이",
+          transactionDate: "2024-02-22 17:15:00",
+          byproductQuantity: 500,
+          byproductUnit: "kg",
+          transactionPrice: 120000,
+          status: "거래 확정",
+        },
+        {
+          id: 5,
+          uniqueId: user.uniqueId,
+          byproductName: "고철",
+          transactionDate: "2024-02-24 09:30:00",
+          byproductQuantity: 300,
+          byproductUnit: "kg",
+          transactionPrice: 90000,
+          status: "거래 취소",
+        },
+      ];
+  
+      setTransactions(mockTransactions);
     }
   }, [user?.uniqueId]);
-
-  // ✅ 거래 데이터 가져오기
-  useEffect(() => {
-    if (user?.uniqueId) {
-      axios
-        .get(`${API_URL}/transactions/${user.uniqueId}`)
-        .then((response) => {
-          setTransactions(response.data);
-        })
-        .catch((error) => {
-          console.error("거래 데이터 불러오기 오류:", error);
-        });
-    }
-  }, [user?.uniqueId]);
+  
 
   const totalPages = Math.ceil(transactions.length / ITEMS_PER_PAGE);
   const indexOfLastItem = currentPage * ITEMS_PER_PAGE;

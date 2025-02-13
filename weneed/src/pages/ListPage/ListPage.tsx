@@ -109,8 +109,8 @@ const ListPage: React.FC = () => {
               availableByproductName: item.availableByproductName,
               amount: `${item.availableByproductAmount} ${item.availableByproductUnit}`,
               price: Number(item.availableByproductPrice),
-              companyAddress: item.companyInfo?.companyAddress || "주소주소 주소주소",
-              companyName: item.companyInfo?.companyName || "회사회사",
+              companyAddress: item.companyInfo?.companyAddress || "주소가 존재하지 않습니다.",
+              companyName: item.companyInfo?.companyName || "회사 이름이 없습니다.",
             }))}
             onCardClick={handleCardClick}
           />

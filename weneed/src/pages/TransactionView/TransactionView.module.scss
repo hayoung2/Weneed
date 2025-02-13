@@ -3,6 +3,7 @@
  background-color: #dbdbdb;
  width: 100%;
  height: 18vw;
+ display: flex;
 }
 .cardWrapper {
   display: flex;
@@ -188,6 +189,8 @@
 .section {
   display: flex;
   flex-direction: row;
+  gap: 5%;
+  margin-top: 5%;
 }
 
 .label {

@@ -27,13 +27,7 @@ const statusMessages: { [key: string]: { message: string; colorClass: string } }
   },
 };
 
-const statusColors: { [key: string]: string } = {
-  "입금 요청": styles.paymentRequested,
-  "거래 확정": styles.confirmed,
-  "거래 완료": styles.completed,
-  "거래 요청": styles.requested,
-  "거래 취소": styles.canceled,
-};
+
 
 const TransactionView: React.FC = () => {
   const location = useLocation();
@@ -56,9 +50,12 @@ const TransactionView: React.FC = () => {
       <Header />
       <div className={styles.container}>
         {/* ✅ 거래 상태 배너 */}
-        <div className={`${styles.banner} ${statusMessages[transaction.status]?.colorClass}`}>
+        <div className={`${styles.banner} ${statusMessages[transaction.status]?.colorClass}`} style={{width:'100%'}}>
+          <div>
           <p>{statusMessages[transaction.status]?.message}</p>
-          <div className={styles.cardWrapper}>
+          </div>
+
+          <div className={styles.cardWrapper} >
             <div className={styles.card}>
               <div className={styles.header}>
                 <span className={styles.highlight}>위 니 드</span> 
@@ -111,13 +108,13 @@ const TransactionView: React.FC = () => {
 
         <label className={styles.label}>거래 부산물량 및 단위</label>
         <div className={styles.inlineGroup}>
-          <input type="text" defaultValue="300" className={styles.inputSmall} />
-          <span className={styles.unit}>kg</span>
+          <input type="text" defaultValue= {transaction.byproductQuantity}className={styles.inputSmall} />
+          <span className={styles.unit}>{transaction.byproductUnit}</span>
         </div>
 
         <label className={styles.label}>거래 가격</label>
         <div className={styles.inlineGroup}>
-          <input type="text" defaultValue="12,000" className={styles.inputSmall} />
+          <input type="text" defaultValue={transaction.transactionPrice}className={styles.inputSmall} />
           <span className={styles.unit}>원</span>
         </div>
       </div>
@@ -136,22 +133,13 @@ const TransactionView: React.FC = () => {
       <div className={styles.section}>
         <label className={styles.label}>기타 내용</label>
         <textarea
-          defaultValue="HJ 화물과 사전협z"
+          defaultValue={transaction.additionalNotes || "추가 내용 없음"}
           className={styles.textarea}
         />
       </div>
     </div>
 
-        {/* ✅ 거래 상세 정보 */}
-        <div className={styles.transactionInfo}>
-          <h3>거래 상세 정보</h3>
-          <p><strong>거래 품목:</strong> {transaction.byproductName}</p>
-          <p><strong>거래 수량:</strong> {transaction.byproductQuantity} {transaction.byproductUnit}</p>
-          <p><strong>거래 가격:</strong> {transaction.transactionPrice}원</p>
-          <p><strong>거래 일자:</strong> {transaction.transactionDate}</p>
-          <p><strong>거래 상태:</strong> {transaction.status}</p>
-          <p><strong>추가 정보:</strong> {transaction.additionalNotes || "없음"}</p>
-        </div>
+    
 
         <div style={{ borderTop: "1px solid #e0e0e0", margin: "3% 0" }} />
 
