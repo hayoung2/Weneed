@@ -131,7 +131,7 @@ const Mypage: React.FC = () => {
             }))}
           />
         </div>
-
+      </div>
         {/* ✅ 거래 일지 섹션 */}
         {showTransactionLog && (
           <div className={styles.transactionLogWrapper}>
@@ -150,21 +150,24 @@ const Mypage: React.FC = () => {
                       <div className={styles.transactionInfo}>
                         <p className={styles.transactionTitle}>{transaction.byproductName}</p>
                         <p className={styles.transactionDate}>{transaction.transactionDate}</p>
-                        <p className={styles.transactionDetails}>
-                          수량: {transaction.byproductQuantity} {transaction.byproductUnit} | 가격: {transaction.transactionPrice}원
-                        </p>
+                        
                       </div>
                       <span
                         className={`${styles.status} ${
-                          transaction.status === "거래 완료"
+                          transaction.status === "입금 요청"
+                            ? styles.paymentRequested
+                            : transaction.status === "거래 확정"
+                            ? styles.confirmed
+                            : transaction.status === "거래 완료"
                             ? styles.completed
-                            : transaction.status === "거래 예정"
-                            ? styles.scheduled
-                            : styles.canceled
+                            : transaction.status === "거래 요청"
+                            ? styles.requested
+                            : styles.canceled === "거래 취소"
                         }`}
                       >
                         {transaction.status}
                       </span>
+
                     </div>
                   ))
                 ) : (
@@ -183,8 +186,9 @@ const Mypage: React.FC = () => {
             </div>
           </div>
         )}
+      <div className = {styles.footerWrapper}>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 };
