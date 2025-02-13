@@ -9,7 +9,6 @@ interface CardListProps {
     companyAddress: string;
     companyName: string;
     price: number;
-    isFavorite: boolean;
     style?: React.CSSProperties;
   }[];
   onCardClick: (item: any) => void;
@@ -28,7 +27,6 @@ const CardList: React.FC<CardListProps> = ({ cards, onCardClick, onFavoriteToggl
           price={item.price}
           companyAddress={item.companyAddress}
           companyName={item.companyName}
-          isFavorite={item.isFavorite}
           onClick={() => onCardClick(item)}
           onFavoriteToggle={onFavoriteToggle}
         />
