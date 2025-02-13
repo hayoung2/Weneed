@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./CompanyInfoDetail.module.scss";
 import TransactionContainer from "@/components/common/TransactionContainer/TransactionContainer";
 import EditButton from "@/components/common/EditButton/EditButton";
 import Header from "@/components/common/Header/Header";
 import Footer from "@/components/common/Footer/Footer";
-import { useLocation } from "react-router-dom";
-
+import { useNavigate, useLocation } from "react-router-dom";
 
 const CompanyInfoDetail: React.FC = () => {
-  const [isTrading, setIsTrading] = useState(false);
   const location = useLocation();
   const company = location.state;
-  const byproducts = company?.byproducts || []; // ✅ 배열 형태이므로 안전 처리
-  const latestByproduct = byproducts.length > 0 ? byproducts[0] : null; // ✅ 최신 부산물 정보 가져오기
-
-
+  const byproducts = company?.byproducts || []; 
+  const latestByproduct = byproducts.length > 0 ? byproducts[0] : null; 
+  const navigate = useNavigate(); 
+  const handleCreateTransaction = () => {
+    if (!company) {
+      console.error("Error: Company data is missing!");
+      return;
+    }
+  
+    navigate("/createTransaction", { state: { company } });
+  };
+  
   return (
     <>
       <Header />
@@ -28,20 +34,15 @@ const CompanyInfoDetail: React.FC = () => {
             <span className={styles.label}>연락처</span>
             <span
               className={styles.value}
-              style={{ color: isTrading ? "#4a4a4a" : "#828282" }}
-            >
-              {isTrading
-                ? company.contactNumber
-                : "이 기업과 거래를 결정하면 연락처를 알려드려요."}
+            >{company.contactNumber}
             </span>
           </div>
           <div className={styles.row}>
             <span className={styles.label}>팩스</span>
             <span
               className={styles.value}
-              style={{ color: isTrading ? "#4a4a4a" : "#828282" }}
             >
-              {isTrading ? company.faxNumber : "이 기업과 거래를 결정하면 팩스를 알려드려요."}
+              {company.faxNumber}
             </span>
           </div>
           <div className={styles.row}>
@@ -58,7 +59,6 @@ const CompanyInfoDetail: React.FC = () => {
           </div>
         </div>
 
-        {/* 상세정보 */}
         <div className={styles.detailSection}>
           <p className={styles.sectionTitle}>상세정보</p>
           <div className={styles.details}>
@@ -85,7 +85,6 @@ const CompanyInfoDetail: React.FC = () => {
           </div>
         </div>
 
-        {/* 거래 정보 */}
         <div className={styles.transactions}>
           <TransactionContainer title="부산물 종류" text2={latestByproduct?.availableByproductName || "정보 없음"}/>
           <TransactionContainer title="총거래횟수" text2="" />
@@ -98,7 +97,6 @@ const CompanyInfoDetail: React.FC = () => {
           <TransactionContainer title="오늘의 부산물량" text2="거래 가능" />
         </div>
 
-        {/* 부산물 성분 분석 및 textarea */}
         <div className={styles.textareaContainer}>
           <p className={styles.sectionTitle}>부산물 성분 분석</p>
           <div className={styles.textareaWrapper}>
@@ -106,14 +104,13 @@ const CompanyInfoDetail: React.FC = () => {
           </div>
         </div>
 
-        {/* 거래 버튼 */}
         <div className={styles.buttonWrapper}>
           <EditButton
             type="submit"
             className={styles.tradeButton}
-            onClick={() => setIsTrading(!isTrading)}
+            onClick={handleCreateTransaction}
           >
-            {isTrading ? "거래 내역 페이지로 바로가기" : "이 기업과 거래하기"}
+           거래 내역 페이지로 바로가기
           </EditButton>
         </div>
       </div>
