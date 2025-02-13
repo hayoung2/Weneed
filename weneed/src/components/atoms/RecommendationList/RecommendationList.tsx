@@ -2,10 +2,6 @@ import styles from "@/components/atoms/RecommendationList/Recommendation.module.
 import Gold from "@/assets/icons/gold.svg";
 import Silver from "@/assets/icons/silver.svg";
 import Bronze from "@/assets/icons/bronze.svg";
-import Four from "@/assets/icons/Four.svg";
-import Five from "@/assets/icons/Five.svg";
-import YellowStar from "@/assets/icons/yellow-star.svg";
-import GrayStar from "@/assets/icons/gray-star.svg";
 import { useState, ReactNode } from "react";
 
 interface RecommendationListProps {
@@ -15,7 +11,6 @@ interface RecommendationListProps {
   location: string;
   amount: string;
   price: number;
-  favorite: boolean;
   middleContent?: ReactNode;
 }
 
@@ -35,16 +30,9 @@ const RecommendationList: React.FC<RecommendationListProps> = ({
   location,
   amount,
   price,
-  favorite,
   middleContent
 }) => {
-  const rankIcons = [Gold, Silver, Bronze, Four, Five];
-  const [isFavorite, setIsFavorite] = useState(favorite);
-
-  const toggleFavorite = () => {
-    setIsFavorite((prev) => !prev);
-  };
-
+  const rankIcons = [Gold, Silver, Bronze];
   return (
     <div className={styles.itemContainer}>
       <div className={styles.leftSection}>
@@ -64,12 +52,6 @@ const RecommendationList: React.FC<RecommendationListProps> = ({
       <div className={styles.priceText}>
           <span className={styles.priceValue}>{formatPrice(price)}</span>
         </div>
-        <img
-          src={isFavorite ? YellowStar : GrayStar}
-          alt="favorite icon"
-          className={styles.favoriteIcon}
-          onClick={toggleFavorite}
-        />
       </div>
       {middleContent && <div className={styles.middleContent}>{middleContent}</div>}
     </div>
