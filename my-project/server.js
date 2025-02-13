@@ -79,19 +79,11 @@ const TransactionLog = sequelize.define('TransactionLog', {
         }
     },
     contactNumber: { type: DataTypes.STRING, allowNull: false }, //상대방 연락처
-    callDate: { type: DataTypes.STRING, allowNull: false }, // 통화 일시 (문자열 형식)
-    callHandler: { type: DataTypes.STRING, allowNull: false }, // 통화 담당자
-    recordHandler: { type: DataTypes.STRING, allowNull: false }, // 기록 담당자
     transactionDate: { type: DataTypes.STRING, allowNull: false }, // 거래 예정 시간 (문자열 형식)
-    transactionLocation: { type: DataTypes.STRING, allowNull: false }, // 거래 예정 장소
     byproductName: { type: DataTypes.STRING, allowNull: false }, // 거래 부산물명
     byproductQuantity: { type: DataTypes.FLOAT, allowNull: false }, // 거래 부산물량
     byproductUnit: { type: DataTypes.STRING, allowNull: false }, // 단위
     transactionPrice: { type: DataTypes.INTEGER, allowNull: false }, // 거래 가격
-    transactionMethod: { type: DataTypes.STRING, allowNull: false }, // 거래 방식
-    bank: { type: DataTypes.STRING, allowNull: false }, // 은행 이름 추가
-    accountNumber: { type: DataTypes.STRING, allowNull: false }, // 계좌번호
-    depositorName: { type: DataTypes.STRING, allowNull: false }, // 예금주 이름
     additionalNotes: { type: DataTypes.STRING } // 기타 내용
 });
 
@@ -304,19 +296,11 @@ app.post('/api/transaction-log', async (req, res) => {
     const {
         uniqueId, // uniqueId 사용
         contactNumber,
-        callDate,
-        callHandler,
-        recordHandler,
         transactionDate,
-        transactionLocation,
         byproductName,
         byproductQuantity,
         byproductUnit,
         transactionPrice,
-        transactionMethod,
-        bank,
-        accountNumber,
-        depositorName,
         additionalNotes
     } = req.body;
 
@@ -555,12 +539,24 @@ app.get('/api/needed-byproducts/:uniqueId', async (req, res) => {
     }
 });
 
+
 app.post('/api/ai-recommendation', async (req, res) => {
     try {
-        const { byProductName, requiredQuantity, requestingCompanyUniqueId } = req.body;
+        const { neededByproductName, needByproductAmount, needByproductUnit, requestingCompanyUniqueId } = req.body;
+
+        // NeededByproducts 테이블에서 데이터 가져오기
+        const neededProduct = await NeededByproduct.findOne({
+            where: { uniqueId: requestingCompanyUniqueId },
+            attributes: ['uniqueId', 'neededByproductName', 'neededByproductAmount', 'neededByproductUnit']
+        });
+
+        if (!neededProduct) {
+            return res.status(404).json({ success: false, message: "요청된 제품 정보를 찾을 수 없습니다." });
+        }
+
 
         const requestingCompany = await CompanyInfo.findOne({
-            where: { uniqueId: requestingCompanyUniqueId },
+            where: { uniqueId: neededProduct.uniqueId },
             attributes: ['companyAddress']
         });
 
@@ -571,7 +567,7 @@ app.post('/api/ai-recommendation', async (req, res) => {
         let byproducts = await AvailableByproduct.findAll({
             where: {
                 availableByproductName: {
-                    [Op.like]: `%${byProductName}%`
+                    [Op.like]: `%${neededByproductName}%`
                 }
             },
             include: [{
@@ -597,7 +593,7 @@ app.post('/api/ai-recommendation', async (req, res) => {
         });
 
         const recommendations = byproducts
-            .filter(item => parseFloat(item.availableByproductAmount) >= requiredQuantity)
+            .filter(item => parseFloat(item.availableByproductAmount) >= parseFloat(needByproductAmount))
             .map(item => ({
                 id: item.id,
                 availableByproductName: item.availableByproductName,
@@ -606,9 +602,10 @@ app.post('/api/ai-recommendation', async (req, res) => {
                 availableByproductPrice: item.availableByproductPrice,
                 pricePerKg: item.pricePerKg,
                 companyName: item.companyInfo.companyName,
+                uniqueId: item.companyInfo.uniqueId,
                 companyAddress: item.companyInfo.companyAddress,
                 distance: item.distance,
-                reason: generateRecommendationReason(item, requestingCompany.companyAddress, requiredQuantity)
+                reason: generateRecommendationReason(item, requestingCompany.companyAddress, needByproductAmount)
             }));
 
         res.json({ success: true, recommendations });
@@ -657,9 +654,6 @@ function generateRecommendationReason(item, requestingAddress, requiredQuantity)
     reasons.push(`1kg당 가격이 ${item.pricePerKg.toFixed(2)}원으로 경제적입니다.`);
     return reasons.join(" ");
 }
-
-
-
 
 
 
