@@ -37,13 +37,15 @@ const TransactionDetail = () => {
   if (!byproduct) return <p className={styles.error}>해당 정보를 찾을 수 없습니다.</p>;
 
   const handleTransactionClick = () => {
-    if(user?.userType=="기업"){
-      navigate("/createTransaction", { state: { company } });
+    if (user?.userType === "기업") {
+      navigate("/createTransaction", { 
+        state: { 
+          company: byproduct.companyInfo
+        } 
+      });
     }
-  
   };
-
- 
+  
 
   return (
     <div className={styles.container}>
@@ -80,7 +82,7 @@ const TransactionDetail = () => {
           </div>
           <div className={styles.row}>
             <span className={styles.label}>업종</span>
-            <span className={styles.value}>{byproduct.companyInfo?.industryType || "-"}</span>
+            <span className={styles.value}>{byproduct.companyInfo?.industryType || "정보 없음"}</span>
           </div>
         </div>
 
@@ -88,11 +90,11 @@ const TransactionDetail = () => {
         <div className={styles.info}>
           <div className={styles.row}>
             <span className={styles.label}>사업자등록번호</span>
-            <span className={styles.value}>{byproduct.companyInfo?.businessNumber || "-"}</span>
+            <span className={styles.value}>{byproduct.companyInfo?.businessNumber || "정보 없음"}</span>
           </div>
           <div className={styles.row}>
             <span className={styles.label}>업종</span>
-            <span className={styles.value}>{byproduct.companyInfo?.industryType || "-"}</span>
+            <span className={styles.value}>{byproduct.companyInfo?.industryType || "정보 없음"}</span>
           </div>
 
           <div className={styles.row}>
@@ -101,11 +103,11 @@ const TransactionDetail = () => {
           </div>
           <div className={styles.row}>
             <span className={styles.label}>홈페이지 링크</span>
-            <span className={styles.value}>{byproduct.companyInfo?.companyAddress || "주소 없음"}</span>
+            <span className={styles.value}>{byproduct.companyInfo?.companyAddress || "정보 없음"}</span>
           </div>
           <div className={styles.row}>
             <span className={styles.label}>위니드 등록일자</span>
-            <span className={styles.value}>{byproduct.companyInfo?.createdAt || "-"}</span>
+            <span className={styles.value}>{byproduct.companyInfo?.createdAt || "정보 없음"}</span>
           </div>
         </div>
 
