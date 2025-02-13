@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "@/components/common/Footer/Footer";
 import Header from "@/components/common/Header/Header";
@@ -10,6 +10,7 @@ import DemandIcon from "@/assets/icons/package.svg";
 import DemandIconHover from "@/assets/icons/package-hover.svg";
 import SupplyIcon from "@/assets/icons/truck.svg";
 import SupplyIconHover from "@/assets/icons/truck-hover.svg";
+import WeneedLogoWhite from "@/assets/icons/white-weneed.svg"
 import FarmerImg from "@/assets/images/farmer-img.png";
 import BusinessImg from "@/assets/images/business-img.png";
 import WorkerImg from "@/assets/images/worker-img.png";
@@ -35,11 +36,19 @@ export const HomePage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
 
+  const howtoSectionRef = useRef<HTMLDivElement | null>(null);
+
   const handleSubmit = () => {
     if (searchTerm.trim() !== "") {
       navigate(`/list?search=${encodeURIComponent(searchTerm)}`);
     }
   }
+
+  const handleScrollToHowto = () => {
+    if (howtoSectionRef.current) {
+      howtoSectionRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
   
   const handleSupplyClick = () => {
     if (!user) {
@@ -75,15 +84,58 @@ export const HomePage = () => {
         <div className={styles.container}>
           <div className={styles.title}>
             <h2>
-              버려지는 부산물?
+              버려지는 폐기물에 가치를 더하다.
               <br />
-              새로운 가치로!
-              <br />
-              <span className={styles.highlight}>위니드</span>에서 연결하세요.
             </h2>
+            <h4>
+              <span className={styles.highlight}>위니드</span>에서 연결하세요.
+            </h4>
+          </div>
+        </div>
+
+        <div className={styles.headerWrapper}>
+          <div className={styles.toggleContainer}>
+            <p className={styles.aiText}>
+              AI 매칭 {isAiMatch ? "ON" : "OFF"}
+            </p>
+              <Toggle
+                checked={isAiMatch}
+                onChange={() => setIsAiMatch(!isAiMatch)}
+                style={{ width: "35%" ,paddingLeft:"35%",marginTop:"0.4vw"}}
+              />
+
           </div>
 
+          <div className={styles.searchContainer}>
+            <SearchBar
+              value={searchTerm}
+              onChange={(value: string) => setSearchTerm(value)}
+              onSubmit={handleSubmit}
+              placeholder="원하는 자원을 검색해보세요."
+            />
+            <div className={styles.searchbutton}>
+              <SearchButton isAiMatch={isAiMatch} onClick={handleSubmit} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className = {styles.startSection}>
+        <h3>쉽고 빠르게 위니드 시작하기</h3>
           <div className={styles.resourceButtons}>
+            <div
+              className={styles.weneedButton}
+              onClick={handleScrollToHowto}
+            >
+              <p>
+                위니드 이용방법
+              </p>
+              <img
+                src={WeneedLogoWhite}
+                alt= "로고 아이콘"
+                className = {styles.weneedLogo}
+              />
+            </div>
             <div
               className={styles.supplyButton}
               onClick={handleSupplyClick}
@@ -115,36 +167,8 @@ export const HomePage = () => {
               />
             </div>
           </div>
-        </div>
-
-        <div className={styles.headerWrapper}>
-          <div className={styles.toggleContainer}>
-            <p className={styles.aiText}>
-              AI 매칭 {isAiMatch ? "ON" : "OFF"}
-            </p>
-
-                <Toggle
-                  checked={isAiMatch}
-                  onChange={() => setIsAiMatch(!isAiMatch)}
-                  style={{ width: "35%" ,paddingLeft:"35%",marginTop:"0.4vw"}}
-                />
-
-          </div>
-
-          <div className={styles.searchContainer}>
-            <SearchBar
-              value={searchTerm}
-              onChange={(value: string) => setSearchTerm(value)}
-              onSubmit={handleSubmit}
-              placeholder="원하는 자원을 검색해보세요."
-            />
-            <div className={styles.searchbutton}>
-              <SearchButton isAiMatch={isAiMatch} onClick={handleSubmit} />
-            </div>
-          </div>
-        </div>
+        
       </div>
-
       <div className={styles.problemSection}>
         <h3>위니드는 이런 고민을 가지고 탄생했어요!</h3>
         <div className={styles.problemCards}>
@@ -222,7 +246,7 @@ export const HomePage = () => {
           </div>
         </div>
       </div>
-      <div className={styles.howtoSection}>
+      <div className={styles.howtoSection} ref={howtoSectionRef}>
         <h3 className={styles.sectionTitle}>서비스 이용방법</h3>
         <div className={styles.stepsContainer}>
           <div className={styles.stepCard}>
