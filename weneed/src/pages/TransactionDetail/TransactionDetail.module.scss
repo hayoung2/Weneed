@@ -217,3 +217,43 @@
   margin-bottom: 3%;
   margin-top: 13%;
 }
+
+.textareaContainer {
+  margin-top: 2vw;
+  padding-left: 1vw;
+  background: #ffffff;
+  box-shadow: 0 0 4px #CBEFFF; 
+  border: 1px solid #CBEFFF;
+  border-radius: 10px; transition: border 0.2s, box-shadow 0.2s;
+}
+
+.textareaContainer p {
+  font-size: 1vw;
+  font-family: "bold";
+  color: #636363;
+  margin-bottom: 0.8vw;
+}
+
+.textarea {
+  width: 95%;
+  height: 8vw;
+  border: none;
+  padding-bottom: 1vw;
+  outline: none;
+  font-size: 1vw;
+  font-family: "medium";
+  resize: none;
+}
+
+.textareaWrapper {
+  width: 95%;
+  height: 8vw;
+}
+
+.sectionTitle {
+  font-size: 1.5vw;
+  font-family: "semi-bold";
+  margin-top: 2vw;
+  margin-bottom: 1.5vw;
+  color: #636363;
+}
