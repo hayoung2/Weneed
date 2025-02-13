@@ -119,6 +119,8 @@ const Favorite = sequelize.define('Favorite', {
     }
 });
 
+
+
 // 데이터베이스 동기화
 sequelize.sync({ force: false })
     .then(() => console.log("MySQL Connected"))
@@ -552,6 +554,113 @@ app.get('/api/needed-byproducts/:uniqueId', async (req, res) => {
         res.status(500).json({ error: "서버 오류 발생" });
     }
 });
+
+app.post('/api/ai-recommendation', async (req, res) => {
+    try {
+        const { byProductName, requiredQuantity, requestingCompanyUniqueId } = req.body;
+
+        const requestingCompany = await CompanyInfo.findOne({
+            where: { uniqueId: requestingCompanyUniqueId },
+            attributes: ['companyAddress']
+        });
+
+        if (!requestingCompany) {
+            return res.status(404).json({ success: false, message: "요청 회사 정보를 찾을 수 없습니다." });
+        }
+
+        let byproducts = await AvailableByproduct.findAll({
+            where: {
+                availableByproductName: {
+                    [Op.like]: `%${byProductName}%`
+                }
+            },
+            include: [{
+                model: CompanyInfo,
+                as: 'companyInfo',
+                attributes: ['companyAddress', 'companyName', 'uniqueId']
+            }]
+        });
+
+        byproducts = byproducts.map(byproduct => {
+            const distance = calculateDistance(requestingCompany.companyAddress, byproduct.companyInfo.companyAddress);
+            const pricePerKg = calculatePricePerKg(byproduct.availableByproductAmount, byproduct.availableByproductPrice, byproduct.availableByproductUnit);
+            return { ...byproduct.toJSON(), distance, pricePerKg };
+        });
+
+        byproducts.sort((a, b) => {
+            if (a.distance !== b.distance) return a.distance - b.distance;
+            if (a.pricePerKg !== b.pricePerKg) return a.pricePerKg - b.pricePerKg;
+            if (a.availableByproductName !== b.availableByproductName) {
+                return a.availableByproductName.localeCompare(b.availableByproductName);
+            }
+            return parseFloat(b.availableByproductAmount) - parseFloat(a.availableByproductAmount);
+        });
+
+        const recommendations = byproducts
+            .filter(item => parseFloat(item.availableByproductAmount) >= requiredQuantity)
+            .map(item => ({
+                id: item.id,
+                availableByproductName: item.availableByproductName,
+                availableByproductAmount: item.availableByproductAmount,
+                availableByproductUnit: item.availableByproductUnit,
+                availableByproductPrice: item.availableByproductPrice,
+                pricePerKg: item.pricePerKg,
+                companyName: item.companyInfo.companyName,
+                companyAddress: item.companyInfo.companyAddress,
+                distance: item.distance,
+                reason: generateRecommendationReason(item, requestingCompany.companyAddress, requiredQuantity)
+            }));
+
+        res.json({ success: true, recommendations });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
+
+function calculateDistance(address1, address2) {
+    const region1 = address1.split(' ')[0];
+    const region2 = address2.split(' ')[0];
+    return region1 === region2 ? 0 : 1;
+}
+
+function calculatePricePerKg(amount, price, unit) {
+    const amountInKg = convertToKg(parseFloat(amount), unit);
+    return parseFloat(price) / amountInKg;
+}
+
+function convertToKg(amount, unit) {
+    switch(unit.toLowerCase()) {
+        case 'kg':
+        case '킬로그램':
+            return amount;
+        case 'g':
+        case '그램':
+            return amount / 1000;
+        case 't':
+        case '톤':
+            return amount * 1000;
+        default:
+            return amount; // 기본값으로 처리
+    }
+}
+
+function generateRecommendationReason(item, requestingAddress, requiredQuantity) {
+    const reasons = [];
+    if (item.distance === 0) {
+        reasons.push("같은 지역에 위치하고 있어 운송 비용을 절감할 수 있습니다.");
+    }
+    if (parseFloat(item.availableByproductAmount) > parseFloat(requiredQuantity)) {
+        reasons.push("요구 수량보다 많은 양을 보유하고 있어 안정적인 공급이 가능합니다.");
+    }
+    reasons.push(`1kg당 가격이 ${item.pricePerKg.toFixed(2)}원으로 경제적입니다.`);
+    return reasons.join(" ");
+}
+
+
+
+
 
 
 // 서버 시작
