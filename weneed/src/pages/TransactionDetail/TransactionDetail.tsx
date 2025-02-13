@@ -9,7 +9,12 @@ import { useAuth } from '@/components/contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
 
 const API_URL = "http://localhost:5000/api";
-
+interface Transaction {
+  id: number;
+  uniqueId: string;
+  status: "거래 요청" | "입금 요청" | "거래 확정" | "거래 완료" | "거래 취소";
+  transactionDate: string;
+}
 const TransactionDetail = () => {
   const { id } = useParams();
   const [byproduct, setByproduct] = useState<any>(null);
@@ -29,22 +34,21 @@ const TransactionDetail = () => {
           })
           .catch((error) => console.error("부산물 데이터 불러오기 오류:", error))
           .finally(() => setLoading(false));
-
-      // 거래 데이터 가져오기
-      fetch(`${API_URL}/transactions/${id}`)
+          fetch(`${API_URL}/transactions/${id}`)
           .then((res) => res.json())
-          .then((transactions) => {
-            // 중복되는 uniqueId의 개수로 총 거래 횟수 설정
-            const transactionCountMap = new Map();
-            transactions.forEach(transaction => {
-              const uniqueId = transaction.uniqueId;
-              transactionCountMap.set(uniqueId, (transactionCountMap.get(uniqueId) || 0) + 1);
+          .then((transactions: Transaction[]) => {  // ✅ 여기서 타입을 지정
+            const transactionCountMap = new Map<string, number>();
+        
+            transactions.forEach((transaction: Transaction) => { // ✅ 타입 명시
+              transactionCountMap.set(transaction.uniqueId, (transactionCountMap.get(transaction.uniqueId) || 0) + 1);
             });
-            setTotalTransactions(transactions.length); // 모든 거래의 개수로 설정
-
-            const successCount = transactions.filter(transaction => transaction.status === "거래 완료").length;
-            const successRateValue = transactions.length > 0 ? (successCount / transactions.length) * 100 : 0; // 총 거래 횟수로 성공률 계산
-            setSuccessRate(successRateValue.toFixed(2));  // 소수점 2자리까지
+        
+            setTotalTransactions(transactions.length);
+        
+            const successCount = transactions.filter((transaction: Transaction) => transaction.status === "거래 완료").length;
+            const successRateValue = transactions.length > 0 ? (successCount / transactions.length) * 100 : 0;
+            
+            setSuccessRate(parseFloat(successRateValue.toFixed(2))); // ✅ 숫자로 변환
           })
           .catch((error) => console.error("거래 데이터 불러오기 오류:", error));
     }
