@@ -5,15 +5,17 @@ import SearchButton from '@/components/atoms/SearchButton/SearchButton';
 import styles from "@/pages/AiMatching/AiMatching.module.scss";
 import { useState, useEffect } from "react";
 import RecommendationItem from "@/components/atoms/RecommendationList/RecommendationList";
+import { useAuth } from '@/components/contexts/AuthContext';
 
 interface Recommendation {
-  index: number;
-  title: string;
-  company: string;
-  location: string;
-  amount: string;
-  favorite: boolean;
-  price: number;
+  id: number;
+  availableByproductName: string;
+  companyName: string;
+  companyAddress: string;
+  availableByproductAmount: string;
+  availableByproductUnit: string;
+  availableByproductPrice: number;
+  distance: number;
 }
 
 interface AiMatchingProps {
@@ -24,26 +26,56 @@ const AiMatching: React.FC<AiMatchingProps> = ({ middleContent }) => {
   const [searchValue, setSearchValue] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
+  const { user } = useAuth();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setRecommendations([
-        { index: 1, title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false, price: 300000 },
-        { index: 2,  title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: true, price: 500000 },
-        { index: 3,  title: "메추리알 껍데기", company: "HJ 중공업", location: "부산 영도구 남항동", amount: "월평균 100kg", favorite: false, price: 240000 },
-      ]);
-      setIsLoading(false);
-    }, 2000);
+    if (!user?.uniqueId) return;
 
-    return () => clearTimeout(timer);
-  }, []);
+    const fetchRecommendations = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/ai-recommendation", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            neededByproductName: searchValue || "메추리알 껍데기",
+            requestingCompanyUniqueId: user.uniqueId 
+          }),
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          setRecommendations(
+            data.recommendations
+              .slice(0, 5) 
+              .map((item: any, index: number) => ({
+                id: index + 1,
+                availableByproductName: item.availableByproductName,
+                companyName: item.companyName,
+                companyAddress: item.companyAddress,
+                availableByproductAmount: item.availableByproductAmount,
+                availableByproductUnit: item.availableByproductUnit,
+                availableByproductPrice: item.availableByproductPrice,
+                distance: item.distance,
+              }))
+          );
+        }
+      } catch (error) {
+        console.error("AI 추천 데이터 가져오기 오류:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchRecommendations();
+  }, [user?.uniqueId, searchValue]);
 
   const handleSearch = () => {
     if (searchValue.trim() !== '') {
       console.log("검색 실행:", searchValue);
     }
   };
-  
 
   return (
     <div>
@@ -51,15 +83,7 @@ const AiMatching: React.FC<AiMatchingProps> = ({ middleContent }) => {
       <div className={styles.container}>
         <div className={styles.headerWrapper}>
           <div className={styles.headerText}>
-          {isLoading ? (
-            "AI 분석중..."
-          ) : (
-            <>
-              
-              AI 분석완료!
-            </>
-          )}
-
+          {isLoading ? "AI 분석중..." : "AI 분석완료!"}
           </div>
         </div>
 
@@ -78,11 +102,20 @@ const AiMatching: React.FC<AiMatchingProps> = ({ middleContent }) => {
               ))
             ) : (
               recommendations.map((item) => (
-                <RecommendationItem key={item.index} {...item} />
+                <RecommendationItem
+                  index={item.id} 
+                  key={item.id}
+                  title={item.availableByproductName}
+                  company={item.companyName}
+                  location={item.companyAddress}
+                  amount={`${item.availableByproductAmount} ${item.availableByproductUnit}`}
+                  price={item.availableByproductPrice}
+                />
               ))
             )}
           </div>
         </div>
+        
         {middleContent && <div className={styles.middleSection}>{middleContent}</div>}
 
         <div className={styles.bottomSection}>
@@ -92,7 +125,7 @@ const AiMatching: React.FC<AiMatchingProps> = ({ middleContent }) => {
               value={searchValue}
               placeholder="검색어를 입력하세요..."
               onChange={(value) => setSearchValue(value)}
-              onSubmit={() => console.log("검색 실행:", searchValue)}
+              onSubmit={handleSearch}
             />
             <SearchButton isAiMatch={false} alwaysSearchLabel={true} onClick={handleSearch} />
           </div>

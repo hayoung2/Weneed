@@ -12,10 +12,9 @@ interface CardListProps {
     style?: React.CSSProperties;
   }[];
   onCardClick: (item: any) => void;
-  onFavoriteToggle: (id: string, companyName: string) => void; 
 }
 
-const CardList: React.FC<CardListProps> = ({ cards, onCardClick, onFavoriteToggle }) => {
+const CardList: React.FC<CardListProps> = ({ cards, onCardClick }) => {
   return (
     <div className={styles.cardList}>
       {cards.map((item) => (
@@ -28,7 +27,6 @@ const CardList: React.FC<CardListProps> = ({ cards, onCardClick, onFavoriteToggl
           companyAddress={item.companyAddress}
           companyName={item.companyName}
           onClick={() => onCardClick(item)}
-          onFavoriteToggle={onFavoriteToggle}
         />
       ))}
     </div>

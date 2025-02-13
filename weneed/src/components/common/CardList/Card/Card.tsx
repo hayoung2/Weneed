@@ -19,7 +19,6 @@ interface CardProps {
   price: number;
   style?: React.CSSProperties;
   onClick: () => void;
-  onFavoriteToggle: (id: string, companyName: string) => void; // ✅ companyName을 필수 매개변수로 지정
 }
 
 const Card: FC<CardProps> = ({
