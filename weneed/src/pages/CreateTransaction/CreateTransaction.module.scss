@@ -48,7 +48,7 @@
 }
 
 .label {
-  width: 8vw;
+  width: 10vw;
   font-family: "medium";
   font-size: 1.1vw;
   color: #757575;
@@ -58,8 +58,16 @@
 .label2{
   width: 8vw;
   font-family: "medium";
-  font-size: 1.2vw;
+  font-size: 1vw;
   color: #bbbbbb;
+}
+
+.label3{
+  width: 8vw;
+  font-family: "medium";
+  font-size: 1.2vw;
+  color:  #757575;
+  margin-bottom: 1%;
 }
 
 .value {
@@ -81,6 +89,7 @@
   font-family: "medium";
   font-size: 0.9vw;
   color: #b0b0b0;
+  margin-bottom: 2.5%;
 }
 
 .inputGroup {
@@ -113,19 +122,19 @@
 
 /* 추가: 거래 희망 장소 입력 래퍼 */
 .personInput {
-  width: 100%;
+  width: 93%;
 }
 
 .unitContainer {
   display: flex;
   align-items: center;
   gap: 10px;
-  width: 100%;
+  width: 110%;
 }
 
 .unitContainer > div {
   flex: 4;
-  min-width: 100px;
+  min-width: 80px;
 }
 
 .dropdownWrapper {
@@ -145,14 +154,12 @@
   align-items: center;
 }
 
-/* 추가: 제출 버튼 래퍼 - 중앙 정렬 */
 .buttonWrapper {
   display: flex;
   justify-content: center;
   margin-top: 2vw;
 }
 
-/* 선택사항: 폼 기본 스타일 */
 form {
   width: 100%;
 }
@@ -175,7 +182,7 @@ form {
   transition: border-color 0.1s ease-in-out;
 
   &::placeholder {
-    color: var(--place-holder-gray);
+    color: #b0b0b0;
     font-family: "semi-bold";
   }
 

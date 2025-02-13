@@ -132,6 +132,9 @@ const CreateTransaction: React.FC = () => {
           </div>
         </div>
 
+        <div style={{ borderTop: "1px solid #e0e0e0", margin: "20px 0" }} />
+
+
         <h2 className={styles.highlightTitle}>거래 예정서 작성</h2>
         <p className={styles.description}>
           거래 예정서를 바탕으로 위니드 고객센터가 원활한 중개를 도와드려요.
@@ -180,7 +183,7 @@ const CreateTransaction: React.FC = () => {
             </div>
 
             <div className={styles.inputBox} style={{ paddingLeft: "2%" }}>
-              <p className={styles.label} style={{ paddingRight: "8%" }}>
+              <p className={styles.label3} style={{ paddingRight: "8%" }}>
                 거래 희망 장소
               </p>
               <div className={styles.personInput}>
@@ -233,7 +236,7 @@ const CreateTransaction: React.FC = () => {
                   value={transactionPrice}
                   onChange={(e) => setTransactionPrice(e.target.value)}
                 />
-                <p className={styles.dateText} style={{ marginRight: "5%" }}>
+                <p className={styles.dateText} style={{ marginLeft: "3%" }}>
                   원
                 </p>
               </div>
