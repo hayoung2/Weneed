@@ -85,6 +85,10 @@ const TransactionLog = sequelize.define('TransactionLog', {
     byproductUnit: { type: DataTypes.STRING, allowNull: false }, // 단위
     transactionPrice: { type: DataTypes.INTEGER, allowNull: false }, // 거래 가격
     additionalNotes: { type: DataTypes.STRING } // 기타 내용
+    status: {
+        type: DataTypes.ENUM('거래 요청', '입금 요청', '거래 확정', '거래 완료', '거래 취소'),
+        allowNull: false // 필수로 설정 (필요에 따라 변경 가능)
+    }
 });
 
 // 즐겨찾기 모델 정의
