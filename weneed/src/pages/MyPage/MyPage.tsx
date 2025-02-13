@@ -81,6 +81,25 @@ const handlePageClick = (page: number) => {
     }
   }, [user?.uniqueId]);
 
+  useEffect(() => {
+    if (user?.uniqueId) {
+      axios
+          .get(`${API_URL}/user/${user.uniqueId}`) // 사용자 정보 조회 API
+          .then((response) => {
+            const { user, companyInfo, availableByproducts, neededByproducts } = response.data;
+
+            // 상태 업데이트
+            setCompanyInfo(companyInfo);
+            setAvailableByproducts(availableByproducts);
+            setNeededByproducts(neededByproducts);
+            setShowTransactionLog(showTransactionLog); // 필요 시 사용
+          })
+          .catch((error) => {
+            console.error("사용자 정보 불러오기 오류:", error);
+          });
+    }
+  }, [user?.uniqueId]);
+
   return (
     <>
       <Header />

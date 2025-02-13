@@ -682,6 +682,55 @@ app.post("/api/create-transaction", async (req, res) => {
     }
 });
 
+// 사용자 정보 조회 API
+app.get('/api/user/:uniqueId', async (req, res) => {
+    const { uniqueId } = req.params;
+
+    try {
+        const user = await User.findOne({
+            where: { uniqueId },
+            attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }
+        });
+
+        if (!user) {
+            return res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
+        }
+
+        const companyInfo = await CompanyInfo.findOne({
+            where: { uniqueId },
+            attributes: { exclude: ['createdAt', 'updatedAt'] }
+        });
+
+        const availableByproducts = await AvailableByproduct.findAll({
+            where: { uniqueId },
+            attributes: { exclude: ['createdAt', 'updatedAt'] }
+        });
+
+        const neededByproducts = await NeededByproduct.findAll({
+            where: { uniqueId },
+            attributes: { exclude: ['createdAt', 'updatedAt'] }
+        });
+
+        const transactionLogs = await TransactionLog.findAll({
+            where: { uniqueId },
+            attributes: { exclude: ['createdAt', 'updatedAt'] },
+            order: [['transactionDate', 'DESC']]
+        });
+
+        res.json({
+            user,
+            companyInfo,
+            availableByproducts,
+            neededByproducts,
+            transactionLogs
+        });
+    } catch (error) {
+        console.error('사용자 정보 조회 오류:', error);
+        res.status(500).json({ error: '서버 오류 발생' });
+    }
+});
+
+
 
 // 서버 시작
 const PORT = process.env.PORT || 5000;
