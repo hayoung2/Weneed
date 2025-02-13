@@ -6,7 +6,7 @@ import EditButton from "@/components/common/EditButton/EditButton";
 import Header from "@/components/common/Header/Header";
 import Footer from "@/components/common/Footer/Footer";
 import Pagination from "@/components/atoms/Pagination/Pagination";
-
+import { useAuth } from '@/components/contexts/AuthContext';
 
 const API_URL = "http://localhost:5000/api";
 
@@ -16,6 +16,7 @@ const TransactionDetail = () => {
   const { id } = useParams(); 
   const [byproduct, setByproduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
     if (id) {
@@ -80,14 +81,14 @@ const TransactionDetail = () => {
         <div className={styles.info}>
           <div className={styles.row}>
             <span className={styles.label}>연락처</span>
-            <span className={`${styles.value} ${!showTransactionLog && styles.hiddenContact}`}>
-              {showTransactionLog ? byproduct.companyInfo?.contactNumber || "정보 없음" : "이 회사와 거래를 결정하면 연락처를 알려드려요."}
+            <span className={styles.value}>
+              {byproduct.companyInfo?.contactNumber}
             </span>
           </div>
           <div className={styles.row}>
             <span className={styles.label}>팩스</span>
-            <span className={`${styles.value} ${!showTransactionLog && styles.hiddenContact}`}>
-              {showTransactionLog ? byproduct.companyInfo?.faxNumber || "정보 없음" : "이 회사와 거래를 결정하면 팩스 정보를 알려드려요."}
+            <span className={styles.value}>
+              {byproduct.companyInfo?.faxNumber}
             </span>
           </div>
 
@@ -147,10 +148,10 @@ const TransactionDetail = () => {
         </div>
 
 
-        <p className={styles.notice}>    {showTransactionLog ? "반드시 통화로 거래 협의 후에 거래일지를 작성해주세요!" : "회사와 거래하기 버튼을 클릭하면 연락처 정보를 알 수 있어요."}</p>
-        <div className={styles.buttonWrapper}>
-          <EditButton type="submit" onClick={handleTransactionClick}>
-            거래예정서 작성하기 
+        <p className={styles.notice}>{user?.userType=="개인"?"*개인 회원은 기업과의 거래가 제한됩니다." :""}</p>
+        <div className={styles.buttonWrapper} >
+          <EditButton type="submit" onClick={user?.userType=="개인" ? () => {}: handleTransactionClick}  style={user?.userType === "개인" ? { backgroundColor: "#b0b0b0"}:{}}>
+           이 기업과 거래하기
           </EditButton>
         </div>
       </div>
@@ -165,7 +166,7 @@ const TransactionDetail = () => {
               {transactions.filter((tx) => tx.status === "거래 완료").length}번 거래를 완료했어요!
             </p>
 
-            {/*리스트*/}
+
             <div className={styles.transactionList}>
               {currentItems.map((transaction) => (
                 <div key={transaction.id} className={styles.transactionItem}>

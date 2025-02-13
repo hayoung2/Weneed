@@ -95,14 +95,21 @@
     width: 95%;
     height: 8vw;
 }
+.notice {
+    text-align: center;
+    font-size: 0.7vw;
+    font-family: "medium";
+    padding-top: 2vw;
+    color: #FF0000;
+  }
+  
 
-.buttonWrapper {
+  .buttonWrapper {
     display: flex;
     justify-content: center;
-    margin-top: 3vw;
-    margin-bottom: 5vw;
-}
-
+    padding-bottom: 5vw;
+    margin-top: 1%;
+  }
 .tradeButton {
     font-size: 1vw;
 }
