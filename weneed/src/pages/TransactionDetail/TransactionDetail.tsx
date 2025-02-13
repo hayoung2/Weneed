@@ -8,7 +8,7 @@ import Footer from "@/components/common/Footer/Footer";
 import { useAuth } from '@/components/contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "http://43.201.160.49:5000/api";
 interface Transaction {
   id: number;
   uniqueId: string;

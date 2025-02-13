@@ -86,7 +86,7 @@ const MeetingNote: React.FC<MeetingNoteProps> = ({
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/api/transaction-log", data);
+      const response = await axios.post("http://43.201.160.49:5000/api/transaction-log", data);
       alert("거래일지가 성공적으로 저장되었습니다.");
       console.log("거래일지 저장 성공:", response.data);
     } catch (error) {

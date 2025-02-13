@@ -9,7 +9,7 @@ import Footer from "@/components/common/Footer/Footer";
 import axios from "axios";
 import Pagination from "@/components/atoms/Pagination/Pagination";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "http://43.201.160.49:5000/api";
 
 const Mypage: React.FC = () => {
   const navigate = useNavigate();

@@ -50,7 +50,7 @@ const SignUp: React.FC = () => {
     setErrorMessage("");
 
     try {
-      const response = await axios.post("http://localhost:5000/signup", {
+      const response = await axios.post("http://43.201.160.49:5000/signup", {
         userType,
         companyName: userType === "기업" ? companyName : undefined,
         representativeName: userType === "기업" ? ceoName : undefined,

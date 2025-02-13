@@ -25,7 +25,7 @@ export const LoginPage = () => {
 
     setErrorMessage('');
     try {
-      const response = await axios.post('http://localhost:5000/login', { uniqueId: id, password });
+      const response = await axios.post('http://43.201.160.49:5000/login', { uniqueId: id, password });
 
       const {  userType } = response.data;
 

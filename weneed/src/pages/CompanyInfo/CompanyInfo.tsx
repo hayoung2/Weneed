@@ -84,7 +84,7 @@ const CompanyInfoPage: React.FC<CompanyInfoPageProps> = ({
       uniqueId: user?.uniqueId || "-",
     }));
     try {
-      const response = await fetch("http://localhost:5000/api/company-info", {
+      const response = await fetch("http://43.201.160.49:5000/api/company-info", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
