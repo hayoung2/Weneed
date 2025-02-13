@@ -21,5 +21,6 @@ export const RouterPath = {
   REGISTERBYPRODUCT:'/registerByproduct',
   MYPAGE:'/mypage',
   MYPAGEPERSONAL:'/mypagepersonal',
-  CREATETRANSACTION:'/createTransaction'
+  CREATETRANSACTION:'/createTransaction',
+  TRANSACTIONVIEW:'/transactionView'
 }
