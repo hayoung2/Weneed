@@ -33,7 +33,7 @@ const RegisterByproduct: React.FC = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/available-byproduct", formData);
+     await axios.post("http://localhost:5000/api/availablebyproduct", formData);
       alert("공급 가능한 부산물이 성공적으로 등록되었습니다.");
       navigate('/'); 
     } catch (error) {
@@ -41,6 +41,7 @@ const RegisterByproduct: React.FC = () => {
       alert("등록에 실패했습니다. 다시 시도해주세요.");
     }
   };
+  // 데이터마다 모델을 만들기 ,interface , 컴포넌트 이름 보자마자 생각하게 만들기, 
 
   return (
     <>

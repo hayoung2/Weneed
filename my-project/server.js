@@ -56,7 +56,7 @@ const AvailableByproduct = sequelize.define('AvailableByproducts', {
     availableByproductUnit: DataTypes.STRING,
     availableByproductAnalysis: DataTypes.STRING,
     availableByproductPrice: DataTypes.STRING,
-    uniqueId:  DataTypes.STRING 
+    uniqueId:  { type: DataTypes.STRING, unique: false }
 });
 
 // 필요한 부산물 모델 정의
@@ -64,7 +64,8 @@ const NeededByproduct = sequelize.define('NeededByproducts', {
     neededByproductName: DataTypes.STRING,
     neededByproductAmount: DataTypes.STRING,
     neededByproductUnit: DataTypes.STRING,
-    uniqueId:  DataTypes.STRING
+    neededByproductProperty:DataTypes.STRING,
+    uniqueId:  { type: DataTypes.STRING, unique: false }
 });
 
 // 거래일지 모델 정의
@@ -193,6 +194,7 @@ app.post('/api/company-info', async (req, res) => {
         neededByproductName,
         neededByproductAmount,
         neededByproductUnit,
+        neededByproductProperty,
         uniqueId
     } = req.body;
 
@@ -233,6 +235,7 @@ app.post('/api/company-info', async (req, res) => {
             neededByproductName,
             neededByproductAmount,
             neededByproductUnit,
+            neededByproductProperty,
             uniqueId
         });
 
@@ -245,9 +248,9 @@ app.post('/api/company-info', async (req, res) => {
 
 // 필요한 부산물 저장 API
 app.post('/api/needed-byproduct', async (req, res) => {
-    const { neededByproductName, neededByproductAmount, neededByproductUnit, uniqueId } = req.body;
+    const { neededByproductName, neededByproductAmount, neededByproductUnit,neededByproductProperty, uniqueId } = req.body;
 
-    if (!neededByproductName || !neededByproductAmount || !neededByproductUnit || !uniqueId) {
+    if (!neededByproductName || !neededByproductAmount || !neededByproductUnit || !neededByproductProperty || !uniqueId) {
         return res.status(400).json({ error: "모든 필드를 입력해주세요." });
     }
 
@@ -256,6 +259,7 @@ app.post('/api/needed-byproduct', async (req, res) => {
             neededByproductName,
             neededByproductAmount,
             neededByproductUnit,
+            neededByproductProperty,
             uniqueId,
         });
 
@@ -267,7 +271,7 @@ app.post('/api/needed-byproduct', async (req, res) => {
 });
 
 // 공급 가능한 부산물 저장 API
-app.post('/api/available-byproduct', async (req, res) => {
+app.post('/api/availablebyproduct', async (req, res) => {
     const { availableByproductName, availableByproductAmount, availableByproductUnit, availableByproductPrice, availableByproductAnalysis, uniqueId } = req.body;
 
     if (!availableByproductName || !availableByproductAmount || !availableByproductUnit || !availableByproductPrice || !uniqueId) {
@@ -491,14 +495,17 @@ app.get('/api/user-info/:uniqueId', async (req, res) => {
 });
 
 // 검색 정보 상세 조회 API (CompanyInfo 테이블에서 가져오기)
-//대표자명,회사명으로 해야할지도 in companyinfos / 공급부산물은 id로 찾기 
 app.get('/api/transactionDetail/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
         const byProductInfo = await AvailableByproduct.findOne({
-            where: { id },  
-            attributes: { exclude: ['updatedAt'] } 
+            where: { id },
+            include: [{
+                model: CompanyInfo, // ✅ CompanyInfo 테이블과 조인
+                as: 'companyInfo',
+                attributes: { exclude: ['updatedAt'] }
+            }]
         });
 
         if (!byProductInfo) {
@@ -512,6 +519,39 @@ app.get('/api/transactionDetail/:id', async (req, res) => {
     }
 });
 
+// 특정 사용자의 공급 가능한 부산물 조회 API
+app.get('/api/available-byproducts/:uniqueId', async (req, res) => {
+    const { uniqueId } = req.params;
+
+    try {
+        const availableByproducts = await AvailableByproduct.findAll({
+            where: { uniqueId },
+            attributes: { exclude: ['updatedAt'] }
+        });
+
+        res.json(availableByproducts);
+    } catch (error) {
+        console.error("공급 가능한 부산물 조회 오류:", error);
+        res.status(500).json({ error: "서버 오류 발생" });
+    }
+});
+
+// 특정 사용자의 필요 자원 조회 API
+app.get('/api/needed-byproducts/:uniqueId', async (req, res) => {
+    const { uniqueId } = req.params;
+
+    try {
+        const neededByproducts = await NeededByproduct.findAll({
+            where: { uniqueId },
+            attributes: { exclude: ['updatedAt'] }
+        });
+
+        res.json(neededByproducts);
+    } catch (error) {
+        console.error("필요 자원 조회 오류:", error);
+        res.status(500).json({ error: "서버 오류 발생" });
+    }
+});
 
 
 // 서버 시작
