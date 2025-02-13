@@ -1,3 +1,4 @@
+import CreateTransaction from "@/pages/CreateTransaction/CreateTransaction";
 
 
 export const RouterPath = {
@@ -19,5 +20,6 @@ export const RouterPath = {
   REGISTERRESOURCE:'/registerResource',
   REGISTERBYPRODUCT:'/registerByproduct',
   MYPAGE:'/mypage',
-  MYPAGEPERSONAL:'/mypagepersonal'
+  MYPAGEPERSONAL:'/mypagepersonal',
+  CREATETRANSACTION:'/createTransaction'
 }
