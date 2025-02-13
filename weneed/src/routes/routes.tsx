@@ -19,6 +19,7 @@ import CompanyInfoDetail from '@/pages/CompanyInfoDetail/CompanyInfoDetail'
 import Mypage from '@/pages/MyPage/MyPage'
 import MypagePersonal from '@/pages/MyPagePersonal/MyPagePersonal'
 import CreateTransaction from '@/pages/CreateTransaction/CreateTransaction'
+import TransactionView from '@/pages/TransactionView/TransactionView'
 
 
 const router = createBrowserRouter([
@@ -60,6 +61,7 @@ const router = createBrowserRouter([
   { path: RouterPath.MYPAGE, element: <Mypage />},
   { path: RouterPath.MYPAGEPERSONAL, element: <MypagePersonal />},
   { path: RouterPath.CREATETRANSACTION, element: <CreateTransaction />},
+  { path: RouterPath.TRANSACTIONVIEW, element: <TransactionView />},
 ]);
 
 export const Routes = () => {
