@@ -6,6 +6,7 @@ import styles from "@/pages/AiMatching/AiMatching.module.scss";
 import { useState, useEffect } from "react";
 import RecommendationItem from "@/components/atoms/RecommendationList/RecommendationList";
 import { useAuth } from '@/components/contexts/AuthContext';
+import { useNavigate } from "react-router-dom";
 
 interface Recommendation {
   id: number;
@@ -27,6 +28,7 @@ const AiMatching: React.FC<AiMatchingProps> = ({ middleContent }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!user?.uniqueId) return;
@@ -73,7 +75,7 @@ const AiMatching: React.FC<AiMatchingProps> = ({ middleContent }) => {
 
   const handleSearch = () => {
     if (searchValue.trim() !== '') {
-      console.log("검색 실행:", searchValue);
+      navigate(`/list?search=${encodeURIComponent(searchValue)}`);
     }
   };
 
