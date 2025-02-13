@@ -84,11 +84,10 @@ const TransactionLog = sequelize.define('TransactionLog', {
     byproductQuantity: { type: DataTypes.FLOAT, allowNull: false }, // 거래 부산물량
     byproductUnit: { type: DataTypes.STRING, allowNull: false }, // 단위
     transactionPrice: { type: DataTypes.INTEGER, allowNull: false }, // 거래 가격
-    additionalNotes: { type: DataTypes.STRING },
+    additionalNotes: { type: DataTypes.STRING }, // 기타 내용
     status: {
-        type: DataTypes.ENUM("거래 요청", "거래 예정", "거래 확정", "거래 취소", "입금 완료"),
-        allowNull: false,
-        defaultValue: "거래 요청" // 기본값을 '거래 요청'으로 설정
+        type: DataTypes.ENUM('거래 요청', '입금 요청', '거래 확정', '거래 완료', '거래 취소'),
+        allowNull: false // 필수로 설정 (필요에 따라 변경 가능)
     }
 });
 
