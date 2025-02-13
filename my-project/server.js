@@ -84,7 +84,12 @@ const TransactionLog = sequelize.define('TransactionLog', {
     byproductQuantity: { type: DataTypes.FLOAT, allowNull: false }, // 거래 부산물량
     byproductUnit: { type: DataTypes.STRING, allowNull: false }, // 단위
     transactionPrice: { type: DataTypes.INTEGER, allowNull: false }, // 거래 가격
-    additionalNotes: { type: DataTypes.STRING } // 기타 내용
+    additionalNotes: { type: DataTypes.STRING },
+    status: {
+        type: DataTypes.ENUM("거래 요청", "거래 예정", "거래 확정", "거래 취소", "입금 완료"),
+        allowNull: false,
+        defaultValue: "거래 요청" // 기본값을 '거래 요청'으로 설정
+    }
 });
 
 // 즐겨찾기 모델 정의
@@ -655,6 +660,28 @@ function generateRecommendationReason(item, requestingAddress, requiredQuantity)
     return reasons.join(" ");
 }
 
+app.post("/api/create-transaction", async (req, res) => {
+    try {
+        const { uniqueId, contactNumber, transactionDate, byproductName, byproductQuantity, byproductUnit, transactionPrice, additionalNotes, status } = req.body;
+
+        const newTransaction = await TransactionLog.create({
+            uniqueId,
+            contactNumber,
+            transactionDate,
+            byproductName,
+            byproductQuantity,
+            byproductUnit,
+            transactionPrice,
+            additionalNotes,
+            status
+        });
+
+        res.json({ success: true, message: "거래 기록이 성공적으로 저장되었습니다.", data: newTransaction });
+    } catch (error) {
+        console.error("거래 기록 저장 오류:", error);
+        res.status(500).json({ success: false, message: "거래 기록 저장 중 오류 발생", error: error.message });
+    }
+});
 
 
 // 서버 시작
