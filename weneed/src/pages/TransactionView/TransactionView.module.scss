@@ -1,0 +1,30 @@
+/*가장 하단의 회사 정보*/
+.title {
+  font-size: 2vw;
+  font-family: "bold";
+  margin-bottom: 1.5vw;
+}
+.label2{
+  width: 8vw;
+  font-family: "medium";
+  font-size: 1vw;
+  color: #bbbbbb;
+}
+.value {
+  flex-grow: 1;
+  font-family: "medium";
+  font-size: 1vw;
+  color: #4a4a4a;
+}
+.row {
+  display: flex;
+  width: 48%;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.2vw; 
+  margin-bottom: 1%;
+}
+.companyInfoWrappper{
+  margin-left: 10vw;
+  margin-bottom: 5vw;
+}
