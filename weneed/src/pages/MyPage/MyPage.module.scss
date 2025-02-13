@@ -115,4 +115,133 @@
       background: #f0f0f0;
     }
   }
+
+  /* 거래일지 배경 전체 적용 */
+.transactionLogWrapper {
+  padding: 2vw 0;
+  display: flex;
+  justify-content: center;
+  background-color: #F3F5F8;
   
+}
+
+/* 거래일지 내부 컨테이너 */
+.transactionLog {
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+  padding: 3%;
+}
+
+.logTitle {
+  font-size: 1.6vw;
+  margin-bottom: 1vw;
+  font-family: "bold";
+  text-align: center;
+}
+
+.logSummary {
+  font-family: 'Regular';
+  text-align: center;
+  margin-bottom: 2vw;
+}
+
+/* 거래일지가 없을 경우 중앙 정렬 */
+.noTransactionsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  text-align: center;
+}
+
+.noTransactions {
+  color: #bbbbbb;
+  font-size: 1.2vw;
+}
+
+/*리스트*/
+.transactionList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 9%;
+  row-gap: 5%;
+  max-width: 92%;
+}
+
+.transactionItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: #fff;
+  border-radius: 10px;
+  padding: 5% 8%;
+  width: 100%;
+
+  cursor: pointer;
+}
+
+.transactionInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.transactionTitle {
+  font-family: 'Bold';
+  font-size: 100%;
+  color: #4A4A4A;
+  margin-top: 10%;
+  margin-bottom: 15%;
+}
+
+.transactionDate {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 10%;
+}
+
+.status {
+  font-family: "Bold";
+  font-size: 80%;
+  padding: 3% 5%;
+  margin-top: 5%;
+  border-radius: 5px;
+  text-align: center;
+  min-width: 20%;
+  
+  display: flex;
+  justify-content: center;
+}
+
+.paymentRequested{
+  background-color: #dbdbdb;
+  color: #757575;
+}
+.confirmed{
+  background-color: #cbefff;
+  color: #00b2ff;
+}
+.completed {
+  background-color: #00b2ff;
+  color: white;
+}
+
+.requested {
+  background-color:#DBDBDB;
+  color:#b0b0b0;
+}
+
+.canceled {
+  background-color:#757575;
+  color:#b0b0b0;
+}
+
+.pagination{
+  margin-top: 20%;
+}
+
+.footerWrapper{
+  margin-top: -5%;
+}
