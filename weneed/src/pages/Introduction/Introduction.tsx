@@ -18,7 +18,7 @@ export const IntroductionPage = () => {
     if (selectedProvince && selectedCity) {
       axios
         .get(
-          `http://localhost:5000/api/company-info/${selectedProvince}/${selectedCity}`
+          `http://43.201.160.49:5000/api/company-info/${selectedProvince}/${selectedCity}`
         )
         .then((response) => {
           setCompanies(response.data);

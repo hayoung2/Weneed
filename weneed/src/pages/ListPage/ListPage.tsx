@@ -9,7 +9,7 @@ import SearchBar from '@/components/common/SearchBar/SearchBar';
 import Pagination from '@/components/atoms/Pagination/Pagination';
 import CardList from '@/components/common/CardList/CardList/CardList';
 
-const API_URL = "http://localhost:5000/api"; // 백엔드 API 주소
+const API_URL = "http://43.201.160.49:5000/api"; // 백엔드 API 주소
 
 const ITEMS_PER_PAGE = 10;
 

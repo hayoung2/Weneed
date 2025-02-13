@@ -10,7 +10,7 @@ import InputBox from "@/components/common/InputBox/InputBox";
 import UnitDropdown from "@/components/common/UnitDropdown/UnitDropdown";
 import { useAuth } from '@/components/contexts/AuthContext';
 
-const API_URL = "http://localhost:5000/api"; // 백엔드 API 주소
+const API_URL = "http://43.201.160.49:5000/api"; // 백엔드 API 주소
 const CreateTransaction: React.FC = () => {
     const location = useLocation();
     const company = location.state?.company || null; // ✅ company 정보 받아오기

@@ -35,7 +35,7 @@ const AiMatching: React.FC<AiMatchingProps> = ({ middleContent }) => {
 
     const fetchRecommendations = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/ai-recommendation", {
+        const response = await fetch("http://43.201.160.49:5000/api/ai-recommendation", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

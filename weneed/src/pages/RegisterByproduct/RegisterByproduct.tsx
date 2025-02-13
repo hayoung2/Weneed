@@ -33,7 +33,7 @@ const RegisterByproduct: React.FC = () => {
     }
 
     try {
-     await axios.post("http://localhost:5000/api/availablebyproduct", formData);
+     await axios.post("http://43.201.160.49:5000/api/availablebyproduct", formData);
       alert("공급 가능한 부산물이 성공적으로 등록되었습니다.");
       navigate('/'); 
     } catch (error) {

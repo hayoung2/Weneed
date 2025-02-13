@@ -31,7 +31,7 @@ const RegisterResource: React.FC = () => {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/needed-byproduct", formData);
+      await axios.post("http://43.201.160.49:5000/api/needed-byproduct", formData);
       alert("필요 자원이 성공적으로 등록되었습니다.");
       navigate('/')
     } catch (error) {
