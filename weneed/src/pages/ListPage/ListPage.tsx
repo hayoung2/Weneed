@@ -41,13 +41,24 @@ const ListPage: React.FC = () => {
 
  
 
-  // 🔥 검색 실행 시 즉시 반영되도록 변경
   const handleSubmit = () => {
-    if (searchTerm.trim() !== '') {
-      setSubmittedSearch(searchTerm); 
-      navigate(`/list?search=${encodeURIComponent(searchTerm)}&aiMatch=${isAiMatch}`);
+    if (isAiMatch) {
+      if (searchTerm.trim() == "") {
+        alert("입력한 단어가 등록된 필요자원에 없을 경우, 정확한 AI 매칭이 이루어지지 않을 수 있습니다.");
+      } else {
+        navigate(`/aimatchings?search=${encodeURIComponent(searchTerm)}`);
+      }
+    } else {
+      if (searchTerm.trim() !== "") {
+        navigate(`/list?search=${encodeURIComponent(searchTerm)}`);
+      }
     }
   };
+
+
+
+
+
   const handleCardClick = (item: any) => {
     navigate(`/transactionDetail/${item.id}`, { state: item }); 
   };
