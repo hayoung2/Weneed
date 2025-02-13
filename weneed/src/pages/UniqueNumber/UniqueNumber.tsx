@@ -1,5 +1,4 @@
 import styles from "./UniqueNumber.module.scss";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import chartIcon from "@/assets/icons/copy.svg"; 
 import Header from "@/components/common/Header/Header";
 import Footer from "@/components/common/Footer/Footer";
@@ -24,12 +23,12 @@ const UniqueNumber: React.FC<UniqueNumberProps> = ({ representative,companyName,
           <span className={styles.blueText}>{user?.userType =="개인" ? representative :companyName}</span>의 고유번호
         </p>
 
-        <CopyToClipboard text={uniqueNumber} onCopy={() => true}>
+  
           <div className={styles.inputContainer}>
             <img src={chartIcon} alt="chart icon" className={styles.icon} />
             <input type="text" value={uniqueNumber} readOnly />
           </div>
-        </CopyToClipboard>
+    
         <p className={styles.bottomText}>원활한 서비스 이용을 위해 고유번호를 꼭 기억해주세요!</p>
 
         {/* 개인/기업에 따라 버튼 텍스트 변경 */}
