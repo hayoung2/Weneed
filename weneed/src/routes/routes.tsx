@@ -18,6 +18,7 @@ import RegisterResource from '@/pages/RegisterResource/RegisterResource'
 import CompanyInfoDetail from '@/pages/CompanyInfoDetail/CompanyInfoDetail'
 import Mypage from '@/pages/MyPage/MyPage'
 import MypagePersonal from '@/pages/MyPagePersonal/MyPagePersonal'
+import CreateTransaction from '@/pages/CreateTransaction/CreateTransaction'
 
 
 const router = createBrowserRouter([
@@ -58,6 +59,7 @@ const router = createBrowserRouter([
   { path: `${RouterPath.COMPANYINFODETAIL}/:uniqueId`, element: <CompanyInfoDetail />},
   { path: RouterPath.MYPAGE, element: <Mypage />},
   { path: RouterPath.MYPAGEPERSONAL, element: <MypagePersonal />},
+  { path: RouterPath.CREATETRANSACTION, element: <CreateTransaction />},
 ]);
 
 export const Routes = () => {
