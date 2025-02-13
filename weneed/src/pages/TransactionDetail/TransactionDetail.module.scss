@@ -97,6 +97,7 @@
   display: flex;
   justify-content: center;
   padding-bottom: 5vw;
+  margin-top: 5%;
 }
 
 /* 거래일지 배경 전체 적용 */
@@ -222,8 +223,7 @@
   margin-top: 2vw;
   padding-left: 1vw;
   background: #ffffff;
-  box-shadow: 0 0 4px #CBEFFF; 
-  border: 1px solid #CBEFFF;
+  border: 1px solid #d2d2d2;
   border-radius: 10px; transition: border 0.2s, box-shadow 0.2s;
 }
 
@@ -257,3 +257,4 @@
   margin-bottom: 1.5vw;
   color: #636363;
 }
+
