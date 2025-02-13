@@ -222,7 +222,7 @@ export const HomePage = () => {
             </div>
           </div>
           <div className={styles.solutionCard}>
-            <img src={ClipboardIcon} alt="" />
+            <img src={ClipboardIcon} className = {styles.Clipboard} alt="" />
             <div className={styles.textWrapper}>
               <h4>거래 일지 작성 하기</h4>
               <p>
@@ -284,7 +284,7 @@ export const HomePage = () => {
           className={styles.partnerLogo}
         />
         <p>
-          위니드는 서비스의 지속가능성을 위해 대한민국 산업통상자원부와 함께
+          위니드는 서비스의 지속가능성을 위해 대한민국 환경부와 함께
           합니다.
         </p>
       </div>
