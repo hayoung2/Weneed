@@ -9,7 +9,7 @@ interface UnitBigDropdownProps {
   onChange: (unit: string) => void;
 }
 
-const UnitBigDropdown: React.FC<UnitBigDropdownProps> = ({ value, onChange }) => {
+const UnitBigDropdown: React.FC<UnitBigDropdownProps> = ({ onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedUnit, setSelectedUnit] = useState<string>("단위");
 

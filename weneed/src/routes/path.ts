@@ -1,5 +1,3 @@
-import CreateTransaction from "@/pages/CreateTransaction/CreateTransaction";
-
 
 export const RouterPath = {
   HOME: '/',

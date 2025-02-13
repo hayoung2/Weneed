@@ -19,15 +19,12 @@ const ListPage: React.FC = () => {
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('search') || '';
   const aiMatchQuery = queryParams.get('aiMatch') === 'true';
-
   const [searchTerm, setSearchTerm] = useState<string>(searchQuery);
   const [isAiMatch, setIsAiMatch] = useState<boolean>(aiMatchQuery);
-  const [submittedSearch, setSubmittedSearch] = useState<string>(searchQuery);
+  const submittedSearch = searchQuery;
   const [searchResults, setSearchResults] = useState<any[]>([]);
-  const [favorites, setFavorites] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const userId = "currentUserId"; // TODO: 로그인된 유저 ID 가져오기
 
   // 🔥 검색 실행 (submittedSearch 변경될 때 실행)
   useEffect(() => {
@@ -114,7 +111,6 @@ const ListPage: React.FC = () => {
               price: Number(item.availableByproductPrice),
               companyAddress: item.companyInfo?.companyAddress || "주소주소 주소주소",
               companyName: item.companyInfo?.companyName || "회사회사",
-              isFavorite: favorites.includes(item.uniqueId),
             }))}
             onCardClick={handleCardClick}
           />

@@ -6,7 +6,7 @@ import EditButton from "@/components/common/EditButton/EditButton";
 import Header from "@/components/common/Header/Header";
 import Footer from "@/components/common/Footer/Footer";
 import { useAuth } from '@/components/contexts/AuthContext';
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const API_URL = "http://localhost:5000/api";
 
@@ -17,7 +17,6 @@ const TransactionDetail = () => {
   const [totalTransactions, setTotalTransactions] = useState<number>(0);
   const [successRate, setSuccessRate] = useState<number>(0);
   const { user } = useAuth();
-  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
