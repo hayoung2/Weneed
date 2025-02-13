@@ -5,8 +5,10 @@ import EditButton from "@/components/common/EditButton/EditButton";
 import Header from "@/components/common/Header/Header";
 import Footer from "@/components/common/Footer/Footer";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from '@/components/contexts/AuthContext';
 
 const CompanyInfoDetail: React.FC = () => {
+   const { user } = useAuth();
   const location = useLocation();
   const company = location.state;
   const byproducts = company?.byproducts || []; 
@@ -17,8 +19,11 @@ const CompanyInfoDetail: React.FC = () => {
       console.error("Error: Company data is missing!");
       return;
     }
+    if(user?.userType=="기업"){
+      navigate("/createTransaction", { state: { company } });
+    }
   
-    navigate("/createTransaction", { state: { company } });
+  
   };
   
   return (
@@ -103,16 +108,12 @@ const CompanyInfoDetail: React.FC = () => {
             <p>{latestByproduct?.availableByproductAnalysis}</p>
           </div>
         </div>
-
+        <p className={styles.notice}>{user?.userType=="개인"?"*개인 회원은 기업과의 거래가 제한됩니다." :""}</p>
         <div className={styles.buttonWrapper}>
-          <EditButton
-            type="submit"
-            className={styles.tradeButton}
-            onClick={handleCreateTransaction}
-          >
-           거래 내역 페이지로 바로가기
+          <EditButton type="submit" onClick={handleCreateTransaction}    className={styles.tradeButton} style={user?.userType === "개인" ? { backgroundColor: "#b0b0b0"}:{}}>
+           이 기업과 거래하기
           </EditButton>
-        </div>
+      </div>
       </div>
       <Footer />
     </>

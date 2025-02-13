@@ -7,6 +7,7 @@ import CardResourceDetailList from "@/components/common/CardList/CardResourceDet
 import Header from "@/components/common/Header/Header";
 import Footer from "@/components/common/Footer/Footer";
 import axios from "axios";
+import Pagination from "@/components/atoms/Pagination/Pagination";
 
 const API_URL = "http://localhost:5000/api";
 
@@ -16,7 +17,36 @@ const Mypage: React.FC = () => {
   const [companyInfo, setCompanyInfo] = useState<any>(null);
   const [availableByproducts, setAvailableByproducts] = useState<any[]>([]);
   const [neededByproducts, setNeededByproducts] = useState<any[]>([]);
+  const [showTransactionLog, setShowTransactionLog] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const transactions = [
+    { id: 1, title: "첫번째 거래 일지", date: "2024.02.08", status: "거래 완료" },
+    { id: 2, title: "첫번째 거래 일지", date: "2024.02.14", status: "거래 예정" },
+    { id: 3, title: "첫번째 거래 일지", date: "2024.02.17", status: "거래 취소" },
+    { id: 4, title: "두번째 거래 일지", date: "2024.02.18", status: "거래 완료" },
+    { id: 5, title: "두번째 거래 일지", date: "2024.02.19", status: "거래 예정" },
+    { id: 6, title: "두번째 거래 일지", date: "2024.02.20", status: "거래 취소" },
+    { id: 7, title: "세번째 거래 일지", date: "2024.02.21", status: "거래 완료" },
+    { id: 8, title: "세번째 거래 일지", date: "2024.02.22", status: "거래 예정" },
+    { id: 9, title: "세번째 거래 일지", date: "2024.02.23", status: "거래 취소" },
+    { id: 10, title: "네번째 거래 일지", date: "2024.02.24", status: "거래 완료" },
+    { id: 11, title: "네번째 거래 일지", date: "2024.02.25", status: "거래 예정" },
+    { id: 12, title: "네번째 거래 일지", date: "2024.02.26", status: "거래 취소" },
+    { id: 13, title: "다섯번째 거래 일지", date: "2024.02.27", status: "거래 완료" },
+  ];
 
+
+
+const ITEMS_PER_PAGE = 10;
+
+const totalPages = Math.ceil(transactions.length / ITEMS_PER_PAGE);
+const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
+const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
+const currentItems = transactions.slice(indexOfFirstItem, indexOfLastItem);
+
+const handlePageClick = (page: number) => {
+  setCurrentPage(page);
+};
   // ✅ 사용자 정보 가져오기
   useEffect(() => {
     if (user?.uniqueId) {
@@ -29,7 +59,7 @@ const Mypage: React.FC = () => {
           console.error("사용자 정보 불러오기 오류:", error);
         });
 
-      // ✅ 공급 가능한 부산물 정보 가져오기
+     
       axios
         .get(`${API_URL}/available-byproducts/${user.uniqueId}`)
         .then((response) => {
@@ -39,7 +69,7 @@ const Mypage: React.FC = () => {
           console.error("공급 가능한 부산물 불러오기 오류:", error);
         });
 
-      // ✅ 필요 자원 정보 가져오기
+  
       axios
         .get(`${API_URL}/needed-byproducts/${user.uniqueId}`)
         .then((response) => {
@@ -128,6 +158,56 @@ const Mypage: React.FC = () => {
             }))}
           />
         </div>
+
+
+        
+      {showTransactionLog && (
+        <div className={styles.transactionLogWrapper}>
+          <div className={styles.transactionLog}>
+            <h3 className={styles.logTitle}>위니드 거래일지</h3>
+            <p className={styles.logSummary}>
+              {transactions.length}개의 거래일지 중{" "}
+              {transactions.filter((tx) => tx.status === "거래 완료").length}번 거래를 완료했어요!
+            </p>
+
+
+            <div className={styles.transactionList}>
+              {currentItems.map((transaction) => (
+                <div key={transaction.id} className={styles.transactionItem}>
+                  <div className={styles.transactionInfo}>
+                    <p className={styles.transactionTitle}>{transaction.title}</p>
+                    <p className={styles.transactionDate}>{transaction.date}</p>
+                  </div>
+                  <span
+                    className={`${styles.status} ${
+                      transaction.status === "거래 완료"
+                        ? styles.completed
+                        : transaction.status === "거래 예정"
+                        ? styles.scheduled
+                        : styles.canceled
+                    }`}
+                  >
+                    {transaction.status}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/*페이지네이션*/}
+            {totalPages > 1 && (
+              <div className={styles.pagination}>
+                <Pagination totalPages={totalPages} activePage={currentPage} onPageClick={handlePageClick} />
+              </div>
+            )}
+
+            {transactions.length === 0 && (
+              <div className={styles.noTransactionsContainer}>
+                <p className={styles.noTransactions}>작성한 거래일지가 없습니다.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
       </div>
       <Footer />
     </>

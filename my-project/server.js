@@ -542,21 +542,20 @@ app.get('/api/needed-byproducts/:uniqueId', async (req, res) => {
 
 app.post('/api/ai-recommendation', async (req, res) => {
     try {
-        const { neededByproductName, needByproductAmount, needByproductUnit, requestingCompanyUniqueId } = req.body;
+        const { neededByproductName, requestingCompanyUniqueId } = req.body;
 
-        // NeededByproducts 테이블에서 데이터 가져오기
+        // NeededByproducts 테이블에서 해당 기업의 필요 부산물 정보 가져오기
         const neededProduct = await NeededByproduct.findOne({
-            where: { uniqueId: requestingCompanyUniqueId },
-            attributes: ['uniqueId', 'neededByproductName', 'neededByproductAmount', 'neededByproductUnit']
+            where: { uniqueId: requestingCompanyUniqueId, neededByproductName },
+            attributes: ['neededByproductAmount', 'neededByproductUnit']
         });
 
         if (!neededProduct) {
-            return res.status(404).json({ success: false, message: "요청된 제품 정보를 찾을 수 없습니다." });
+            return res.status(404).json({ success: false, message: "해당 필요 부산물 정보를 찾을 수 없습니다." });
         }
 
-
         const requestingCompany = await CompanyInfo.findOne({
-            where: { uniqueId: neededProduct.uniqueId },
+            where: { uniqueId: requestingCompanyUniqueId },
             attributes: ['companyAddress']
         });
 
@@ -593,7 +592,7 @@ app.post('/api/ai-recommendation', async (req, res) => {
         });
 
         const recommendations = byproducts
-            .filter(item => parseFloat(item.availableByproductAmount) >= parseFloat(needByproductAmount))
+            .filter(item => parseFloat(item.availableByproductAmount) >= parseFloat(neededProduct.neededByproductAmount))
             .map(item => ({
                 id: item.id,
                 availableByproductName: item.availableByproductName,
@@ -605,7 +604,7 @@ app.post('/api/ai-recommendation', async (req, res) => {
                 uniqueId: item.companyInfo.uniqueId,
                 companyAddress: item.companyInfo.companyAddress,
                 distance: item.distance,
-                reason: generateRecommendationReason(item, requestingCompany.companyAddress, needByproductAmount)
+                reason: generateRecommendationReason(item, requestingCompany.companyAddress, neededProduct.neededByproductAmount)
             }));
 
         res.json({ success: true, recommendations });
@@ -615,6 +614,7 @@ app.post('/api/ai-recommendation', async (req, res) => {
         res.status(500).json({ success: false, error: err.message });
     }
 });
+
 
 function calculateDistance(address1, address2) {
     const region1 = address1.split(' ')[0];

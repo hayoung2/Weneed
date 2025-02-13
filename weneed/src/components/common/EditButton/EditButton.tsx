@@ -5,12 +5,13 @@ interface EditButtonProps {
   className?: string;
   onClick?: () => void;
   children: React.ReactNode;
+  style?: React.CSSProperties;
 }
 
-const EditButton: React.FC<EditButtonProps> = ({ type, className, onClick, children }) => {
+const EditButton: React.FC<EditButtonProps> = ({ type, className, onClick, children,style }) => {
   const buttonClass = className ? `${styles.loginButton} ${className}` : styles.loginButton;
   return (
-    <button type={type} className={buttonClass} onClick={onClick}>
+    <button type={type} className={buttonClass} onClick={onClick} style={style}>
       {children}
     </button>
   );

@@ -2,7 +2,9 @@ import styles from "@/components/atoms/RecommendationList/Recommendation.module.
 import Gold from "@/assets/icons/gold.svg";
 import Silver from "@/assets/icons/silver.svg";
 import Bronze from "@/assets/icons/bronze.svg";
-import { useState, ReactNode } from "react";
+import four from "@/assets/icons/four.svg";
+import five from "@/assets/icons/five.svg";
+import {  ReactNode } from "react";
 
 interface RecommendationListProps {
   index: number;
@@ -32,7 +34,7 @@ const RecommendationList: React.FC<RecommendationListProps> = ({
   price,
   middleContent
 }) => {
-  const rankIcons = [Gold, Silver, Bronze];
+  const rankIcons = [Gold, Silver, Bronze,four,five];
   return (
     <div className={styles.itemContainer}>
       <div className={styles.leftSection}>
