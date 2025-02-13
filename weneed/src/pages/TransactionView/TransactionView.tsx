@@ -56,21 +56,38 @@ const TransactionView: React.FC = () => {
           <p><strong>추가 정보:</strong> {transaction.additionalNotes || "없음"}</p>
         </div>
 
-        {/* ✅ 회사 정보 */}
-        <div className={styles.companyInfo}>
-          <h3>회사 정보</h3>
-          <p><strong>회사명:</strong> {companyInfo.companyName || "-"}</p>
-          <p><strong>대표자명:</strong> {companyInfo.representativeName || "-"}</p>
-          <p><strong>주소:</strong> {companyInfo.companyAddress || "-"}</p>
-          <p><strong>업종:</strong> {companyInfo.industryType || "-"}</p>
-          <p><strong>연락처:</strong> {companyInfo.contactNumber || "-"}</p>
-          <p><strong>팩스:</strong> {companyInfo.faxNumber || "-"}</p>
-        </div>
+        <div style={{ borderTop: "1px solid #e0e0e0", margin: "3% 0" }} />
 
-        {/* ✅ 홈으로 돌아가기 버튼 */}
-        <button className={styles.backButton} onClick={() => navigate(-1)}>
-          뒤로 가기
-        </button>
+        {/*가장 하단의 회사 정보*/}
+        <div className={styles.companyInfoWrappper}>
+          <p className={styles.title}>{companyInfo.companyName || "-"}</p>
+
+          <div className={styles.companyInfo}>
+            <div className={styles.row}>
+              <span className={styles.label2}>대표자명</span>
+              <span className={styles.value}> {companyInfo.representativeName || "-"}</span>
+            </div>
+            <div className={styles.row}>
+              <span className={styles.label2}>주소</span>
+              <span className={styles.value}>{companyInfo.companyAddress || "-"}</span>
+            </div>
+            <div className={styles.row}>
+              <span className={styles.label2}>업종</span>
+              <span className={styles.value}>{companyInfo.industryType || "-"}</span>
+            </div>
+            <div className={styles.row}>
+              <span className={styles.label2}>연락처</span>
+              <span className={styles.value}>{companyInfo.contactNumber || "-"}</span>
+            </div>
+            <div className={styles.row}>
+              <span className={styles.label2}>팩스</span>
+              <span className={styles.value}>{companyInfo.faxNumber || "-"}</span>
+            </div>
+          </div>
+          </div>
+
+
+      
       </div>
       <Footer />
     </>
