@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom"
+import {  useParams } from "react-router-dom"
 import styles from "./TransactionDetail.module.scss";
 import TransactionContainer from "@/components/common/TransactionContainer/TransactionContainer";
 import EditButton from "@/components/common/EditButton/EditButton";
@@ -15,6 +15,7 @@ const TransactionDetail = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { id } = useParams(); 
   const [byproduct, setByproduct] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (id) {
@@ -24,11 +25,14 @@ const TransactionDetail = () => {
           console.log("불러온 부산물 데이터:", data);
           setByproduct(data);
         })
-        .catch((error) => console.error("부산물 데이터 불러오기 오류:", error));
+        .catch((error) => console.error("부산물 데이터 불러오기 오류:", error))
+        .finally(() => setLoading(false));
     }
   }, [id]);
 
-  if (!byproduct) return <p className={styles.loading}>로딩 중...</p>;
+  if (loading) return <p className={styles.loading}>로딩 중...</p>;
+  if (!byproduct) return <p className={styles.error}>해당 정보를 찾을 수 없습니다.</p>;
+
 
     const transactions = [
       { id: 1, title: "첫번째 거래 일지", date: "2024.02.08", status: "거래 완료" },
@@ -72,6 +76,7 @@ const TransactionDetail = () => {
         </div>
 
    
+        <p className={styles.sectionTitle}>기본정보</p>
         <div className={styles.info}>
           <div className={styles.row}>
             <span className={styles.label}>연락처</span>
@@ -100,20 +105,52 @@ const TransactionDetail = () => {
           </div>
         </div>
 
-   
+        <p className={styles.sectionTitle}>상세정보</p>
+        <div className={styles.info}>
+          <div className={styles.row}>
+            <span className={styles.label}>사업자등록번호</span>
+            <span className={styles.value}>{byproduct.companyInfo?.businessNumber || "-"}</span>
+          </div>
+          <div className={styles.row}>
+            <span className={styles.label}>업종</span>
+            <span className={styles.value}>{byproduct.companyInfo?.industryType || "-"}</span>
+          </div>
+
+          <div className={styles.row}>
+            <span className={styles.label}>매출액</span>
+            <span className={styles.value}>{byproduct.companyInfo?.revenue || "정보 없음"}</span>
+          </div>
+          <div className={styles.row}>
+            <span className={styles.label}>홈페이지 링크</span>
+            <span className={styles.value}>{byproduct.companyInfo?.companyAddress || "주소 없음"}</span>
+          </div>
+          <div className={styles.row}>
+            <span className={styles.label}>위니드 등록일자</span>
+            <span className={styles.value}>{byproduct.companyInfo?.createdAt || "-"}</span>
+          </div>
+        </div>
+
+
         <div className={styles.transactions}>
         <TransactionContainer title="부산물 종류" text2={byproduct.availableByproductName} />
-          <TransactionContainer title="우리 회사와의 거래 횟수" text2="" />
-          <TransactionContainer title="우리 회사와의 거래성공률" text2="" />
+          <TransactionContainer title="총 거래 횟수" text2="" />
+          <TransactionContainer title="총 거래성공률" text2="" />
           <TransactionContainer title="부산물량 월별 평균" text2={byproduct.availableByproductAmount} text3={byproduct.availableByproductUnit} />
-          <TransactionContainer title="오늘의 거래 여부" text2="거래 가능" />
+          <TransactionContainer title="오늘의 부산물량" text2="거래 가능" />
+        </div>
+
+        <div className={styles.textareaContainer}>
+          <p className={styles.sectionTitle}>부산물 성분 분석</p>
+          <div className={styles.textareaWrapper}>
+            <p>{byproduct.availableByproductAnalysis}</p>
+          </div>
         </div>
 
 
         <p className={styles.notice}>    {showTransactionLog ? "반드시 통화로 거래 협의 후에 거래일지를 작성해주세요!" : "회사와 거래하기 버튼을 클릭하면 연락처 정보를 알 수 있어요."}</p>
         <div className={styles.buttonWrapper}>
           <EditButton type="submit" onClick={handleTransactionClick}>
-            {showTransactionLog ? "거래일지 작성하기" : "이 회사와 거래하기"}
+            거래예정서 작성하기 
           </EditButton>
         </div>
       </div>
